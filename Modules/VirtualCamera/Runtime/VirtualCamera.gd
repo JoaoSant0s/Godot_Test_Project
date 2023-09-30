@@ -5,6 +5,7 @@ class_name VirtualCamera extends Node3D
 		return status
 	set(value):
 		status = value
+		print(name, " ", "status ",status)
 
 @export var follow : Node3D
 @export var lookAt : Node3D
@@ -14,6 +15,8 @@ class_name VirtualCamera extends Node3D
 		return processMethod
 	set(value):
 		processMethod = value
+		print(name, " ", "processMethod ",value)
+
 
 func isStatusRunning():
 	return status == UtilsCamera.VirtualCameraStatus.RUNNING
