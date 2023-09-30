@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://dswq0xkdc233k"]
+
+[ext_resource type="PackedScene" uid="uid://ckbhshyvojm2a" path="res://_Project/Prefabs/wall.tscn" id="1_lxoow"]
+[ext_resource type="PackedScene" uid="uid://djiovlf054ybu" path="res://_Project/Prefabs/rotation_wall.tscn" id="2_44qgp"]
+[ext_resource type="Script" path="res://_Project/Scripts/BallSpawner.gd" id="2_jrp72"]
+[ext_resource type="Script" path="res://_Project/Scripts/UI.gd" id="4_e36kp"]
+
+[node name="Scene2d" type="Node2D"]
+
+[node name="WallContainer" type="Node2D" parent="."]
+
+[node name="Wall" parent="WallContainer" instance=ExtResource("1_lxoow")]
+position = Vector2(582, 595)
+
+[node name="Wall4" parent="WallContainer" instance=ExtResource("1_lxoow")]
+position = Vector2(392, 570)
+rotation = 0.261799
+
+[node name="Wall5" parent="WallContainer" instance=ExtResource("1_lxoow")]
+position = Vector2(769, 570)
+rotation = -0.261799
+
+[node name="Wall3" parent="WallContainer" instance=ExtResource("1_lxoow")]
+position = Vector2(211, 498)
+rotation = 0.523599
+
+[node name="Wall2" parent="WallContainer" instance=ExtResource("1_lxoow")]
+position = Vector2(949, 496)
+rotation = -0.523599
+
+[node name="RotationWall" parent="WallContainer" instance=ExtResource("2_44qgp")]
+position = Vector2(417, 294)
+leftMovement = 65
+rightMovement = 68
+
+[node name="RotationWall2" parent="WallContainer" instance=ExtResource("2_44qgp")]
+position = Vector2(738, 279)
+leftMovement = 4194319
+rightMovement = 4194321
+
+[node name="BallContainer" type="Node2D" parent="." node_paths=PackedStringArray("possiblePositions")]
+script = ExtResource("2_jrp72")
+delayInSeconds = 1.5
+possiblePositions = [NodePath("Position"), NodePath("Position2"), NodePath("Position3"), NodePath("Position4"), NodePath("Position5"), NodePath("Position6")]
+
+[node name="Position" type="Node2D" parent="BallContainer"]
+position = Vector2(341, 52)
+
+[node name="Position2" type="Node2D" parent="BallContainer"]
+position = Vector2(280, 239)
+
+[node name="Position3" type="Node2D" parent="BallContainer"]
+position = Vector2(479, 127)
+
+[node name="Position4" type="Node2D" parent="BallContainer"]
+position = Vector2(657, 97)
+
+[node name="Position5" type="Node2D" parent="BallContainer"]
+position = Vector2(790, 35)
+
+[node name="Position6" type="Node2D" parent="BallContainer"]
+position = Vector2(885, 232)
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Canvas" node_paths=PackedStringArray("tapButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_e36kp")
+tapButton = NodePath("VBoxContainer/Button")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/Control"]
+layout_mode = 1
+offset_left = 55.0
+offset_top = 26.0
+offset_right = 160.0
+offset_bottom = 205.0
+theme_override_constants/separation = 10
+
+[node name="Button" type="Button" parent="Canvas/Control/VBoxContainer"]
+layout_mode = 2
+text = "Tap"
+
+[node name="Label" type="Label" parent="Canvas/Control/VBoxContainer"]
+layout_mode = 2
+text = "Test message"

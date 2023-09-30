@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=3 uid="uid://8jteo7my42mn"]
+
+[ext_resource type="PackedScene" uid="uid://c16dfusqmn3cl" path="res://Prefabs/player.tscn" id="1_m77aj"]
+[ext_resource type="PackedScene" uid="uid://bqfgyuyydr2pd" path="res://Prefabs/camera_3d.tscn" id="2_ghlyq"]
+[ext_resource type="Script" path="res://VirtualCamera/Runtime/MainCamera.gd" id="3_ifwed"]
+[ext_resource type="PackedScene" uid="uid://cwojivt6x64yp" path="res://VirtualCamera/Prefabs/virtual_camera_3d.tscn" id="4_jjv35"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ltd4g"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_i4gs2"]
+sky_material = SubResource("ProceduralSkyMaterial_ltd4g")
+
+[sub_resource type="Environment" id="Environment_p1nes"]
+background_mode = 2
+sky = SubResource("Sky_i4gs2")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4phwd"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uvfuo"]
+data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e70bi"]
+
+[node name="Scene3d" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p1nes")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_4phwd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_uvfuo")
+
+[node name="Player" parent="." instance=ExtResource("1_m77aj")]
+
+[node name="Camera3D" parent="." instance=ExtResource("2_ghlyq")]
+transform = Transform3D(1, 0, 0, 0, 0.790048, 0.613045, 0, -0.613045, 0.790048, 0, 8.401, 9.39407)
+script = ExtResource("3_ifwed")
+
+[node name="VirtualCamera3D" parent="." node_paths=PackedStringArray("follow", "lookAt") instance=ExtResource("4_jjv35")]
+follow = NodePath("../CameraTarget")
+lookAt = NodePath("../Player")
+
+[node name="CameraTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.406727, 7.30905, 11.6605)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraTarget"]
+mesh = SubResource("BoxMesh_e70bi")

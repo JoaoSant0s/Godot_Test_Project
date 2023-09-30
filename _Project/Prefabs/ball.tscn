@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfn3i085hps7n"]
+
+[ext_resource type="Script" path="res://_Project/Scripts/Ball.gd" id="1_hyu7m"]
+[ext_resource type="Texture2D" uid="uid://1pdo2g3e5l1e" path="res://_Project/Images/icon.svg" id="1_k0hf6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3ra1"]
+bounce = 0.4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s7i4j"]
+radius = 35.0
+
+[node name="Ball" type="RigidBody2D"]
+position = Vector2(517, 229)
+physics_material_override = SubResource("PhysicsMaterial_q3ra1")
+script = ExtResource("1_hyu7m")
+destroyAfterSeconds = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_k0hf6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s7i4j")
+debug_color = Color(0, 0.639216, 0.388235, 0.419608)

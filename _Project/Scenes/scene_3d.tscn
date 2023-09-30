@@ -1,0 +1,88 @@
+[gd_scene load_steps=14 format=3 uid="uid://8jteo7my42mn"]
+
+[ext_resource type="PackedScene" uid="uid://c16dfusqmn3cl" path="res://_Project/Prefabs/player.tscn" id="1_m77aj"]
+[ext_resource type="PackedScene" uid="uid://cwojivt6x64yp" path="res://Modules/VirtualCamera/Prefabs/virtual_camera.tscn" id="2_5x1tr"]
+[ext_resource type="PackedScene" uid="uid://bqfgyuyydr2pd" path="res://_Project/Prefabs/camera_3d.tscn" id="2_ghlyq"]
+[ext_resource type="Script" path="res://Modules/VirtualCamera/Runtime/MainCamera.gd" id="4_akgbh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ltd4g"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_i4gs2"]
+sky_material = SubResource("ProceduralSkyMaterial_ltd4g")
+
+[sub_resource type="Environment" id="Environment_p1nes"]
+background_mode = 2
+sky = SubResource("Sky_i4gs2")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4phwd"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uvfuo"]
+data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wpuei"]
+albedo_color = Color(0.733333, 0.611765, 0.188235, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bskhn"]
+material = SubResource("StandardMaterial3D_wpuei")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nu2ts"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wtq34"]
+
+[node name="Scene3d" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p1nes")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_4phwd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_uvfuo")
+
+[node name="Player" parent="." instance=ExtResource("1_m77aj")]
+
+[node name="Camera3D" parent="." instance=ExtResource("2_ghlyq")]
+transform = Transform3D(1, 0, 0, 0, 0.790048, 0.613045, 0, -0.613045, 0.790048, 0, 8.401, 9.39407)
+script = ExtResource("4_akgbh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.67247, 0, 0)
+mesh = SubResource("BoxMesh_bskhn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_wtq34")
+
+[node name="VirtualCamera3" parent="." node_paths=PackedStringArray("lookAt") instance=ExtResource("2_5x1tr")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 5, -15)
+follow = NodePath("")
+lookAt = NodePath("../Player")
+
+[node name="VirtualCamera2" parent="." instance=ExtResource("2_5x1tr")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 5, 0)
+follow = NodePath("")
+lookAt = NodePath("")
+
+[node name="VirtualCamera" parent="." node_paths=PackedStringArray("lookAt") instance=ExtResource("2_5x1tr")]
+transform = Transform3D(1, 0, 0, 0, 0.790251, 0.612783, 0, -0.612783, 0.790251, 0, 5, 15)
+lookAt = NodePath("../Player")
+
+[node name="VirtualCamera4" parent="." instance=ExtResource("2_5x1tr")]
+transform = Transform3D(1.19249e-08, 0, 1, 0, 1, 0, -1, 0, 1.19249e-08, 15, 5, 0)
+follow = NodePath("")
+lookAt = NodePath("")
