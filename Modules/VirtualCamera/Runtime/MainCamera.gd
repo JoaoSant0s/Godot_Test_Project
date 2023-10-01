@@ -2,14 +2,14 @@ class_name MainCamera extends Camera3D
 
 static var Instance : MainCamera = null
 
-var currentVirtualCamera : VirtualCamera
+var _currentVirtualCamera : VirtualCamera
 
 func _ready():	
 	assert(Instance == null, "Must exist a MainCamera in the scene")
 	_reset()
 
 	Instance = self
-	VirtualCameraService.mainCameraStarted()	
+	VirtualCameraService.mainCameraStarted()
 	
 func _process(delta):
 	_update()
@@ -20,7 +20,7 @@ func _physics_process(delta):
 	pass	
 	
 func _update():
-	if currentVirtualCamera == null: return
+	if _currentVirtualCamera == null: return
 	
 	_follow()
 	_lookAt()
@@ -30,46 +30,46 @@ func _exit_tree():
 
 # End Region
 
+func isCurrentCamera(virtualCamera : VirtualCamera):
+	return _currentVirtualCamera == virtualCamera
+
 func _follow():
-	if currentVirtualCamera.follow:
-		global_position = currentVirtualCamera.follow.global_position
+	if _currentVirtualCamera.follow:
+		global_position = _currentVirtualCamera.follow.global_position
 	else:
-		global_position = currentVirtualCamera.global_position
+		global_position = _currentVirtualCamera.global_position
 
 func _lookAt():
-	if currentVirtualCamera.lookAt:
-		look_at(currentVirtualCamera.lookAt.global_position)
+	if _currentVirtualCamera.lookAt:
+		look_at(_currentVirtualCamera.lookAt.global_position)
 	else:
-		global_rotation = currentVirtualCamera.global_rotation
+		rotation = _currentVirtualCamera.rotation
 
 func _reset():
-	currentVirtualCamera = null;
+	_currentVirtualCamera = null;
 	refreshProcessMethod(UtilsCamera.UpdateMethods.DISABLED);
 	pass
 
-func setVirtualCamera(virtualCamera : VirtualCamera):
-	currentVirtualCamera = virtualCamera;
-	if currentVirtualCamera == null:
+func trySetVirtualCamera(virtualCamera : VirtualCamera):
+	if virtualCamera == null:
+		current = false
 		_reset()
 	else:
-		refreshProcessMethod(currentVirtualCamera.processMethod)
+		var oldCamera : VirtualCamera = null
+		print(_currentVirtualCamera, " ", virtualCamera, " ", _currentVirtualCamera == virtualCamera)
+		if _currentVirtualCamera != null:
+				oldCamera = _currentVirtualCamera
+				if virtualCamera.priority < _currentVirtualCamera.priority: return;
+				if _currentVirtualCamera == virtualCamera: return
+		
+		_currentVirtualCamera = virtualCamera;
+		current = true
+		refreshProcessMethod(_currentVirtualCamera.processMethod)
+		if oldCamera != null: oldCamera.enabled = false
 	pass
 
 func refreshProcessMethod(updateMethod : UtilsCamera.UpdateMethods):
-	set_process(updateMethod == UtilsCamera.UpdateMethods.PROCESS)
+	set_process(updateMethod == UtilsCamera.UpdateMethods.DEFAULT_PROCESS)
 	set_physics_process(updateMethod == UtilsCamera.UpdateMethods.PHYSICS_PROCESS)
-	pass
-
-func refreshStatus(virtualCamera : VirtualCamera):
-	var isSameCamera = virtualCamera == currentVirtualCamera;
 	
-	print(virtualCamera.isStatusRunning(), not isSameCamera)
-	print(virtualCamera.isStatusDisabled(), isSameCamera)
-	
-	if virtualCamera.isStatusRunning() and not isSameCamera:
-		setVirtualCamera(virtualCamera)
-	elif virtualCamera.isStatusDisabled() and isSameCamera:
-		_reset();
-	pass
-
-
+	_update()
