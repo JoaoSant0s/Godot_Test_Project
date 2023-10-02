@@ -25,13 +25,20 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "forward", "back")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	if direction:
+	var resetVelocity = false
+	
+	if input_dir:
 		rotation.y -= input_dir.x * ANGULAR_SPEED
 		if input_dir.y != 0:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
+		else:
+			resetVelocity = true
 	else:
+		resetVelocity = true
+	
+	if resetVelocity:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
- 
+	
 	move_and_slide()
