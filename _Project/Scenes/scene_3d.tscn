@@ -81,6 +81,7 @@ shape = SubResource("BoxShape3D_wq0mj")
 [node name="VirtualCamera" parent="Trigger" node_paths=PackedStringArray("lookAt") instance=ExtResource("2_5x1tr")]
 transform = Transform3D(0.919118, 0, 0, 0, 3.99117, 3.09486, 0, -0.612783, 0.790251, 0, 25.084, 8.1909)
 enabled = false
+trackingTarget = NodePath("")
 lookAt = NodePath("../../Player")
 
 [node name="Trigger2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
@@ -98,6 +99,7 @@ shape = SubResource("BoxShape3D_wq0mj")
 [node name="VirtualCamera2" parent="Trigger2" node_paths=PackedStringArray("lookAt") instance=ExtResource("2_5x1tr")]
 transform = Transform3D(-0.919118, 0, 8.03518e-08, 0, 5.0505, 0, -8.74228e-08, 0, -1, 0, 25.084, -8.70823)
 enabled = false
+trackingTarget = NodePath("")
 lookAt = NodePath("../../Player")
 
 [node name="Trigger3" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]

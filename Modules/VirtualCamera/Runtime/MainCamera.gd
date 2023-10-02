@@ -22,7 +22,7 @@ func _physics_process(delta):
 func _update():
 	if _currentVirtualCamera == null: return
 	
-	_follow()
+	_trackingTarget()
 	_lookAt()
 
 func _exit_tree():
@@ -33,9 +33,9 @@ func _exit_tree():
 func isCurrentCamera(virtualCamera : VirtualCamera):
 	return _currentVirtualCamera == virtualCamera
 
-func _follow():
-	if _currentVirtualCamera.follow:
-		global_position = _currentVirtualCamera.follow.global_position
+func _trackingTarget():
+	if _currentVirtualCamera.trackingTarget:
+		global_position = _currentVirtualCamera.trackingTarget.global_position
 	else:
 		global_position = _currentVirtualCamera.global_position
 

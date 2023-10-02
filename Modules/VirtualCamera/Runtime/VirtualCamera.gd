@@ -17,8 +17,8 @@ class_name VirtualCamera extends Node3D
 		priority = value
 		VirtualCameraService.onPriorityModified.emit(self)
 		print(name, " ", "priority ",value)
-		
-@export var follow : Node3D
+
+@export var trackingTarget : Node3D
 
 @export var lookAt : Node3D
 
