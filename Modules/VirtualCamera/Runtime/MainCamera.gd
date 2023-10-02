@@ -56,7 +56,6 @@ func trySetVirtualCamera(virtualCamera : VirtualCamera):
 		_reset()
 	else:
 		var oldCamera : VirtualCamera = null
-		print(_currentVirtualCamera, " ", virtualCamera, " ", _currentVirtualCamera == virtualCamera)
 		if _currentVirtualCamera != null:
 				oldCamera = _currentVirtualCamera
 				if virtualCamera.priority < _currentVirtualCamera.priority: return;
@@ -64,10 +63,16 @@ func trySetVirtualCamera(virtualCamera : VirtualCamera):
 		
 		_currentVirtualCamera = virtualCamera;
 		current = true
+		print(_currentVirtualCamera)
+		refreshFOV()
 		refreshProcessMethod(_currentVirtualCamera.processMethod)
 		if oldCamera != null: oldCamera.enabled = false
 	pass
 
+
+func refreshFOV():
+	fov = _currentVirtualCamera.lens.fov
+	
 func refreshProcessMethod(updateMethod : UtilsCamera.UpdateMethods):
 	set_process(updateMethod == UtilsCamera.UpdateMethods.DEFAULT_PROCESS)
 	set_physics_process(updateMethod == UtilsCamera.UpdateMethods.PHYSICS_PROCESS)

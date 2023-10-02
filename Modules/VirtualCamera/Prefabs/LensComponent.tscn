@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4x0tnkh64x5x"]
+
+[ext_resource type="Script" path="res://Modules/VirtualCamera/Runtime/Components/LensComponent.gd" id="1_pnaw5"]
+
+[node name="LensComponent" type="Node"]
+script = ExtResource("1_pnaw5")

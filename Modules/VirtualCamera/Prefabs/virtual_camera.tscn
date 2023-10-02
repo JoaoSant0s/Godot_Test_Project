@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwojivt6x64yp"]
-
-[ext_resource type="Script" path="res://Modules/VirtualCamera/Runtime/VirtualCamera.gd" id="1_56h2t"]
-
-[node name="VirtualCamera" type="Node3D"]
-script = ExtResource("1_56h2t")

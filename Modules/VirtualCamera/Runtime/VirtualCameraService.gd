@@ -2,12 +2,14 @@ extends Node
 
 signal onEnabledModified(virtualCamera : VirtualCamera)
 signal onPriorityModified(virtualCamera : VirtualCamera)
+signal onLensCompoenentModified(virtualCamera : VirtualCamera)
 
 var _virtualCameras : Array[VirtualCamera]
 
 func _ready():
 	onEnabledModified.connect(_virtualCameraEnabledModified)
 	onPriorityModified.connect(_virtualCameraPriorityModified)
+	onLensCompoenentModified.connect(_virtualCameraLensModifiend)
 
 func addVirtualCamera(virtualCamera : VirtualCamera):
 	_virtualCameras.append(virtualCamera)
@@ -31,7 +33,6 @@ func removeVirtualCamera(virtualCamera : VirtualCamera):
 		_tryRefreshMainCamera();
 
 func mainCameraStarted():
-	print("Main Camera Started")
 	_tryRefreshMainCamera();
 
 func _virtualCameraEnabledModified(virtualCamera : VirtualCamera):
@@ -50,7 +51,13 @@ func _virtualCameraPriorityModified(virtualCamera : VirtualCamera):
 		_tryRefreshMainCamera()
 	else:
 		MainCamera.Instance.trySetVirtualCamera(virtualCamera);
+
+func _virtualCameraLensModifiend(virtualCamera : VirtualCamera):
+	if MainCamera.Instance == null: return
+	if not MainCamera.Instance.isCurrentCamera(virtualCamera): return
 	
+	MainCamera.Instance.refreshFOV();
+
 func _tryRefreshMainCamera():
 	if MainCamera.Instance == null: return
 	
@@ -61,7 +68,4 @@ func _tryRefreshMainCamera():
 		return
 	
 	runningCameras.sort_custom(func(cameraA : VirtualCamera, cameraB : VirtualCamera): return cameraA.priority > cameraB.priority);
-	print("runningCameras: ", runningCameras)
-
-	print(runningCameras[0].name)
 	MainCamera.Instance.trySetVirtualCamera(runningCameras[0]);
