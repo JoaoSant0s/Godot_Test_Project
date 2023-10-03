@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 signal onEnabledModified(virtualCamera : VirtualCamera)
@@ -14,7 +15,7 @@ func _ready():
 func addVirtualCamera(virtualCamera : VirtualCamera):
 	_virtualCameras.append(virtualCamera)
 	
-	print("Add Virtual Cameras ", _virtualCameras.size(), " ", virtualCamera.name)
+	print("Add Virtual Camera ", virtualCamera.name)
 	
 	if MainCamera.Instance == null: return
 	if not virtualCamera.enabled: return
@@ -24,7 +25,7 @@ func addVirtualCamera(virtualCamera : VirtualCamera):
 func removeVirtualCamera(virtualCamera : VirtualCamera):
 	_virtualCameras.erase(virtualCamera)
 	
-	print("Remove Virtual Cameras ", _virtualCameras.size(), " ", virtualCamera.name)
+	print("Remove Virtual Camera ", virtualCamera.name)
 	
 	if MainCamera.Instance == null: return
 	if not virtualCamera.enabled: return

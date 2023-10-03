@@ -1,11 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://8jteo7my42mn"]
+[gd_scene load_steps=19 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTrigger.gd" id="1_6vqvf"]
 [ext_resource type="PackedScene" uid="uid://c16dfusqmn3cl" path="res://_Project/Prefabs/player.tscn" id="1_m77aj"]
-[ext_resource type="PackedScene" uid="uid://bqfgyuyydr2pd" path="res://_Project/Prefabs/camera_3d.tscn" id="2_ghlyq"]
-[ext_resource type="Script" path="res://Modules/VirtualCamera/Runtime/VirtualCamera.gd" id="2_uvf4i"]
-[ext_resource type="Script" path="res://Modules/VirtualCamera/Runtime/MainCamera.gd" id="4_akgbh"]
-[ext_resource type="PackedScene" uid="uid://c4x0tnkh64x5x" path="res://Modules/VirtualCamera/Prefabs/LensComponent.tscn" id="6_im0bh"]
+[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCamera.gd" id="2_uvf4i"]
+[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/MainCamera.gd" id="5_kxfoc"]
+[ext_resource type="PackedScene" uid="uid://c4x0tnkh64x5x" path="res://addons/virtualcameraplugin/VirtualCamera/Prefabs/LensComponent.tscn" id="6_im0bh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ltd4g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -87,6 +86,7 @@ lookAt = NodePath("../../Player")
 lens = NodePath("LensComponent")
 
 [node name="LensComponent" parent="Trigger/VirtualCamera" instance=ExtResource("6_im0bh")]
+fov = 72.5
 
 [node name="Trigger2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 0, 0.033, -6)
@@ -108,6 +108,7 @@ lookAt = NodePath("../../Player")
 lens = NodePath("LensComponent")
 
 [node name="LensComponent" parent="Trigger2/VirtualCamera2" instance=ExtResource("6_im0bh")]
+fov = 78.0
 
 [node name="Trigger3" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 6, 0.033, 0)
@@ -128,6 +129,7 @@ enabled = false
 lens = NodePath("LensComponent")
 
 [node name="LensComponent" parent="Trigger3/VirtualCamera3" instance=ExtResource("6_im0bh")]
+fov = 70.5
 
 [node name="Trigger4" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -6, 0.033, 0)
@@ -162,7 +164,7 @@ virtualCamera = NodePath("VirtualCamera5")
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera5" type="Node3D" parent="Trigger5" node_paths=PackedStringArray("lens")]
-transform = Transform3D(0.198, 0, 0, 0, -4.37114e-08, 0.182, 0, -1, -7.95547e-09, 0, 60, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 60, 0)
 script = ExtResource("2_uvf4i")
 lens = NodePath("LensComponent")
 
@@ -170,10 +172,6 @@ lens = NodePath("LensComponent")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_m77aj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50021, 0, 7.04871)
-
-[node name="Camera3D" parent="." instance=ExtResource("2_ghlyq")]
-transform = Transform3D(1, 0, 0, 0, 0.790048, 0.613045, 0, -0.613045, 0.790048, 0, 8.401, 9.39407)
-script = ExtResource("4_akgbh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.67247, 0, 6.46515)
@@ -184,3 +182,8 @@ physics_material_override = SubResource("PhysicsMaterial_nu2ts")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_wtq34")
+
+[node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 11.913, 0)
+current = true
+script = ExtResource("5_kxfoc")

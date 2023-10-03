@@ -1,3 +1,4 @@
+@tool
 class_name LensComponent extends Node
 
 var parent : VirtualCamera = null
@@ -11,7 +12,7 @@ var parent : VirtualCamera = null
 		if parent == null: return
 		VirtualCameraService.onLensCompoenentModified.emit(parent)
 
-func _ready():	
+func _ready():
 	if get_parent() is VirtualCamera:
 		parent = get_parent() as VirtualCamera
 

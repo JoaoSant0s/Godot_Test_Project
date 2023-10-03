@@ -1,3 +1,4 @@
+@tool
 class_name MainCamera extends Camera3D
 
 static var Instance : MainCamera = null
@@ -63,7 +64,7 @@ func trySetVirtualCamera(virtualCamera : VirtualCamera):
 		
 		_currentVirtualCamera = virtualCamera;
 		current = true
-		print(_currentVirtualCamera)
+		print("Active Camera: ", _currentVirtualCamera)
 		refreshFOV()
 		refreshProcessMethod(_currentVirtualCamera.processMethod)
 		if oldCamera != null: oldCamera.enabled = false
@@ -71,6 +72,7 @@ func trySetVirtualCamera(virtualCamera : VirtualCamera):
 
 
 func refreshFOV():
+	if _currentVirtualCamera.lens == null: return
 	fov = _currentVirtualCamera.lens.fov
 	
 func refreshProcessMethod(updateMethod : UtilsCamera.UpdateMethods):

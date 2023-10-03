@@ -9,7 +9,6 @@ var _isEditorMode = Engine.is_editor_hint()
 	set(value):
 		if enabled == value: return
 		enabled = value
-		if _isEditorMode: return
 		VirtualCameraService.onEnabledModified.emit(self)
 
 @export var priority: int = 0:
@@ -18,7 +17,6 @@ var _isEditorMode = Engine.is_editor_hint()
 	set(value):
 		if priority == value: return
 		priority = value
-		if _isEditorMode: return
 		VirtualCameraService.onPriorityModified.emit(self)
 
 @export var trackingTarget : Node3D
@@ -33,16 +31,14 @@ var _isEditorMode = Engine.is_editor_hint()
 @export var lens : LensComponent
 
 func _enter_tree():
-	if _isEditorMode: return
 	VirtualCameraService.addVirtualCamera(self)
 
 func _ready():
 	if not _isEditorMode: return
-	UtilsCamera.createLensComponent(self)	
+	UtilsCamera.createLensComponent(self)
 	
 func _exit_tree():
-	if _isEditorMode: return
 	VirtualCameraService.removeVirtualCamera(self)
 
 func _to_string():
-	return "<-> {%n}: {%p} - {%s} <->".format({"%n" : name, "%p" : priority, "%s": enabled})
+	return "{%n}: {%p} - {%s}".format({"%n" : name, "%p" : priority, "%s": enabled})

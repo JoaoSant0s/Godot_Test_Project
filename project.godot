@@ -17,8 +17,12 @@ config/icon="res://_Project/Images/icon.svg"
 
 [autoload]
 
+VirtualCameraService="*res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCameraService.gd"
 UiSignals="*res://_Project/Scripts/UiSignals.gd"
-VirtualCameraService="*res://Modules/VirtualCamera/Runtime/VirtualCameraService.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/virtualcameraplugin/plugin.cfg")
 
 [input]
 
