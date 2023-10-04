@@ -42,3 +42,9 @@ func _exit_tree():
 
 func _to_string():
 	return "{%n}: {%p} - {%s}".format({"%n" : name, "%p" : priority, "%s": enabled})
+
+func _get_configuration_warnings():
+	if lens == null:
+		return ["Must reference a child Node of type LensComponent"]
+	else:
+		return []
