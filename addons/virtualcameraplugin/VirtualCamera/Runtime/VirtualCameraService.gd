@@ -36,6 +36,12 @@ func removeVirtualCamera(virtualCamera : VirtualCamera):
 func mainCameraStarted():
 	_tryRefreshMainCamera();
 
+func findEnabledVirtualCameras() -> Array[VirtualCamera]:
+	return _virtualCameras.filter(func(camera : VirtualCamera): return camera.enabled)
+
+func findVirtualCameras() -> Array[VirtualCamera]:
+	return _virtualCameras.duplicate()
+	
 func _virtualCameraEnabledModified(virtualCamera : VirtualCamera):
 	if MainCamera.Instance == null: return
 
