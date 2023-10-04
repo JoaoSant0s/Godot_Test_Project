@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clhwork8hnk4p"
-path="res://.godot/imported/icon - Copia.svg-58d8685e1ea0cb403e2800bcd998f7ff.ctex"
+uid="uid://beh2xpp6ivbh"
+path="res://.godot/imported/camera-virtual.svg-05c9595ad6a91d309f994548f26a2c20.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/virtualcameraplugin/icon - Copia.svg"
-dest_files=["res://.godot/imported/icon - Copia.svg-58d8685e1ea0cb403e2800bcd998f7ff.ctex"]
+source_file="res://addons/virtualcameraplugin/VirtualCamera/Icons/camera-virtual.svg"
+dest_files=["res://.godot/imported/camera-virtual.svg-05c9595ad6a91d309f994548f26a2c20.ctex"]
 
 [params]
 
