@@ -8,8 +8,8 @@ var parent : VirtualCamera = null
 		return fov
 	set(value):
 		fov = value
-		assert(parent != null, "The LensComponent must be a Node of a VirtualCamera")
 		if parent == null: return
+		assert(parent is VirtualCamera, "The LensComponent must be a Node of a VirtualCamera")
 		VirtualCameraService.onLensCompoenentModified.emit(parent)
 
 func _ready():
