@@ -14,20 +14,15 @@ func _ready():
 	
 func _process(delta):
 	_update()
-	pass
 	
 func _physics_process(delta):	
 	_update()
-	pass	
 	
 func _update():
 	if _currentVirtualCamera == null: return
 	
 	_trackingTarget()
 	_lookAt()
-
-func _exit_tree():
-	pass
 
 # End Region
 
@@ -49,27 +44,27 @@ func _lookAt():
 func _reset():
 	_currentVirtualCamera = null;
 	refreshProcessMethod(UtilsCamera.UpdateMethods.DISABLED);
-	pass
 
 func trySetVirtualCamera(virtualCamera : VirtualCamera):
 	if virtualCamera == null:
 		current = false
 		_reset()
 	else:
-		var oldCamera : VirtualCamera = null
-		if _currentVirtualCamera != null:
-				oldCamera = _currentVirtualCamera
-				if virtualCamera.priority < _currentVirtualCamera.priority: return;
-				if _currentVirtualCamera == virtualCamera: return
-		
-		_currentVirtualCamera = virtualCamera;
-		current = true
-		print("Active Camera: ", _currentVirtualCamera)
-		refreshFOV()
-		refreshProcessMethod(_currentVirtualCamera.processMethod)
-		if oldCamera != null: oldCamera.enabled = false
-	pass
+		_changeCurrentCamera(virtualCamera)
 
+func _changeCurrentCamera(virtualCamera : VirtualCamera):
+	var oldCamera : VirtualCamera = null
+	if _currentVirtualCamera != null:
+		oldCamera = _currentVirtualCamera
+		if virtualCamera.priority < _currentVirtualCamera.priority: return;
+		if _currentVirtualCamera == virtualCamera: return
+
+	_currentVirtualCamera = virtualCamera;
+	current = true
+	print("Active Camera: ", _currentVirtualCamera)
+	refreshFOV()
+	refreshProcessMethod(_currentVirtualCamera.processMethod)
+	if oldCamera != null: oldCamera.enabled = false	
 
 func refreshFOV():
 	if _currentVirtualCamera.lens == null: return
