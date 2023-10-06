@@ -1,6 +1,6 @@
 extends Node2D
 
-var ballPrefab = preload("res://Prefabs/ball.tscn")
+var ballPrefab = preload("res://_Project/Prefabs/ball.tscn")
 
 @export var delayInSeconds : float
 @export var possiblePositions : Array[Node2D]
