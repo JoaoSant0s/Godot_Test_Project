@@ -19,16 +19,14 @@ var _isEditorMode = Engine.is_editor_hint()
 		priority = value
 		VirtualCameraService.onPriorityModified.emit(self)
 
-@export var trackingTarget : Node3D
-@export var lookAt : Node3D
-
-@export var processMethod: UtilsCamera.UpdateMethods = UtilsCamera.UpdateMethods.DEFAULT_PROCESS:
+@export var processMethod: UtilsCamera.ProcessMethods = UtilsCamera.ProcessMethods.DEFAULT_PROCESS:
 	get:
 		return processMethod
 	set(value):
 		processMethod = value
 
 @export var lens : LensComponent
+@export var tracking : TrackingComponent
 
 func _enter_tree():
 	VirtualCameraService.addVirtualCamera(self)
@@ -36,6 +34,7 @@ func _enter_tree():
 func _ready():
 	if not _isEditorMode: return
 	UtilsCamera.createLensComponent(self)
+	UtilsCamera.createTrackingComponent(self)
 	
 func _exit_tree():
 	VirtualCameraService.removeVirtualCamera(self)

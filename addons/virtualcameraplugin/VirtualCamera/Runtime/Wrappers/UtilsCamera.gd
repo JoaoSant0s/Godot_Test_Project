@@ -1,19 +1,26 @@
 class_name UtilsCamera
 
-enum UpdateMethods {DEFAULT_PROCESS, PHYSICS_PROCESS, DISABLED}	
+enum ProcessMethods {DEFAULT_PROCESS, PHYSICS_PROCESS, DISABLED}
 
 static func createLensComponent(virtualCamera : VirtualCamera):
-	var hasLens = virtualCamera.get_children().any(func (node): return node is LensComponent);
-	if hasLens: return
+	var hasComponent = virtualCamera.get_children().any(func (node): return node is LensComponent);
+	if hasComponent: return
 			
-	var lensInstance = _createComponent("LensComponent", "res://addons/virtualcameraplugin/VirtualCamera/Prefabs/LensComponent.tscn", virtualCamera) as LensComponent
-	virtualCamera.lens = lensInstance;
-	lensInstance.set_owner(virtualCamera.get_tree().edited_scene_root)
+	var instance = _createComponent("LensComponent", "res://addons/virtualcameraplugin/VirtualCamera/Prefabs/LensComponent.tscn", virtualCamera) as LensComponent
+	virtualCamera.lens = instance;
+	instance.set_owner(virtualCamera.get_tree().edited_scene_root)
 
+static func createTrackingComponent(virtualCamera : VirtualCamera):
+	var hasComponent = virtualCamera.get_children().any(func (node): return node is TrackingComponent);
+	if hasComponent: return
+
+	var instance = _createComponent("TrackingComponent", "res://addons/virtualcameraplugin/VirtualCamera/Prefabs/TrackingComponent.tscn", virtualCamera) as TrackingComponent
+	virtualCamera.tracking = instance;
+	instance.set_owner(virtualCamera.get_tree().edited_scene_root)
 
 static func _createComponent(name : String, path : String, parent):
-	var lensInstance = load(path).instantiate()
-	lensInstance.name = name
-	parent.add_child(lensInstance);
-	lensInstance.set_owner(parent.get_tree().edited_scene_root)
-	return lensInstance
+	var instance = load(path).instantiate()
+	instance.name = name
+	parent.add_child(instance);
+	instance.set_owner(parent.get_tree().edited_scene_root)
+	return instance

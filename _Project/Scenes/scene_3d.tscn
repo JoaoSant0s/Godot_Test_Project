@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://8jteo7my42mn"]
+[gd_scene load_steps=20 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTrigger.gd" id="1_6vqvf"]
 [ext_resource type="PackedScene" uid="uid://c16dfusqmn3cl" path="res://_Project/Prefabs/player.tscn" id="1_m77aj"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCamera.gd" id="2_uvf4i"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/MainCamera.gd" id="5_kxfoc"]
 [ext_resource type="PackedScene" uid="uid://c4x0tnkh64x5x" path="res://addons/virtualcameraplugin/VirtualCamera/Prefabs/LensComponent.tscn" id="6_im0bh"]
+[ext_resource type="PackedScene" uid="uid://mgeyvf3veoxk" path="res://addons/virtualcameraplugin/VirtualCamera/Prefabs/TrackingComponent.tscn" id="7_v50ik"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ltd4g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -78,15 +79,18 @@ virtualCamera = NodePath("VirtualCamera")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger/Area3D"]
 shape = SubResource("BoxShape3D_wq0mj")
 
-[node name="VirtualCamera" type="Node3D" parent="Trigger" node_paths=PackedStringArray("lookAt", "lens")]
+[node name="VirtualCamera" type="Node3D" parent="Trigger" node_paths=PackedStringArray("lens", "tracking")]
 transform = Transform3D(0.919118, 0, 0, 0, 3.99117, 0.484734, 0, -0.612783, 3.15716, 0, 25.084, 8.1909)
 script = ExtResource("2_uvf4i")
 enabled = false
-lookAt = NodePath("../../Player")
 lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="Trigger/VirtualCamera" instance=ExtResource("6_im0bh")]
 fov = 72.5
+
+[node name="TrackingComponent" parent="Trigger/VirtualCamera" node_paths=PackedStringArray("lookAt") instance=ExtResource("7_v50ik")]
+lookAt = NodePath("../../../Player")
 
 [node name="Trigger2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 0, 0.033, -6)
@@ -100,15 +104,18 @@ virtualCamera = NodePath("VirtualCamera2")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger2/Area3D"]
 shape = SubResource("BoxShape3D_wq0mj")
 
-[node name="VirtualCamera2" type="Node3D" parent="Trigger2" node_paths=PackedStringArray("lookAt", "lens")]
+[node name="VirtualCamera2" type="Node3D" parent="Trigger2" node_paths=PackedStringArray("lens", "tracking")]
 transform = Transform3D(-0.919118, 0, 1.50996e-07, 0, 5.0505, 0, -1.38783e-07, 0, -1, 0, 25.084, -8.70823)
 script = ExtResource("2_uvf4i")
 enabled = false
-lookAt = NodePath("../../Player")
 lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="Trigger2/VirtualCamera2" instance=ExtResource("6_im0bh")]
 fov = 78.0
+
+[node name="TrackingComponent" parent="Trigger2/VirtualCamera2" node_paths=PackedStringArray("lookAt") instance=ExtResource("7_v50ik")]
+lookAt = NodePath("../../../Player")
 
 [node name="Trigger3" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 6, 0.033, 0)
@@ -122,14 +129,17 @@ virtualCamera = NodePath("VirtualCamera3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger3/Area3D"]
 shape = SubResource("BoxShape3D_wq0mj")
 
-[node name="VirtualCamera3" type="Node3D" parent="Trigger3" node_paths=PackedStringArray("lens")]
+[node name="VirtualCamera3" type="Node3D" parent="Trigger3" node_paths=PackedStringArray("lens", "tracking")]
 transform = Transform3D(-4.37114e-08, 0, 0.919118, 0, 5.0505, 0, -1, 0, -4.01759e-08, 7.29526, 25.084, -0.126667)
 script = ExtResource("2_uvf4i")
 enabled = false
 lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="Trigger3/VirtualCamera3" instance=ExtResource("6_im0bh")]
 fov = 70.5
+
+[node name="TrackingComponent" parent="Trigger3/VirtualCamera3" instance=ExtResource("7_v50ik")]
 
 [node name="Trigger4" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -6, 0.033, 0)
@@ -143,13 +153,16 @@ virtualCamera = NodePath("VirtualCamera4")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger4/Area3D"]
 shape = SubResource("BoxShape3D_au2w7")
 
-[node name="VirtualCamera4" type="Node3D" parent="Trigger4" node_paths=PackedStringArray("lens")]
+[node name="VirtualCamera4" type="Node3D" parent="Trigger4" node_paths=PackedStringArray("lens", "tracking")]
 transform = Transform3D(-4.37114e-08, 0, -0.919118, 0, 5.0505, 0, 1, 0, -4.01759e-08, -6.96732, 25.084, -0.126667)
 script = ExtResource("2_uvf4i")
 enabled = false
 lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="Trigger4/VirtualCamera4" instance=ExtResource("6_im0bh")]
+
+[node name="TrackingComponent" parent="Trigger4/VirtualCamera4" instance=ExtResource("7_v50ik")]
 
 [node name="Trigger5" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 0, 0.033, 0)
@@ -163,12 +176,15 @@ virtualCamera = NodePath("VirtualCamera5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger5/Area3D"]
 shape = SubResource("BoxShape3D_au2w7")
 
-[node name="VirtualCamera5" type="Node3D" parent="Trigger5" node_paths=PackedStringArray("lens")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -1, -4.37114e-08, 0, 60, 0)
+[node name="VirtualCamera5" type="Node3D" parent="Trigger5" node_paths=PackedStringArray("lens", "tracking")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 0.999999, 0, -1, -4.37113e-08, 0, 60, 0)
 script = ExtResource("2_uvf4i")
 lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="Trigger5/VirtualCamera5" instance=ExtResource("6_im0bh")]
+
+[node name="TrackingComponent" parent="Trigger5/VirtualCamera5" instance=ExtResource("7_v50ik")]
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_m77aj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50021, 0, 7.04871)
