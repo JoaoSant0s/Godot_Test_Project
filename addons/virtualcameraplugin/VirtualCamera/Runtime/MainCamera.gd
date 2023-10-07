@@ -69,12 +69,23 @@ func _changeCurrentCamera(camera : VirtualCamera):
 	current = true
 	UtilsCamera.print("Active Camera: %s" % _currentVirtualCamera)
 	refreshFOV()
-	refreshProcessMethod(_currentVirtualCamera.processMethod)
+	
+	if _currentVirtualCamera.tracking.IsTrackingModeNone():
+		disableProcesses()
+		global_position = _currentVirtualCamera.global_position
+		rotation = _currentVirtualCamera.rotation
+	else:
+		refreshProcessMethod(_currentVirtualCamera.processMethod)
+		
 	if oldCamera != null: oldCamera.enabled = false	
 
 func refreshFOV():
 	if _currentVirtualCamera.lens == null: return
 	fov = _currentVirtualCamera.lens.fov
+
+func disableProcesses():
+	set_process(false)
+	set_physics_process(false)
 	
 func refreshProcessMethod(updateMethod : TypeCameras.ProcessMethods):
 	set_process(updateMethod == TypeCameras.ProcessMethods.DEFAULT_PROCESS)
