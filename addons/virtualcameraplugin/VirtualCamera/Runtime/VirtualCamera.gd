@@ -19,7 +19,7 @@ var _isEditorMode = Engine.is_editor_hint()
 		priority = value
 		VirtualCameraService.onPriorityModified.emit(self)
 
-@export var processMethod: UtilsCamera.ProcessMethods = UtilsCamera.ProcessMethods.DEFAULT_PROCESS:
+@export var processMethod: TypeCameras.ProcessMethods = TypeCameras.ProcessMethods.DEFAULT_PROCESS:
 	get:
 		return processMethod
 	set(value):

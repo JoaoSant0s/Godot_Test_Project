@@ -1,7 +1,5 @@
 class_name UtilsCamera
 
-enum ProcessMethods {DEFAULT_PROCESS, PHYSICS_PROCESS, DISABLED}
-
 static func createLensComponent(virtualCamera : VirtualCamera):
 	var hasComponent = virtualCamera.get_children().any(func (node): return node is LensComponent);
 	if hasComponent: return

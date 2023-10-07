@@ -1,6 +1,8 @@
 @tool
 class_name MainCamera extends Camera3D
 
+@export var DefaultTransition : TypeCameras.TransitionMethods = TypeCameras.TransitionMethods.CUT
+
 static var Instance : MainCamera = null
 
 var _currentVirtualCamera : VirtualCamera
@@ -47,7 +49,7 @@ func _lookAt():
 
 func _reset():
 	_currentVirtualCamera = null;
-	refreshProcessMethod(UtilsCamera.ProcessMethods.DISABLED);
+	refreshProcessMethod(TypeCameras.ProcessMethods.DISABLED);
 
 func trySetVirtualCamera(virtualCamera : VirtualCamera):
 	if virtualCamera == null:
@@ -74,8 +76,8 @@ func refreshFOV():
 	if _currentVirtualCamera.lens == null: return
 	fov = _currentVirtualCamera.lens.fov
 	
-func refreshProcessMethod(updateMethod : UtilsCamera.ProcessMethods):
-	set_process(updateMethod == UtilsCamera.ProcessMethods.DEFAULT_PROCESS)
-	set_physics_process(updateMethod == UtilsCamera.ProcessMethods.PHYSICS_PROCESS)
+func refreshProcessMethod(updateMethod : TypeCameras.ProcessMethods):
+	set_process(updateMethod == TypeCameras.ProcessMethods.DEFAULT_PROCESS)
+	set_physics_process(updateMethod == TypeCameras.ProcessMethods.PHYSICS_PROCESS)
 	
 	_update()
