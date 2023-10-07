@@ -24,3 +24,7 @@ static func _createComponent(name : String, path : String, parent):
 	parent.add_child(instance);
 	instance.set_owner(parent.get_tree().edited_scene_root)
 	return instance
+
+
+static func print(message : String):
+	if(VirtualCameraConfig.Instance.showLogs): print(message)

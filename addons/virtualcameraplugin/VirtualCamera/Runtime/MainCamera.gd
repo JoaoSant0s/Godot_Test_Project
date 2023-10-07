@@ -65,7 +65,7 @@ func _changeCurrentCamera(virtualCamera : VirtualCamera):
 
 	_currentVirtualCamera = virtualCamera;
 	current = true
-	print("Active Camera: ", _currentVirtualCamera)
+	UtilsCamera.print("Active Camera: %s" % _currentVirtualCamera)
 	refreshFOV()
 	refreshProcessMethod(_currentVirtualCamera.processMethod)
 	if oldCamera != null: oldCamera.enabled = false	
