@@ -28,8 +28,8 @@ func _update():
 
 # End Region
 
-func isCurrentCamera(virtualCamera : VirtualCamera):
-	return _currentVirtualCamera == virtualCamera
+func isCurrentCamera(camera : VirtualCamera):
+	return _currentVirtualCamera == camera
 
 func _tracking():
 	if _currentVirtualCamera.tracking == null: return;
@@ -51,21 +51,21 @@ func _reset():
 	_currentVirtualCamera = null;
 	refreshProcessMethod(TypeCameras.ProcessMethods.DISABLED);
 
-func trySetVirtualCamera(virtualCamera : VirtualCamera):
-	if virtualCamera == null:
+func trySetVirtualCamera(camera : VirtualCamera):
+	if camera == null:
 		current = false
 		_reset()
 	else:
-		_changeCurrentCamera(virtualCamera)
+		_changeCurrentCamera(camera)
 
-func _changeCurrentCamera(virtualCamera : VirtualCamera):
+func _changeCurrentCamera(camera : VirtualCamera):
 	var oldCamera : VirtualCamera = null
 	if _currentVirtualCamera != null:
 		oldCamera = _currentVirtualCamera
-		if virtualCamera.priority < _currentVirtualCamera.priority: return;
-		if _currentVirtualCamera == virtualCamera: return
+		if camera.priority < _currentVirtualCamera.priority: return;
+		if _currentVirtualCamera == camera: return
 
-	_currentVirtualCamera = virtualCamera;
+	_currentVirtualCamera = camera;
 	current = true
 	UtilsCamera.print("Active Camera: %s" % _currentVirtualCamera)
 	refreshFOV()

@@ -7,5 +7,4 @@ class_name LensComponent extends VirtualCameraBaseComponent
 	set(value):
 		fov = value
 		if _parent == null: return
-		assert(_parent is VirtualCamera, "The LensComponent must be a Node of a VirtualCamera")
-		VirtualCameraService.onLensCompoenentModified.emit(_parent)
+		VirtualCameraService.onLensComponentModified.emit(_parent)
