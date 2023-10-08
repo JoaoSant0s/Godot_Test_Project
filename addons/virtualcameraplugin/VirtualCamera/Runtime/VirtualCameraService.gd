@@ -4,7 +4,6 @@ extends Node
 signal onEnabledModified(camera : VirtualCamera)
 signal onPriorityModified(camera : VirtualCamera)
 signal onLensComponentModified(camera : VirtualCamera)
-signal onTrackingComponentModified(camera : VirtualCamera)
 
 var _virtualCameras : Array[VirtualCamera]
 
@@ -12,7 +11,6 @@ func _ready():
 	onEnabledModified.connect(_virtualCameraEnabledModified)
 	onPriorityModified.connect(_virtualCameraPriorityModified)
 	onLensComponentModified.connect(_virtualCameraLensModified)
-	onTrackingComponentModified.connect(_virtualCameraTrackingModified)
 
 func addVirtualCamera(camera : VirtualCamera):
 	_virtualCameras.append(camera)
@@ -65,14 +63,6 @@ func _virtualCameraLensModified(camera : VirtualCamera):
 	if not _isCurrentCamera(camera): return
 	
 	MainCamera.Instance.refreshFOV();
-	
-func _virtualCameraTrackingModified(camera : VirtualCamera):
-	if not _isCurrentCamera(camera): return
-	
-	if camera.tracking.IsTrackingModeNone():
-		MainCamera.Instance.disableProcesses()
-	else:
-		MainCamera.Instance.refreshProcessMethod(camera.processMethod)
 
 func _tryRefreshMainCamera():
 	if MainCamera.Instance == null: return

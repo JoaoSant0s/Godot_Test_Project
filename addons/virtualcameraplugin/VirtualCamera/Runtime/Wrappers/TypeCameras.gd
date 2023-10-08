@@ -4,4 +4,6 @@ enum ProcessMethods {DEFAULT_PROCESS, PHYSICS_PROCESS, DISABLED}
 
 enum TransitionMethods {CUT, LINEAR}
 
-enum TrackingMode {NONE, HARDLOCK, FOLLOW}
+enum PositionControl {NONE, HARD_LOCK_TO_TARGET, FOLLOW}
+
+enum RotationControl {NONE, HARD_LOOK_AT, SAME_AS_FOLLOW_TARGET}

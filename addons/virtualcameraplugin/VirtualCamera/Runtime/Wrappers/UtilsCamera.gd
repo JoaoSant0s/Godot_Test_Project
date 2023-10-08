@@ -24,5 +24,11 @@ static func _createComponent(name : String, path : String, parent):
 	return instance
 
 
-static func print(message : String):
-	if(VirtualCameraConfig.Instance.showLogs): print(message)
+static func print(message):
+	if(not VirtualCameraConfig.Instance.showLogs): return
+	var _isEditorMode = Engine.is_editor_hint()
+
+	if _isEditorMode:
+		print("Virtual Camera Editor: ", message)
+	else:
+		print("Virtual Camera Play Mode ", message)
