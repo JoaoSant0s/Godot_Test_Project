@@ -21,10 +21,11 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4phwd"]
-size = Vector2(20, 20)
+size = Vector2(50, 50)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uvfuo"]
-data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+[sub_resource type="BoxShape3D" id="BoxShape3D_yu2g2"]
+custom_solver_bias = 1.0
+size = Vector3(50, 0.1, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xjsnx"]
 albedo_color = Color(0.305882, 1, 1, 1)
@@ -63,9 +64,11 @@ transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_4phwd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_uvfuo")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_yu2g2")
 
 [node name="Trigger" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 0, 0.033, 6)
@@ -80,7 +83,7 @@ virtualCamera = NodePath("VirtualCamera")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera" type="Node3D" parent="Trigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.919118, 0, 0, 0, 3.99117, 0.484734, 0, -0.612783, 3.15716, 0, 25.084, 8.1909)
+transform = Transform3D(0.623418, -1.25127, 2.12817, 0, 3.66131, 1.34702, -0.675373, -1.15501, 1.96445, 0, 25.084, 8.1909)
 script = ExtResource("2_uvf4i")
 enabled = false
 lens = NodePath("LensComponent")
@@ -105,7 +108,7 @@ virtualCamera = NodePath("VirtualCamera2")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera2" type="Node3D" parent="Trigger2" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(-0.919118, 0, 1.50996e-07, 0, 5.0505, 0, -1.38783e-07, 0, -1, 0, 25.084, -8.70823)
+transform = Transform3D(-0.863247, -0.368236, 0.335507, 0, 4.93531, 0.212359, -0.315568, 1.00732, -0.91779, 0, 25.084, -8.70823)
 script = ExtResource("2_uvf4i")
 enabled = false
 lens = NodePath("LensComponent")
@@ -130,7 +133,7 @@ virtualCamera = NodePath("VirtualCamera3")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera3" type="Node3D" parent="Trigger3" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.999999, 0, 0, 0, 5.0505, 0, 0, 0, 0.919118, 10.7435, 25.084, -0.126667)
+transform = Transform3D(0.999999, 0, 0, 0, 5.05021, 0, 0, 0, 0.919082, -12.7748, 5.41414, 6.8996)
 script = ExtResource("2_uvf4i")
 enabled = false
 lens = NodePath("LensComponent")
