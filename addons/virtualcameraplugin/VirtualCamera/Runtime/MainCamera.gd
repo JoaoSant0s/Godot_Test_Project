@@ -34,7 +34,7 @@ func _tryTracking():
 	
 	_tracking()
 
-func _tracking():	
+func _tracking():
 	if _currentVirtualCamera.tracking.target:
 		global_position = _currentVirtualCamera.tracking.target.global_position
 	else:
@@ -47,6 +47,11 @@ func _tryLookAt():
 	_lookAt()
 
 func _lookAt():
+	if _currentVirtualCamera.tracking.target and _currentVirtualCamera.tracking.IsRotationControlSameAsFollowTarget():
+		_currentVirtualCamera.rotation = _currentVirtualCamera.tracking.target.global_rotation
+		rotation = _currentVirtualCamera.rotation
+		return
+
 	if _currentVirtualCamera.tracking.lookAt:
 		look_at(_currentVirtualCamera.tracking.lookAt.global_position)
 	else:

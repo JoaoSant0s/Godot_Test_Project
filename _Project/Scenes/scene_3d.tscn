@@ -130,16 +130,17 @@ virtualCamera = NodePath("VirtualCamera3")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera3" type="Node3D" parent="Trigger3" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(-4.37114e-08, 0, 0.919118, 0, 5.0505, 0, -1, 0, -4.01759e-08, 7.29526, 25.084, -0.126667)
+transform = Transform3D(0.999999, 0, 0, 0, 5.0505, 0, 0, 0, 0.919118, 10.7435, 25.084, -0.126667)
 script = ExtResource("2_uvf4i")
 enabled = false
 lens = NodePath("LensComponent")
 tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="Trigger3/VirtualCamera3" instance=ExtResource("6_im0bh")]
-fov = 70.5
 
-[node name="TrackingComponent" parent="Trigger3/VirtualCamera3" instance=ExtResource("7_v50ik")]
+[node name="TrackingComponent" parent="Trigger3/VirtualCamera3" node_paths=PackedStringArray("target") instance=ExtResource("7_v50ik")]
+target = NodePath("../../../Player/Vision")
+rotationControl = 2
 
 [node name="Trigger4" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -6, 0.033, 0)
@@ -187,9 +188,6 @@ fov = 90.0
 
 [node name="TrackingComponent" parent="Trigger5/VirtualCamera5" instance=ExtResource("7_v50ik")]
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_m77aj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50021, 0, 7.04871)
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.67247, 0, 6.46515)
 mesh = SubResource("BoxMesh_bskhn")
@@ -200,8 +198,16 @@ physics_material_override = SubResource("PhysicsMaterial_nu2ts")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_wtq34")
 
+[node name="Player" parent="." instance=ExtResource("1_m77aj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.89895, 0, 6.8996)
+
+[node name="Hand" parent="Player" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -0.25)
+
 [node name="MainCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 11.913, 0)
 current = true
 fov = 90.0
 script = ExtResource("5_kxfoc")
+
+[editable path="Player"]

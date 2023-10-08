@@ -12,3 +12,6 @@ func IsPositionControlNone() -> bool:
 	
 func IsRotationControlNone() -> bool:
 	return rotationControl == TypeCameras.RotationControl.NONE
+
+func IsRotationControlSameAsFollowTarget() -> bool:
+	return rotationControl == TypeCameras.RotationControl.SAME_AS_FOLLOW_TARGET
