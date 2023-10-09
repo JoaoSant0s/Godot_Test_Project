@@ -7,12 +7,15 @@ static var Instance : MainCamera = null
 
 var _currentVirtualCamera : VirtualCamera
 
-func _ready():	
+func _ready():
 	assert(Instance == null, "Must exist a MainCamera in the scene")
 	_reset()
 
 	Instance = self
 	VirtualCameraService.mainCameraStarted()
+
+func _exit_tree():
+	Instance = null
 	
 func _process(delta):
 	_tryUpdate()
