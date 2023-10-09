@@ -81,7 +81,7 @@ func _changeCurrentCamera(camera : VirtualCamera):
 
 	_currentVirtualCamera = camera;
 	current = true
-	UtilsCamera.print("Active Camera: %s" % _currentVirtualCamera)
+	UtilsCamera.log("Active Camera: %s" % _currentVirtualCamera)
 	refreshFOV()
 	
 	refreshProcessMethod(_currentVirtualCamera.processMethod)

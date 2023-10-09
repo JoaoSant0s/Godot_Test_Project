@@ -1,5 +1,9 @@
 class_name UtilsCamera
 
+const virtualCameraTag = "[Virtual_Camera] "
+const editorTag = "[Editor] "
+const playModeTag = "[Play_Mode] "
+
 static func createLensComponent(camera : VirtualCamera):
 	var hasComponent = camera.get_children().any(func (node): return node is LensComponent);
 	if hasComponent: return
@@ -24,11 +28,11 @@ static func _createComponent(name : String, path : String, parent):
 	return instance
 
 
-static func print(message):
+static func log(message):
 	if(not VirtualCameraConfig.Instance.showLogs): return
 	var _isEditorMode = Engine.is_editor_hint()
 
 	if _isEditorMode:
-		print("Virtual Camera Editor: ", message)
+		print(virtualCameraTag, editorTag, message)
 	else:
-		print("Virtual Camera Play Mode ", message)
+		print(virtualCameraTag, playModeTag, message)

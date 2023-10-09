@@ -15,7 +15,7 @@ func _ready():
 func addVirtualCamera(camera : VirtualCamera):
 	_virtualCameras.append(camera)
 	
-	UtilsCamera.print("Add Virtual Cameraamera: %s" % camera.name)
+	UtilsCamera.log("Add Virtual Cameraamera: %s" % camera.name)
 	
 	if MainCamera.Instance == null: return
 	if not camera.enabled: return
@@ -25,7 +25,7 @@ func addVirtualCamera(camera : VirtualCamera):
 func removeVirtualCamera(camera : VirtualCamera):
 	_virtualCameras.erase(camera)
 	
-	UtilsCamera.print("Remove Virtual Cameraamera: %s" % camera.name)
+	UtilsCamera.log("Remove Virtual Cameraamera: %s" % camera.name)
 	
 	if MainCamera.Instance == null: return
 	if not camera.enabled: return
