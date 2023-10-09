@@ -40,7 +40,7 @@ func _exit_tree():
 	VirtualCameraService.removeVirtualCamera(self)
 
 func _to_string():
-	return "{%n}: {%p} - {%s}".format({"%n" : name, "%p" : priority, "%s": enabled})
+	return "%s" % name
 
 func _get_configuration_warnings():
 	if lens == null:
