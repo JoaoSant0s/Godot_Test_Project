@@ -72,28 +72,43 @@ func trySetVirtualCamera(camera : VirtualCamera):
 		_changeCurrentCamera(camera)
 
 func _changeCurrentCamera(camera : VirtualCamera):
-	var oldCamera : VirtualCamera = null
-	if _currentVirtualCamera != null:
-		oldCamera = _currentVirtualCamera
-		if camera.priority < _currentVirtualCamera.priority: return;
-		if _currentVirtualCamera == camera: return	
-		_currentVirtualCamera.rotation = rotation
+	var oldCamera : VirtualCamera = _currentVirtualCamera
+
+	if not canChangeCurrentCamera(camera): return
+	
+	_resetPreviousVirtualCamera(oldCamera)
 
 	_currentVirtualCamera = camera;
 	current = true
+
+	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, _currentVirtualCamera])	
+	_refreshCurrentVirtualCamera()
 	
-	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, _currentVirtualCamera])
+	# -- TODO: Will be removed
+	if oldCamera != null: oldCamera.enabled = false
+
+func _resetPreviousVirtualCamera(oldCamera : VirtualCamera):
+	if oldCamera == null: return
+	
+	oldCamera.rotation = rotation
+	
+func canChangeCurrentCamera(camera) -> bool:
+	if _currentVirtualCamera == null: return true
+	
+	if camera.priority < _currentVirtualCamera.priority: return false
+	if _currentVirtualCamera == camera: return false
+	
+	return true
+
+func _refreshCurrentVirtualCamera():
 	refreshFOV()
-	
 	refreshProcessMethod(_currentVirtualCamera.processMethod)
 	
-	if _currentVirtualCamera.tracking.IsPositionControlNone():
+	if _currentVirtualCamera.tracking and _currentVirtualCamera.tracking.IsPositionControlNone():
 		global_position = _currentVirtualCamera.global_position
 	
-	if _currentVirtualCamera.tracking.IsRotationControlNone():
+	if _currentVirtualCamera.tracking and _currentVirtualCamera.tracking.IsRotationControlNone():
 		rotation = _currentVirtualCamera.rotation
-		
-	if oldCamera != null: oldCamera.enabled = false	
 
 func refreshFOV():
 	if _currentVirtualCamera.lens == null: return
