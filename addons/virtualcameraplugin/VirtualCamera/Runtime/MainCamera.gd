@@ -13,9 +13,6 @@ func _ready():
 
 	Instance = self
 	VirtualCameraService.mainCameraStarted()
-
-func _exit_tree():
-	Instance = null
 	
 func _process(delta):
 	_tryUpdate()
