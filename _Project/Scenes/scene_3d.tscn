@@ -99,7 +99,7 @@ virtualCamera = NodePath("VirtualCamera_1")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera_1" type="Node3D" parent="LookAtRotationCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.761104, 1.18252, -1.52692, 0, 3.44319, 1.66857, 0.515266, -1.74671, 2.25543, -0.088, 23.221, 15)
+transform = Transform3D(0.841149, 0.656057, -1.17823, 0, 3.69535, 1.28754, 0.370468, -1.48958, 2.67519, -0.088, 23.221, 15)
 script = ExtResource("2_uvf4i")
 enabled = false
 lens = NodePath("LensComponent")
@@ -151,7 +151,7 @@ virtualCamera = NodePath("VirtualCamera_3")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera_3" type="Node3D" parent="FirstPersonFixedRotationCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.999999, 0, 0, 0, 5.04996, 0, 0, 0, 0.91905, -7.22251, 5.41414, 8.74053)
+transform = Transform3D(0.999999, 0, 0, 0, 5.0496, 0, 0, 0, 0.919006, -7.22251, 5.41414, 5.3784)
 script = ExtResource("2_uvf4i")
 enabled = false
 lens = NodePath("LensComponent")

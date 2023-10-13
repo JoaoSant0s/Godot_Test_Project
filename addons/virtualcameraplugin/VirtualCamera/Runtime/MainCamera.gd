@@ -83,9 +83,6 @@ func _changeCurrentCamera(camera : VirtualCamera):
 
 	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, _currentVirtualCamera])	
 	_refreshCurrentVirtualCamera()
-	
-	# -- TODO: Will be removed
-	if oldCamera != null: oldCamera.enabled = false
 
 func _resetPreviousVirtualCamera(oldCamera : VirtualCamera):
 	if oldCamera == null: return
