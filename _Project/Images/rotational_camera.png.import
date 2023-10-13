@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1pdo2g3e5l1e"
-path.s3tc="res://.godot/imported/icon.svg-960df1559c7109e95c901cfe330b2676.s3tc.ctex"
+uid="uid://bmn1rlq55iq61"
+path.s3tc="res://.godot/imported/rotational_camera.png-dce4b52ae8cbc9ba2653d394e5f00d40.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://_Project/Images/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-960df1559c7109e95c901cfe330b2676.s3tc.ctex"]
+source_file="res://_Project/Images/rotational_camera.png"
+dest_files=["res://.godot/imported/rotational_camera.png-dce4b52ae8cbc9ba2653d394e5f00d40.s3tc.ctex"]
 
 [params]
 
@@ -33,6 +33,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
