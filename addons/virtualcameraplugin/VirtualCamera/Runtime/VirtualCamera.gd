@@ -29,10 +29,13 @@ var _isEditorMode = Engine.is_editor_hint()
 @export var tracking : TrackingComponent
 
 func isActiveCamera() -> bool:
-	if MainCamera.Instance == null: return false
-	
-	return MainCamera.Instance.isCurrentCamera(self)
+	return VirtualCameraService.isCurrentCamera(self)
 
+func forceActiveCamera():
+	if isActiveCamera(): return;
+
+	VirtualCameraService.forceActive(self)
+	
 func _enter_tree():
 	VirtualCameraService.addVirtualCamera(self)
 

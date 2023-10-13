@@ -9,12 +9,7 @@ func _ready():
 func _trigger_platform(body : Node3D):
 	if not body.is_in_group("Player"): return
 	
-	if virtualCamera.isActiveCamera(): return
-	
-	if virtualCamera.enabled:
-		virtualCamera.priority += 1
-	else:
-		virtualCamera.enabled = true
+	virtualCamera.forceActiveCamera()
 
 func _exit_tree():
 	collisionArea.body_entered.disconnect(_trigger_platform)

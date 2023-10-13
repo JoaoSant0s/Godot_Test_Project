@@ -42,6 +42,15 @@ func findEnabledVirtualCameras() -> Array[VirtualCamera]:
 func findVirtualCameras() -> Array[VirtualCamera]:
 	return _virtualCameras.duplicate()
 	
+func isCurrentCamera(camera : VirtualCamera):
+	if MainCamera.Instance == null: return false
+	return MainCamera.Instance.isCurrentCamera(camera)
+
+func forceActive(camera : VirtualCamera):
+	if MainCamera.Instance == null or camera == null: return
+	camera.enabled = true
+	MainCamera.Instance.changeCurrentCamera(camera)
+
 func _virtualCameraEnabledModified(camera : VirtualCamera):
 	if MainCamera.Instance == null: return
 
@@ -60,7 +69,7 @@ func _virtualCameraPriorityModified(camera : VirtualCamera):
 		MainCamera.Instance.trySetVirtualCamera(camera);
 
 func _virtualCameraLensModified(camera : VirtualCamera):
-	if not _isCurrentCamera(camera): return
+	if not isCurrentCamera(camera): return
 	
 	MainCamera.Instance.refreshFOV();
 
@@ -72,10 +81,7 @@ func _tryRefreshMainCamera():
 	if runningCameras.size() == 0:
 		MainCamera.Instance.trySetVirtualCamera(null);
 		return
+	UtilsCamera.log("Sorting for enabled virtual cameras: %s" % runningCameras.size())
 	
 	runningCameras.sort_custom(func(cameraA : VirtualCamera, cameraB : VirtualCamera): return cameraA.priority > cameraB.priority);
 	MainCamera.Instance.trySetVirtualCamera(runningCameras[0]);
-
-func _isCurrentCamera(camera : VirtualCamera):
-	if MainCamera.Instance == null: return false
-	return MainCamera.Instance.isCurrentCamera(camera)

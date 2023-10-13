@@ -16,7 +16,7 @@ func _enter_tree():
 	add_custom_type(VIRTUAL_CAMERA_NAME, "Node3D", preload("res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCamera.gd"), preload("res://addons/virtualcameraplugin/VirtualCamera/Icons/camera-virtual.svg"))
 	
 	dock = preload("res://addons/virtualcameraplugin/VirtualCamera/Prefabs/VirtualCameraDock.tscn").instantiate()
-	add_control_to_dock(DOCK_SLOT_LEFT_BR, dock)
+	add_control_to_dock(DOCK_SLOT_RIGHT_BR, dock)
 	
 func _exit_tree():
 	remove_autoload_singleton(AUTOLOAD_CAMERA_SERVICE)
@@ -25,8 +25,18 @@ func _exit_tree():
 	remove_control_from_docks(dock)
 	dock.free()
 
-func ClearSelection():
+func clearSelection():
 	get_editor_interface().get_selection().clear()
 
-func AddNode(node):
+func addNode(node):
 	get_editor_interface().get_selection().add_node(node)
+
+func getSelectedVirtualCamera() -> VirtualCamera:
+	var selectedNodes = get_editor_interface().get_selection().get_selected_nodes()
+	
+	if selectedNodes.size() == 0: return null
+	var firstNode = selectedNodes[0]
+	
+	if firstNode is VirtualCamera: return firstNode as VirtualCamera
+	
+	return null

@@ -69,12 +69,15 @@ func trySetVirtualCamera(camera : VirtualCamera):
 		current = false
 		_reset()
 	else:
-		_changeCurrentCamera(camera)
+		_tryChangeCurrentCamera(camera)
 
-func _changeCurrentCamera(camera : VirtualCamera):
-	var oldCamera : VirtualCamera = _currentVirtualCamera
-
+func _tryChangeCurrentCamera(camera : VirtualCamera):
 	if not canChangeCurrentCamera(camera): return
+	
+	changeCurrentCamera(camera)
+	
+func changeCurrentCamera(camera : VirtualCamera):
+	var oldCamera : VirtualCamera = _currentVirtualCamera
 	
 	_resetPreviousVirtualCamera(oldCamera)
 
