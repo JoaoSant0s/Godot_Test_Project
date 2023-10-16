@@ -3,6 +3,7 @@ class_name VirtualCamera extends Node3D
 
 var _isEditorMode = Engine.is_editor_hint()
 
+@export_group("Properties")
 @export var enabled: bool = true:
 	get:
 		return enabled
@@ -25,7 +26,9 @@ var _isEditorMode = Engine.is_editor_hint()
 	set(value):
 		processMethod = value
 
+@export_group("Components")
 @export var lens : LensComponent
+
 @export var tracking : TrackingComponent
 
 func isActiveCamera() -> bool:
@@ -51,7 +54,10 @@ func _to_string():
 	return "%s" % name
 
 func _get_configuration_warnings():
+	var warnings = []
 	if lens == null:
-		return ["Must reference a child Node of type LensComponent"]
-	else:
-		return []
+		warnings.append("The LensComponent is created automatically when a VirtualCamera is added on the scene on Editor Mode")
+	elif tracking == null:
+		warnings.append("The TrackingComponent is created automatically when a VirtualCamera is added on the scene on Editor Mode")
+			
+	return warnings
