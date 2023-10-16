@@ -3,16 +3,13 @@ class_name MainCamera extends Camera3D
 
 @export var DefaultTransition : TypeCameras.TransitionMethods = TypeCameras.TransitionMethods.CUT
 
-static var Instance : MainCamera = null
-
 var _currentVirtualCamera : VirtualCamera
 
 func _ready():
-	assert(Instance == null, "Must exist a MainCamera in the scene")
+	assert(not VirtualCameraService.isMainCameraAvailable(), "Must exist a MainCamera in the scene")
 	_reset()
-
-	Instance = self
-	VirtualCameraService.mainCameraStarted()
+	
+	VirtualCameraService.mainCameraStarted(self)
 	
 func _process(delta):
 	_tryUpdate()

@@ -65,7 +65,7 @@ material = SubResource("StandardMaterial3D_wpuei")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.939693, 0.342019, 0, -0.342019, 0.939693, 0, 7.35504, 13.581)
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 7.35504, 13.581)
 current = true
 script = ExtResource("5_kxfoc")
 

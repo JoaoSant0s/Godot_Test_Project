@@ -30,9 +30,9 @@ func onSelectAllVirtualCameras():
 	for camera in virtualCameras:
 		VirtualCameraPlugin.Instance.addNode(camera)
 
-func onSelectMainCamera():
-	assert(MainCamera.Instance != null, "Must Create first a MainCamera Component in the scene")
-	VirtualCameraPlugin.Instance.addNode(MainCamera.Instance)
+func onSelectMainCamera():	
+	assert(VirtualCameraService.isMainCameraAvailable(), "Must Create first a MainCamera Component in the scene")
+	VirtualCameraPlugin.Instance.addNode(VirtualCameraService.getMainCamera())
 
 func onForceActiveCamera():
 	var selectedCamera = VirtualCameraPlugin.Instance.getSelectedVirtualCamera()
