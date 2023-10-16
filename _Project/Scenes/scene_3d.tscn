@@ -1,11 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://8jteo7my42mn"]
+[gd_scene load_steps=28 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTrigger.gd" id="1_6vqvf"]
 [ext_resource type="PackedScene" uid="uid://c16dfusqmn3cl" path="res://_Project/Prefabs/player.tscn" id="1_m77aj"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCamera.gd" id="2_uvf4i"]
 [ext_resource type="Texture2D" uid="uid://bmn1rlq55iq61" path="res://_Project/Images/rotational_camera.png" id="2_xu0ok"]
+[ext_resource type="Resource" uid="uid://cfdjavj7h5fwq" path="res://_Project/Def/CameraIds/Tags/Tag_1.tres" id="5_en660"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/MainCamera.gd" id="5_kxfoc"]
 [ext_resource type="PackedScene" uid="uid://c4x0tnkh64x5x" path="res://addons/virtualcameraplugin/VirtualCamera/Prefabs/LensComponent.tscn" id="6_im0bh"]
+[ext_resource type="Resource" uid="uid://djiihqpjk61tv" path="res://_Project/Def/CameraIds/Groups/Group_1.tres" id="6_kyka7"]
 [ext_resource type="Texture2D" uid="uid://sxs6qcnl1nvv" path="res://_Project/Images/FPS_fixed.png" id="7_eyi1b"]
 [ext_resource type="PackedScene" uid="uid://mgeyvf3veoxk" path="res://addons/virtualcameraplugin/VirtualCamera/Prefabs/TrackingComponent.tscn" id="7_v50ik"]
 [ext_resource type="Texture2D" uid="uid://dcdlcoc0oct6g" path="res://_Project/Images/fixe_camera.png" id="8_v2rp8"]
@@ -102,6 +104,8 @@ shape = SubResource("BoxShape3D_wq0mj")
 transform = Transform3D(0.841149, 0.656057, -1.17823, 0, 3.69535, 1.28754, 0.370468, -1.48958, 2.67519, -0.088, 23.221, 15)
 script = ExtResource("2_uvf4i")
 enabled = false
+tag = ExtResource("5_en660")
+group = ExtResource("6_kyka7")
 lens = NodePath("LensComponent")
 tracking = NodePath("TrackingComponent")
 
@@ -130,6 +134,7 @@ shape = SubResource("BoxShape3D_au2w7")
 [node name="VirtualCamera_4" type="Node3D" parent="FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
 transform = Transform3D(1, 0, 0, 0, 4.74592, 0.314357, 0, -1.72737, 0.863688, 0, 36.98, 15)
 script = ExtResource("2_uvf4i")
+group = ExtResource("6_kyka7")
 lens = NodePath("LensComponent")
 tracking = NodePath("TrackingComponent")
 
@@ -154,6 +159,7 @@ shape = SubResource("BoxShape3D_wq0mj")
 transform = Transform3D(0.999999, 0, 0, 0, 5.04876, 0, 0, 0, 0.918901, -7.22251, 5.41414, 5.3784)
 script = ExtResource("2_uvf4i")
 enabled = false
+group = ExtResource("6_kyka7")
 lens = NodePath("LensComponent")
 tracking = NodePath("TrackingComponent")
 

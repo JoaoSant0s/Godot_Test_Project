@@ -25,6 +25,11 @@ var _isEditorMode = Engine.is_editor_hint()
 		return processMethod
 	set(value):
 		processMethod = value
+		
+@export_group("Assets")
+
+@export var tag : CameraTagAsset
+@export var group : CameraGroupAsset
 
 @export_group("Components")
 @export var lens : LensComponent
