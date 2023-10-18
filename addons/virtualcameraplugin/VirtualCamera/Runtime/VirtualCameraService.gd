@@ -100,6 +100,8 @@ func isTagUnique(camera : VirtualCamera):
 	
 	var isUnique = selectedCameras.size() <= 1
 	
-	if not isUnique: print("Already has a Virtual Camera with %s as Tag" % camera.tag.resource_path)
+	UtilsCamera.extractResourceName(camera.tag)
+	
+	if not isUnique: print("Already has a Virtual Camera with tag: %s" % UtilsCamera.extractResourceName(camera.tag))
 		
 	return isUnique

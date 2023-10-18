@@ -27,7 +27,9 @@ static func _createComponent(name : String, path : String, parent):
 	instance.set_owner(parent.get_tree().edited_scene_root)
 	return instance
 
-
+static func extractResourceName(resource : Resource):
+	return resource.resource_path.get_file().trim_suffix(".tres")
+	
 static func log(message):
 	if(not VirtualCameraConfig.Instance.showLogs): return
 	var _isEditorMode = Engine.is_editor_hint()
