@@ -18,7 +18,7 @@ func _physics_process(delta):
 	_tryUpdate()
 	
 func _tryUpdate():
-	if _currentVirtualCamera == null: return
+	if not _hasCurrentCamera(): return
 	
 	_tryTracking()
 	_tryLookAt()
@@ -57,6 +57,9 @@ func _lookAt():
 func isCurrentCamera(camera : VirtualCamera):
 	return _currentVirtualCamera == camera
 
+func _hasCurrentCamera() -> bool:
+	return _currentVirtualCamera != null
+
 func _reset():
 	_currentVirtualCamera = null;
 	refreshProcessMethod(TypeCameras.ProcessMethods.DISABLED);
@@ -90,7 +93,7 @@ func _resetPreviousVirtualCamera(oldCamera : VirtualCamera):
 	oldCamera.rotation = rotation
 	
 func canChangeCurrentCamera(camera) -> bool:
-	if _currentVirtualCamera == null: return true
+	if not _hasCurrentCamera(): return true
 	
 	if camera.priority < _currentVirtualCamera.priority: return false
 	if _currentVirtualCamera == camera: return false
