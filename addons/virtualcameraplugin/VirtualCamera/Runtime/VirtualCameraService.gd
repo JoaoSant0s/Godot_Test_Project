@@ -94,3 +94,12 @@ func _tryRefreshMainCamera():
 	
 	runningCameras.sort_custom(func(cameraA : VirtualCamera, cameraB : VirtualCamera): return cameraA.priority > cameraB.priority);
 	_mainCamera.trySetVirtualCamera(runningCameras[0]);
+
+func isTagUnique(camera : VirtualCamera):
+	var selectedCameras : Array[VirtualCamera] = _virtualCameras.filter(func(virtual : VirtualCamera): return virtual.tag == camera.tag)	
+	
+	var isUnique = selectedCameras.size() <= 1
+	
+	if not isUnique: print("Already has a Virtual Camera with %s as Tag" % camera.tag.resource_path)
+		
+	return isUnique

@@ -28,7 +28,15 @@ var _isEditorMode = Engine.is_editor_hint()
 		
 @export_group("Assets")
 
-@export var tag : CameraTagAsset
+@export var tag: CameraTagAsset:
+	get:
+		return tag
+	set(value):
+		tag = value
+		if null == value: return
+		if not VirtualCameraService.isTagUnique(self):
+			tag = null;
+
 @export var group : CameraGroupAsset
 
 @export_group("Components")
