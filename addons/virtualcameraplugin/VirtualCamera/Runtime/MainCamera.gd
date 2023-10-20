@@ -1,7 +1,11 @@
 @tool
 class_name MainCamera extends Camera3D
 
-@export var DefaultTransition : TypeCameras.TransitionMethods = TypeCameras.TransitionMethods.CUT
+@export_group("Transition")
+@export var defaultTransition : TypeCameras.TransitionMethods = TypeCameras.TransitionMethods.CUT
+
+## This property is not used during the CUT transition Methods. Uses seconds as a unit of measurement
+@export var defaultTransitionDuration : float = 1
 
 var _currentVirtualCamera : VirtualCamera
 
@@ -84,8 +88,10 @@ func changeCurrentCamera(camera : VirtualCamera):
 	_currentVirtualCamera = camera;
 	current = true
 
-	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, _currentVirtualCamera])	
-	_refreshCurrentVirtualCamera()
+	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, _currentVirtualCamera])
+	
+	if defaultTransition == TypeCameras.TransitionMethods.CUT:
+		_refreshCurrentVirtualCamera()
 
 func _resetPreviousVirtualCamera(oldCamera : VirtualCamera):
 	if oldCamera == null: return
