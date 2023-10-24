@@ -1,13 +1,10 @@
 @tool
 class_name MainCamera extends Camera3D
 
-@export_group("Transition")
-@export var defaultTransition : TypeCameras.TransitionMethods = TypeCameras.TransitionMethods.CUT
-
-## This property is not used during the CUT transition Methods. Uses seconds as a unit of measurement
-@export var defaultTransitionDuration : float = 1
+@export var transitionConfig : TransitionConfig
 
 var _currentVirtualCamera : VirtualCamera
+var _cameraSimulator : CameraTransitionSimulator
 
 func _ready():
 	assert(not VirtualCameraService.isMainCameraAvailable(), "Must exist a MainCamera in the scene")
@@ -18,11 +15,12 @@ func _ready():
 func _process(delta):
 	_tryUpdate()
 	
-func _physics_process(delta):	
+func _physics_process(delta):
 	_tryUpdate()
 	
 func _tryUpdate():
-	if not _hasCurrentCamera(): return
+	if not _hasCurrentCamera(): return	
+	if _cameraSimulator == null: return
 	
 	_tryTracking()
 	_tryLookAt()
@@ -31,15 +29,12 @@ func _tryUpdate():
 
 func _tryTracking():
 	if _currentVirtualCamera.tracking == null: return;	
-	if _currentVirtualCamera.tracking.IsPositionControlNone(): return
+	if _currentVirtualCamera.tracking.IsPositionControlNone(): return	
 	
 	_tracking()
 
 func _tracking():
-	if _currentVirtualCamera.tracking.target:
-		_currentVirtualCamera.global_position = _currentVirtualCamera.tracking.target.global_position
-	
-	global_position = _currentVirtualCamera.global_position
+	global_position = _cameraSimulator.getPosition()
 		
 func _tryLookAt():
 	if _currentVirtualCamera.tracking == null: return;
@@ -90,15 +85,18 @@ func changeCurrentCamera(camera : VirtualCamera):
 
 	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, _currentVirtualCamera])
 	
-	if defaultTransition == TypeCameras.TransitionMethods.CUT:
-		_refreshCurrentVirtualCamera()
+	_cameraSimulator = CameraTransitionSimulator.new(oldCamera, _currentVirtualCamera, transitionConfig);
+	refreshProcessMethod(_currentVirtualCamera.processMethod)
+	#if defaultTransition == TypeCameras.TransitionMethods.CUT:
+	#	_refreshCurrentVirtualCamera()
+	#else:
 
 func _resetPreviousVirtualCamera(oldCamera : VirtualCamera):
 	if oldCamera == null: return
 	
 	oldCamera.rotation = rotation
 	
-func canChangeCurrentCamera(camera) -> bool:
+func canChangeCurrentCamera(camera : VirtualCamera) -> bool:
 	if not _hasCurrentCamera(): return true
 	
 	if camera.priority < _currentVirtualCamera.priority: return false

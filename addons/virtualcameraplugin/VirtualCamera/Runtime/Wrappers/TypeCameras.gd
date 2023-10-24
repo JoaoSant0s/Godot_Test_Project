@@ -2,7 +2,7 @@ class_name TypeCameras extends Node
 
 enum ProcessMethods {DEFAULT_PROCESS, PHYSICS_PROCESS, DISABLED}
 
-enum TransitionMethods {CUT, LINEAR}
+enum TransitionMethods {CUT, TWEEN_TRANSITION}
 
 enum PositionControl {NONE, HARD_LOCK_TO_TARGET, FOLLOW}
 
