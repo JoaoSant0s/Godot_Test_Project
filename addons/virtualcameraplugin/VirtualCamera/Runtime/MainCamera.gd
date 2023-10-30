@@ -19,7 +19,8 @@ func _physics_process(delta):
 	_tryUpdate()
 	
 func _tryUpdate():
-	if not _hasCurrentCamera(): return	
+	if not _hasCurrentCamera(): return		
+	_refreshLens()
 	if _cameraSimulator == null: return
 	
 	_tryTracking()
@@ -47,9 +48,10 @@ func _lookAt():
 		_currentVirtualCamera.rotation = _currentVirtualCamera.tracking.target.global_rotation
 		rotation = _currentVirtualCamera.rotation
 		return
-
+	
 	if _currentVirtualCamera.tracking.lookAt:
 		look_at(_currentVirtualCamera.tracking.lookAt.global_position)
+		_currentVirtualCamera.rotation = rotation
 	else:
 		rotation = _currentVirtualCamera.rotation
 		
@@ -67,13 +69,8 @@ func trySetVirtualCamera(camera : VirtualCamera):
 	if camera == null:
 		current = false
 		_reset()
-	else:
-		_tryChangeCurrentCamera(camera)
-
-func _tryChangeCurrentCamera(camera : VirtualCamera):
-	if not canChangeCurrentCamera(camera): return
-	
-	changeCurrentCamera(camera)
+	elif canChangeCurrentCamera(camera):
+		changeCurrentCamera(camera)
 	
 func changeCurrentCamera(camera : VirtualCamera):
 	var oldCamera : VirtualCamera = _currentVirtualCamera
@@ -87,9 +84,6 @@ func changeCurrentCamera(camera : VirtualCamera):
 	
 	_cameraSimulator = CameraTransitionSimulator.new(oldCamera, _currentVirtualCamera, transitionConfig);
 	refreshProcessMethod(_currentVirtualCamera.processMethod)
-	#if defaultTransition == TypeCameras.TransitionMethods.CUT:
-	#	_refreshCurrentVirtualCamera()
-	#else:
 
 func _resetPreviousVirtualCamera(oldCamera : VirtualCamera):
 	if oldCamera == null: return
@@ -104,17 +98,7 @@ func canChangeCurrentCamera(camera : VirtualCamera) -> bool:
 	
 	return true
 
-func _refreshCurrentVirtualCamera():
-	refreshFOV()
-	refreshProcessMethod(_currentVirtualCamera.processMethod)
-	
-	if _currentVirtualCamera.tracking and _currentVirtualCamera.tracking.IsPositionControlNone():
-		global_position = _currentVirtualCamera.global_position
-	
-	if _currentVirtualCamera.tracking and _currentVirtualCamera.tracking.IsRotationControlNone():
-		rotation = _currentVirtualCamera.rotation
-
-func refreshFOV():
+func _refreshLens():
 	if _currentVirtualCamera.lens == null: return
 	fov = _currentVirtualCamera.lens.fov
 	

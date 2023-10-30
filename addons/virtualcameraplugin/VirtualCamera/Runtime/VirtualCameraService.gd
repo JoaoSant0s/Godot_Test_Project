@@ -3,7 +3,6 @@ extends Node
 
 signal onEnabledModified(camera : VirtualCamera)
 signal onPriorityModified(camera : VirtualCamera)
-signal onLensComponentModified(camera : VirtualCamera)
 
 var _virtualCameras : Array[VirtualCamera]
 var _mainCamera : MainCamera = null
@@ -11,7 +10,6 @@ var _mainCamera : MainCamera = null
 func _ready():
 	onEnabledModified.connect(_virtualCameraEnabledModified)
 	onPriorityModified.connect(_virtualCameraPriorityModified)
-	onLensComponentModified.connect(_virtualCameraLensModified)
 
 func addVirtualCamera(camera : VirtualCamera):
 	_virtualCameras.append(camera)
@@ -76,11 +74,6 @@ func _virtualCameraPriorityModified(camera : VirtualCamera):
 		_tryRefreshMainCamera()
 	else:
 		_mainCamera.trySetVirtualCamera(camera);
-
-func _virtualCameraLensModified(camera : VirtualCamera):
-	if not isCurrentCamera(camera): return
-	
-	_mainCamera.refreshFOV();
 
 func _tryRefreshMainCamera():
 	if not isMainCameraAvailable(): return

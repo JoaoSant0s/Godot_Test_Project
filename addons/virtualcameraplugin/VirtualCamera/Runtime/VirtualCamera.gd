@@ -40,8 +40,8 @@ var _isEditorMode = Engine.is_editor_hint()
 @export var group : CameraGroupAsset
 
 @export_group("Components")
-@export var lens : LensComponent
 
+@export var lens : LensComponent
 @export var tracking : TrackingComponent
 
 func isActiveCamera() -> bool:
