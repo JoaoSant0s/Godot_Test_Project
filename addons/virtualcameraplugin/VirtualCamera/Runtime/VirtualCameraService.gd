@@ -6,6 +6,12 @@ signal onPriorityModified(camera : VirtualCamera)
 
 var _virtualCameras : Array[VirtualCamera]
 var _mainCamera : MainCamera = null
+var _simulationFactory : Dictionary = {}
+
+func _init():
+	#TODO: We need to refresh the project to apply new changes on this part of the code
+	_simulationFactory[TypeCameras.TransitionMethods.CUT] = func(pCamera: VirtualCamera, nCamera : VirtualCamera, config : TransitionConfig) -> CameraTransitionSimulator: 
+		return CameraCutSimulator.new(pCamera, nCamera, config)
 
 func _ready():
 	onEnabledModified.connect(_virtualCameraEnabledModified)
@@ -98,3 +104,9 @@ func isTagUnique(camera : VirtualCamera):
 	if not isUnique: print("Already has a Virtual Camera with tag: %s" % UtilsCamera.extractResourceName(camera.tag))
 		
 	return isUnique
+
+func buildCameraSimulation(pCamera: VirtualCamera, nCamera : VirtualCamera, config : TransitionConfig) -> CameraTransitionSimulator:
+	var type = config.defaultTransitionMethod.type
+	
+	assert(_simulationFactory.has(type), "Must create a trasition class of the type %s" % type)
+	return _simulationFactory[type].call(pCamera, nCamera, config)

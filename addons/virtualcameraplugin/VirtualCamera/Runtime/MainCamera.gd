@@ -12,38 +12,35 @@ func _ready():
 	
 	VirtualCameraService.mainCameraStarted(self)
 	
-func _process(delta):
-	_tryUpdate()
+func _process(delta : float):
+	_tryUpdate(delta)
 	
-func _physics_process(delta):
-	_tryUpdate()
+func _physics_process(delta : float):
+	_tryUpdate(delta)
 	
-func _tryUpdate():
+func _tryUpdate(delta : float = -1):
 	if not _hasCurrentCamera(): return		
 	_refreshLens()
 	if _cameraSimulator == null: return
 	
-	_tryTracking()
-	_tryLookAt()
+	_tryTracking(delta)
+	_tryLookAt(delta)
 
 # End Region
 
-func _tryTracking():
+func _tryTracking(delta : float):
 	if _currentVirtualCamera.tracking == null: return;	
 	if _currentVirtualCamera.tracking.IsPositionControlNone(): return	
 	
-	_tracking()
-
-func _tracking():
-	global_position = _cameraSimulator.getPosition()
+	global_position = _cameraSimulator.getPosition(delta)
 		
-func _tryLookAt():
+func _tryLookAt(delta : float):
 	if _currentVirtualCamera.tracking == null: return;
 	if _currentVirtualCamera.tracking.IsRotationControlNone(): return
 	
-	_lookAt()
+	_lookAt(delta)
 
-func _lookAt():
+func _lookAt(delta):
 	if _currentVirtualCamera.tracking.target and _currentVirtualCamera.tracking.IsRotationControlSameAsFollowTarget():
 		_currentVirtualCamera.rotation = _currentVirtualCamera.tracking.target.global_rotation
 		rotation = _currentVirtualCamera.rotation
@@ -82,7 +79,7 @@ func changeCurrentCamera(camera : VirtualCamera):
 
 	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, _currentVirtualCamera])
 	
-	_cameraSimulator = CameraTransitionSimulator.new(oldCamera, _currentVirtualCamera, transitionConfig);
+	_cameraSimulator = VirtualCameraService.buildCameraSimulation(oldCamera, _currentVirtualCamera, transitionConfig)
 	refreshProcessMethod(_currentVirtualCamera.processMethod)
 
 func _resetPreviousVirtualCamera(oldCamera : VirtualCamera):

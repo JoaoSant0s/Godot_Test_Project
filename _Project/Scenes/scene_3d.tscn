@@ -16,7 +16,7 @@
 
 [sub_resource type="Resource" id="Resource_1q8r8"]
 script = ExtResource("2_0qufq")
-baseType = 1
+type = 0
 duration = 1
 
 [sub_resource type="Resource" id="Resource_xf4k8"]
@@ -79,7 +79,7 @@ material = SubResource("StandardMaterial3D_wpuei")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.939693, 0.342019, 0, -0.342019, 0.939693, 0, 7.4581, 15.011)
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 7.4581, 15.011)
 current = true
 script = ExtResource("5_kxfoc")
 transitionConfig = SubResource("Resource_xf4k8")
