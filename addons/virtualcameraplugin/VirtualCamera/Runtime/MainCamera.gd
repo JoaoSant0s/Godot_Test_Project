@@ -32,6 +32,9 @@ func _tryTracking(delta : float):
 	if _currentVirtualCamera.tracking == null: return;	
 	if _currentVirtualCamera.tracking.IsPositionControlNone(): return	
 	
+	if not _cameraSimulator.hasNextCamera(): return
+	_cameraSimulator.buildPosition()
+	
 	global_position = _cameraSimulator.getPosition(delta)
 		
 func _tryLookAt(delta : float):

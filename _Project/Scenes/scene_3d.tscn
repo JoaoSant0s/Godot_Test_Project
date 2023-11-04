@@ -17,7 +17,7 @@
 [sub_resource type="Resource" id="Resource_1q8r8"]
 script = ExtResource("2_0qufq")
 type = 0
-duration = 1
+duration = 1.0
 
 [sub_resource type="Resource" id="Resource_xf4k8"]
 script = ExtResource("2_jlp65")
@@ -79,7 +79,7 @@ material = SubResource("StandardMaterial3D_wpuei")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 7.4581, 15.011)
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.342019, 0, -0.342019, 0.939693, 0.093927, 7.4581, 15.011)
 current = true
 script = ExtResource("5_kxfoc")
 transitionConfig = SubResource("Resource_xf4k8")
@@ -144,7 +144,7 @@ virtualCamera = NodePath("VirtualCamera_4")
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_4" type="Node3D" parent="FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(1, 0, 0, 0, 4.74592, 0.314356, 0, -1.72737, 0.863688, 0, 37.5005, 16.43)
+transform = Transform3D(1, 0, 0, 0, 4.74592, 0.314356, 0, -1.72737, 0.863687, 0.08633, 37.5005, 16.43)
 script = ExtResource("2_uvf4i")
 group = ExtResource("6_kyka7")
 lens = NodePath("LensComponent")
@@ -153,6 +153,18 @@ tracking = NodePath("TrackingComponent")
 [node name="LensComponent" parent="FixedCameraTrigger/VirtualCamera_4" instance=ExtResource("6_im0bh")]
 
 [node name="TrackingComponent" parent="FixedCameraTrigger/VirtualCamera_4" instance=ExtResource("7_v50ik")]
+
+[node name="VirtualCamera_5_Test" type="Node3D" parent="FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
+transform = Transform3D(1, 0, 0, 0, 4.74592, 0.314356, 0, -1.72737, 0.863687, 4.21204, 37.5005, 16.43)
+script = ExtResource("2_uvf4i")
+enabled = false
+group = ExtResource("6_kyka7")
+lens = NodePath("../VirtualCamera_4/LensComponent")
+tracking = NodePath("../VirtualCamera_4/TrackingComponent")
+
+[node name="LensComponent" parent="FixedCameraTrigger/VirtualCamera_5_Test" instance=ExtResource("6_im0bh")]
+
+[node name="TrackingComponent" parent="FixedCameraTrigger/VirtualCamera_5_Test" instance=ExtResource("7_v50ik")]
 
 [node name="FirstPersonFixedRotationCameraTrigger" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 6, 0.033, -1.419)
@@ -168,7 +180,7 @@ virtualCamera = NodePath("VirtualCamera_3")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera_3" type="Node3D" parent="FirstPersonFixedRotationCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.999999, 0, 0, 0, 5.04868, 0, 0, 0, 0.918891, -7.22251, 5.41414, 5.3784)
+transform = Transform3D(0.999999, 0, 0, 0, 5.04409, 0, 0, 0, 0.918317, -5.88692, 8.71769, 11.0016)
 script = ExtResource("2_uvf4i")
 enabled = false
 group = ExtResource("6_kyka7")
@@ -192,7 +204,7 @@ physics_material_override = SubResource("PhysicsMaterial_nu2ts")
 shape = SubResource("BoxShape3D_wtq34")
 
 [node name="Player" parent="." instance=ExtResource("1_m77aj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.313628, 0.229, 9.368)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.404965, 0.654102, 9.58257)
 
 [node name="Hand" parent="Player" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -0.25)

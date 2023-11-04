@@ -10,8 +10,11 @@ var _simulationFactory : Dictionary = {}
 
 func _init():
 	#TODO: We need to refresh the project to apply new changes on this part of the code
-	_simulationFactory[TypeCameras.TransitionMethods.CUT] = func(pCamera: VirtualCamera, nCamera : VirtualCamera, config : TransitionConfig) -> CameraTransitionSimulator: 
-		return CameraCutSimulator.new(pCamera, nCamera, config)
+	_simulationFactory[TypeCameras.TransitionMethods.CUT] = func(pCamera: VirtualCamera, nCamera : VirtualCamera, config : TransitionConfig) -> CameraTransitionSimulator:
+		return CutTransitionSimulator.new(pCamera, nCamera, config)
+		
+	_simulationFactory[TypeCameras.TransitionMethods.LINEAR] = func(pCamera: VirtualCamera, nCamera : VirtualCamera, config : TransitionConfig) -> CameraTransitionSimulator:
+		return LinearTransitionSimulator.new(pCamera, nCamera, config)
 
 func _ready():
 	onEnabledModified.connect(_virtualCameraEnabledModified)

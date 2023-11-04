@@ -33,9 +33,7 @@ var _isEditorMode = Engine.is_editor_hint()
 		return tag
 	set(value):
 		tag = value
-		if null == value: return
-		if not VirtualCameraService.isTagUnique(self):
-			tag = null;
+		_tagValidator(value)
 
 @export var group : CameraGroupAsset
 
@@ -43,6 +41,11 @@ var _isEditorMode = Engine.is_editor_hint()
 
 @export var lens : LensComponent
 @export var tracking : TrackingComponent
+
+func _tagValidator(value : CameraTagAsset):
+	if null == value: return
+	if not VirtualCameraService.isTagUnique(self):
+		tag = null;
 
 func isActiveCamera() -> bool:
 	return VirtualCameraService.isCurrentCamera(self)

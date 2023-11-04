@@ -9,7 +9,16 @@ func _init(previousCamera: VirtualCamera, nextCamera : VirtualCamera, transition
 	_nextCamera = nextCamera
 	_transitionConfig = transitionConfig
 
+func _getDefaultDuration() -> float:
+	return _transitionConfig.defaultTransitionMethod.duration
+	
 func getPosition(delta : float) -> Vector3:
-	#printerr("Must override this method")
+	print("Must override this method")
 	return Vector3.ZERO
 	
+func buildPosition():
+	if _nextCamera.tracking.target:
+		_nextCamera.global_position = _nextCamera.tracking.target.global_position
+
+func hasNextCamera() -> bool:
+	return _nextCamera != null
