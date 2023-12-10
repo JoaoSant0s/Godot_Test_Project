@@ -16,9 +16,17 @@ func getPosition(delta : float) -> Vector3:
 	print("Must override this method")
 	return Vector3.ZERO
 	
+func getRotation(delta : float) -> Vector3:
+	print("Must override this method")
+	return Vector3.ZERO
+
 func buildPosition():
 	if _nextCamera.tracking.target:
 		_nextCamera.global_position = _nextCamera.tracking.target.global_position
+
+func buildRotation():
+	if _nextCamera.tracking.target and _nextCamera.tracking.IsRotationControlSameAsFollowTarget():
+		_nextCamera.global_rotation = _nextCamera.tracking.target.global_rotation
 
 func hasNextCamera() -> bool:
 	return _nextCamera != null

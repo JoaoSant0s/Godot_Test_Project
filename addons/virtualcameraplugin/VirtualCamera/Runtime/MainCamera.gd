@@ -36,25 +36,19 @@ func _tryTracking(delta : float):
 	_cameraSimulator.buildPosition()
 	
 	global_position = _cameraSimulator.getPosition(delta)
-		
+
 func _tryLookAt(delta : float):
 	if _currentVirtualCamera.tracking == null: return;
-	if _currentVirtualCamera.tracking.IsRotationControlNone(): return
+	if _currentVirtualCamera.tracking.IsRotationControlNone(): return	
+	if not _cameraSimulator.hasNextCamera(): return
 	
-	_lookAt(delta)
-
-func _lookAt(delta):
-	if _currentVirtualCamera.tracking.target and _currentVirtualCamera.tracking.IsRotationControlSameAsFollowTarget():
-		_currentVirtualCamera.rotation = _currentVirtualCamera.tracking.target.global_rotation
-		rotation = _currentVirtualCamera.rotation
-		return
-	
-	if _currentVirtualCamera.tracking.lookAt:
-		look_at(_currentVirtualCamera.tracking.lookAt.global_position)
-		_currentVirtualCamera.rotation = rotation
+	if not _currentVirtualCamera.tracking.lookAt:
+		_cameraSimulator.buildRotation()
+		global_rotation = _cameraSimulator.getRotation(delta)
 	else:
-		rotation = _currentVirtualCamera.rotation
-		
+		look_at(_currentVirtualCamera.tracking.lookAt.global_position)
+		_currentVirtualCamera.global_rotation = global_rotation
+
 func isCurrentCamera(camera : VirtualCamera):
 	return _currentVirtualCamera == camera
 
