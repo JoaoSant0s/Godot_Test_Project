@@ -8,7 +8,7 @@ func _ready():
 
 func _trigger_platform(body : Node3D):
 	if not body.is_in_group("Player"): return
-	
+
 	virtualCamera.forceActiveCamera()
 
 func _exit_tree():

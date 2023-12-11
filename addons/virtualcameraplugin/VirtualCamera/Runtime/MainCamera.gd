@@ -23,10 +23,10 @@ func _tryUpdate(delta : float = -1):
 	_refreshLens()
 	if _cameraSimulator == null: return
 	
+	_cameraSimulator.preUpdate(delta)
 	_tryTracking(delta)
 	_tryLookAt(delta)
-
-# End Region
+	_cameraSimulator.calculateTimeElapsed(delta)
 
 func _tryTracking(delta : float):
 	if _currentVirtualCamera.tracking == null: return;	
@@ -82,7 +82,7 @@ func changeCurrentCamera(camera : VirtualCamera):
 func _resetPreviousVirtualCamera(oldCamera : VirtualCamera):
 	if oldCamera == null: return
 	
-	oldCamera.rotation = rotation
+	oldCamera.global_rotation = global_rotation
 	
 func canChangeCurrentCamera(camera : VirtualCamera) -> bool:
 	if not _hasCurrentCamera(): return true

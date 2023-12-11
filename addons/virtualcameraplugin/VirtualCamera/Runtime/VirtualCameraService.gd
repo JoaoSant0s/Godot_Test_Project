@@ -65,6 +65,8 @@ func isCurrentCamera(camera : VirtualCamera):
 func forceActive(camera : VirtualCamera):
 	if not isMainCameraAvailable() or camera == null: return
 	camera.enabled = true
+
+	if _mainCamera.isCurrentCamera(camera): return
 	_mainCamera.changeCurrentCamera(camera)
 
 func _virtualCameraEnabledModified(camera : VirtualCamera):
@@ -104,7 +106,7 @@ func isTagUnique(camera : VirtualCamera):
 	
 	UtilsCamera.extractResourceName(camera.tag)
 	
-	if not isUnique: print("Already has a Virtual Camera with tag: %s" % UtilsCamera.extractResourceName(camera.tag))
+	if not isUnique: UtilsCamera.log("Already has a Virtual Camera with tag: %s" % UtilsCamera.extractResourceName(camera.tag))
 		
 	return isUnique
 
