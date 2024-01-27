@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcb36mswjmwa0"]
+
+[ext_resource type="Script" path="res://_Project/Scripts/Player/PlayerMovement.gd" id="1_a7s8u"]
+[ext_resource type="PackedScene" uid="uid://bm01em6jyu2gq" path="res://_Project/Models/character.glb" id="1_wfgyp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nd5uj"]
+radius = 0.3
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6aw7l"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i7w1j"]
+material = SubResource("StandardMaterial3D_6aw7l")
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="PlayerAnimated" type="CharacterBody3D" groups=["Player"]]
+script = ExtResource("1_a7s8u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CapsuleShape3D_nd5uj")
+
+[node name="Character" parent="." instance=ExtResource("1_wfgyp")]
+
+[node name="leg-left" parent="Character/character2/root" index="0"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0.125, 0.17625, -0.02375)
+
+[node name="leg-right" parent="Character/character2/root" index="1"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -0.125, 0.17625, -0.02375)
+
+[node name="torso" parent="Character/character2/root" index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, -1.80478e-15, 0.17625, -0.02375)
+
+[node name="arm-left" parent="Character/character2/root/torso" index="0"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 0.3, 0.175, 0)
+
+[node name="arm-right" parent="Character/character2/root/torso" index="1"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -0.3, 0.1195, 0)
+
+[node name="Vision" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.49614e-08, 0.578345, 0.427257)
+visible = false
+mesh = SubResource("BoxMesh_i7w1j")
+
+[editable path="Character"]

@@ -1,7 +1,6 @@
 [gd_scene load_steps=32 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTrigger.gd" id="1_6vqvf"]
-[ext_resource type="PackedScene" uid="uid://c16dfusqmn3cl" path="res://_Project/Prefabs/player.tscn" id="1_m77aj"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionMethodConfig.gd" id="2_0qufq"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionConfig.gd" id="2_jlp65"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCamera.gd" id="2_uvf4i"]
@@ -13,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://sxs6qcnl1nvv" path="res://_Project/Images/FPS_fixed.png" id="7_eyi1b"]
 [ext_resource type="PackedScene" uid="uid://mgeyvf3veoxk" path="res://addons/virtualcameraplugin/VirtualCamera/Prefabs/TrackingComponent.tscn" id="7_v50ik"]
 [ext_resource type="Texture2D" uid="uid://dcdlcoc0oct6g" path="res://_Project/Images/fixe_camera.png" id="8_v2rp8"]
+[ext_resource type="PackedScene" uid="uid://c16dfusqmn3cl" path="res://_Project/Prefabs/player.tscn" id="13_ufdyc"]
 
 [sub_resource type="Resource" id="Resource_1q8r8"]
 script = ExtResource("2_0qufq")
@@ -217,10 +217,6 @@ physics_material_override = SubResource("PhysicsMaterial_nu2ts")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Block/StaticBody3D"]
 shape = SubResource("BoxShape3D_wtq34")
 
-[node name="Player" parent="." instance=ExtResource("1_m77aj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.404965, 0.654102, 9.58257)
-
-[node name="Hand" parent="Player" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -0.25)
+[node name="Player" parent="." instance=ExtResource("13_ufdyc")]
 
 [editable path="Player"]

@@ -6,11 +6,11 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q7r6e"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6aw7l"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c7h7r"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4ypyi"]
-material = SubResource("StandardMaterial3D_6aw7l")
+material = SubResource("StandardMaterial3D_c7h7r")
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
