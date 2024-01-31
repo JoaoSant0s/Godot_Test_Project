@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c16dfusqmn3cl"]
+[gd_scene load_steps=7 format=3 uid="uid://c16dfusqmn3cl"]
 
-[ext_resource type="Script" path="res://_Project/Scripts/Player/PlayerController.gd" id="1_b6mqm"]
+[ext_resource type="Script" path="res://_Project/Scripts/Player/PlayerMovementComponent.gd" id="1_b6mqm"]
+[ext_resource type="Script" path="res://_Project/Scripts/Player/Player.gd" id="1_h75h6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p67o2"]
 
@@ -13,7 +14,12 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_c7h7r")
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Player" type="CharacterBody3D" groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("movementComponent", "visionArea") groups=["Player"]]
+script = ExtResource("1_h75h6")
+movementComponent = NodePath("MovementComponent")
+visionArea = NodePath("Vision")
+
+[node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("1_b6mqm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
