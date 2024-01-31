@@ -1,10 +1,11 @@
-[gd_scene load_steps=32 format=3 uid="uid://8jteo7my42mn"]
+[gd_scene load_steps=34 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTrigger.gd" id="1_6vqvf"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionMethodConfig.gd" id="2_0qufq"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionConfig.gd" id="2_jlp65"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCamera.gd" id="2_uvf4i"]
 [ext_resource type="Texture2D" uid="uid://bmn1rlq55iq61" path="res://_Project/Images/rotational_camera.png" id="2_xu0ok"]
+[ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerLookAt.gd" id="5_b0w0h"]
 [ext_resource type="Resource" uid="uid://cfdjavj7h5fwq" path="res://_Project/Def/CameraIds/Tags/Tag_1.tres" id="5_en660"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/MainCamera.gd" id="5_kxfoc"]
 [ext_resource type="PackedScene" uid="uid://c4x0tnkh64x5x" path="res://addons/virtualcameraplugin/VirtualCamera/Prefabs/LensComponent.tscn" id="6_im0bh"]
@@ -12,7 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://sxs6qcnl1nvv" path="res://_Project/Images/FPS_fixed.png" id="7_eyi1b"]
 [ext_resource type="PackedScene" uid="uid://mgeyvf3veoxk" path="res://addons/virtualcameraplugin/VirtualCamera/Prefabs/TrackingComponent.tscn" id="7_v50ik"]
 [ext_resource type="Texture2D" uid="uid://dcdlcoc0oct6g" path="res://_Project/Images/fixe_camera.png" id="8_v2rp8"]
-[ext_resource type="PackedScene" uid="uid://c16dfusqmn3cl" path="res://_Project/Prefabs/player.tscn" id="13_ufdyc"]
+[ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerFirstPersonFixedRotation.gd" id="14_gku64"]
+[ext_resource type="PackedScene" uid="uid://dcb36mswjmwa0" path="res://_Project/Prefabs/Test/PlayerAnimated.tscn" id="15_qrx84"]
 
 [sub_resource type="Resource" id="Resource_1q8r8"]
 script = ExtResource("2_0qufq")
@@ -79,7 +81,7 @@ material = SubResource("StandardMaterial3D_wpuei")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.676705, 0, -0.736255, 0, 1, 0, 0.736255, 0, 0.676705, -10.4028, 4.30485, 16.431)
+transform = Transform3D(0.676704, 0, -0.736255, 0, 1, 0, 0.736255, 0, 0.676704, -7.85802, 3.6012, 14.092)
 current = true
 script = ExtResource("5_kxfoc")
 transitionConfig = SubResource("Resource_xf4k8")
@@ -104,7 +106,7 @@ shape = SubResource("BoxShape3D_yu2g2")
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -6, 0.033, -1.419)
 material_override = SubResource("StandardMaterial3D_n3ybm")
 mesh = SubResource("PlaneMesh_igw6b")
-script = ExtResource("1_6vqvf")
+script = ExtResource("5_b0w0h")
 collisionArea = NodePath("Area3D")
 virtualCamera = NodePath("VirtualCamera_1")
 
@@ -114,7 +116,7 @@ virtualCamera = NodePath("VirtualCamera_1")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera_1" type="Node3D" parent="LookAtRotationCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.885907, 0.356556, -0.802639, 0, 3.8095, 1.05896, 0.244803, -1.29033, 2.90464, 2.588, 20.118, 21.1754)
+transform = Transform3D(0.919118, 0, 0, 0, 4.05486, 3.01093, 0, -0.596164, 0.802863, 5.371, 88.8724, 6.80682)
 script = ExtResource("2_uvf4i")
 enabled = false
 tag = ExtResource("5_en660")
@@ -124,8 +126,7 @@ tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="LookAtRotationCameraTrigger/VirtualCamera_1" instance=ExtResource("6_im0bh")]
 
-[node name="TrackingComponent" parent="LookAtRotationCameraTrigger/VirtualCamera_1" node_paths=PackedStringArray("lookAt") instance=ExtResource("7_v50ik")]
-lookAt = NodePath("../../../Player")
+[node name="TrackingComponent" parent="LookAtRotationCameraTrigger/VirtualCamera_1" instance=ExtResource("7_v50ik")]
 
 [node name="SubViewport" type="SubViewport" parent="LookAtRotationCameraTrigger"]
 
@@ -144,7 +145,7 @@ virtualCamera = NodePath("VirtualCamera_4")
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_4" type="Node3D" parent="FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.621971, 0, -0.676705, 0, 5.0505, 0, 0.736255, 0, 0.676705, -7.771, 21.575, 17.85)
+transform = Transform3D(0.621971, 0, -0.676705, 0, 5.0505, 0, 0.736255, 0, 0.676704, -5.43204, 18.0212, 15.511)
 script = ExtResource("2_uvf4i")
 group = ExtResource("6_kyka7")
 lens = NodePath("LensComponent")
@@ -169,7 +170,7 @@ virtualCamera = NodePath("VirtualCamera_5")
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_5" type="Node3D" parent="FixedCameraTrigger2" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.78794, 0, 0.473209, 0, 5.0505, 0, -0.514852, 0, 0.857279, 8, 21.575, 17.85)
+transform = Transform3D(0.78794, 0, 0.473209, 0, 5.0505, 0, -0.514852, 0, 0.857279, 5.67012, 17.477, 13.6291)
 script = ExtResource("2_uvf4i")
 enabled = false
 group = ExtResource("6_kyka7")
@@ -184,7 +185,7 @@ tracking = NodePath("../../FixedCameraTrigger/VirtualCamera_4/TrackingComponent"
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 6.1461, 0.033, -1.419)
 material_override = SubResource("StandardMaterial3D_55sjg")
 mesh = SubResource("PlaneMesh_igw6b")
-script = ExtResource("1_6vqvf")
+script = ExtResource("14_gku64")
 collisionArea = NodePath("Area3D")
 virtualCamera = NodePath("VirtualCamera_3")
 
@@ -203,8 +204,7 @@ tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="FirstPersonFixedRotationCameraTrigger/VirtualCamera_3" instance=ExtResource("6_im0bh")]
 
-[node name="TrackingComponent" parent="FirstPersonFixedRotationCameraTrigger/VirtualCamera_3" node_paths=PackedStringArray("target") instance=ExtResource("7_v50ik")]
-target = NodePath("../../../Player/Vision")
+[node name="TrackingComponent" parent="FirstPersonFixedRotationCameraTrigger/VirtualCamera_3" instance=ExtResource("7_v50ik")]
 rotationControl = 2
 
 [node name="Block" type="MeshInstance3D" parent="."]
@@ -217,7 +217,11 @@ physics_material_override = SubResource("PhysicsMaterial_nu2ts")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Block/StaticBody3D"]
 shape = SubResource("BoxShape3D_wtq34")
 
-[node name="Player" parent="." instance=ExtResource("13_ufdyc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.9771)
+[node name="PlayerAnimated" parent="." instance=ExtResource("15_qrx84")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.71387)
 
-[editable path="Player"]
+[node name="torso" parent="PlayerAnimated/Character/character2/root" index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871558, 0, -0.0871558, 0.996195, -1.80478e-15, 0.17625, -0.02375)
+
+[editable path="PlayerAnimated"]
+[editable path="PlayerAnimated/Character"]

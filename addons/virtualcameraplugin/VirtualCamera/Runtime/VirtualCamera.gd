@@ -50,10 +50,11 @@ func _tagValidator(value : CameraTagAsset):
 func isActiveCamera() -> bool:
 	return VirtualCameraService.isCurrentCamera(self)
 
-func forceActiveCamera():
-	if isActiveCamera(): return;
+func forceActiveCamera() -> bool:
+	if isActiveCamera(): return false;
 
 	VirtualCameraService.forceActive(self)
+	return true
 	
 func _enter_tree():
 	VirtualCameraService.addVirtualCamera(self)
