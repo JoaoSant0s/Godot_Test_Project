@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TransitionMethodConfig" load_steps=2 format=3 uid="uid://c8vuu7p2xmqon"]
+
+[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionMethodConfig.gd" id="1_gnyxt"]
+
+[resource]
+script = ExtResource("1_gnyxt")
+type = 1
+duration = 1.0

@@ -1,8 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://8jteo7my42mn"]
+[gd_scene load_steps=31 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTrigger.gd" id="1_6vqvf"]
-[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionMethodConfig.gd" id="2_0qufq"]
-[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionConfig.gd" id="2_jlp65"]
+[ext_resource type="Resource" uid="uid://fswp2a3e8v2p" path="res://_Project/Def/Transition_Config.tres" id="2_81vdh"]
 [ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCamera.gd" id="2_uvf4i"]
 [ext_resource type="Texture2D" uid="uid://bmn1rlq55iq61" path="res://_Project/Images/rotational_camera.png" id="2_xu0ok"]
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerLookAt.gd" id="5_b0w0h"]
@@ -15,16 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dcdlcoc0oct6g" path="res://_Project/Images/fixe_camera.png" id="8_v2rp8"]
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerFirstPersonFixedRotation.gd" id="14_gku64"]
 [ext_resource type="PackedScene" uid="uid://dcb36mswjmwa0" path="res://_Project/Prefabs/Test/PlayerAnimated.tscn" id="15_qrx84"]
-
-[sub_resource type="Resource" id="Resource_1q8r8"]
-script = ExtResource("2_0qufq")
-type = 1
-duration = 1.0
-
-[sub_resource type="Resource" id="Resource_xf4k8"]
-script = ExtResource("2_jlp65")
-defaultTransitionMethod = SubResource("Resource_1q8r8")
-transitionBlendConfig = Array[Resource("res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionBlendConfig.gd")]([])
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ltd4g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -85,7 +74,7 @@ transform = Transform3D(0.786709, 0.0782713, -0.612341, 0, 0.991929, 0.126791, 0
 current = true
 fov = 55.0
 script = ExtResource("5_kxfoc")
-transitionConfig = SubResource("Resource_xf4k8")
+transitionConfig = ExtResource("2_81vdh")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_p1nes")
@@ -120,8 +109,6 @@ shape = SubResource("BoxShape3D_wq0mj")
 transform = Transform3D(0.919118, 0, 0, 0, 4.05486, 3.01093, 0, -0.596164, 0.802863, 5.371, 88.8724, 13.5852)
 script = ExtResource("2_uvf4i")
 enabled = false
-tag = ExtResource("5_en660")
-group = ExtResource("6_kyka7")
 lens = NodePath("LensComponent")
 tracking = NodePath("TrackingComponent")
 
@@ -200,7 +187,7 @@ shape = SubResource("BoxShape3D_wq0mj")
 transform = Transform3D(0.999999, 0, 0, 0, 5.04409, 0, 0, 0, 0.918317, -5.88692, 8.71769, 11.0016)
 script = ExtResource("2_uvf4i")
 enabled = false
-group = ExtResource("6_kyka7")
+tag = ExtResource("5_en660")
 lens = NodePath("LensComponent")
 tracking = NodePath("TrackingComponent")
 

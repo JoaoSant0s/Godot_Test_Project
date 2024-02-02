@@ -113,5 +113,10 @@ func isTagUnique(camera : VirtualCamera):
 func buildCameraSimulation(pCamera: VirtualCamera, nCamera : VirtualCamera, config : TransitionConfig) -> CameraTransitionSimulator:
 	var type = config.defaultTransitionMethod.type
 	
+	# TODO
+	## Check the Tag and Group of the Previous and Next Virtual Camera
+	## If not match, use de default transition	
+	## Passing the TransitionMethodConfig and not the TransitionConfig as the selected parameter
+	
 	assert(_simulationFactory.has(type), "Must create a trasition class of the type %s" % type)
 	return _simulationFactory[type].call(pCamera, nCamera, config)
