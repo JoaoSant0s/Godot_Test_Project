@@ -4,7 +4,7 @@ var isRunning : bool
 var input : Vector3
 var jumped : bool
 
-func process_input(player : Player, delta : float):
+func process_input():
 	input = Vector3.ZERO
 	
 	input.x = Input.get_axis("left", "right")

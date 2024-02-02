@@ -81,8 +81,9 @@ material = SubResource("StandardMaterial3D_wpuei")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.676704, 0, -0.736255, 0, 1, 0, 0.736255, 0, 0.676704, -7.85802, 3.6012, 14.092)
+transform = Transform3D(0.786709, 0.0782713, -0.612341, 0, 0.991929, 0.126791, 0.617323, -0.099748, 0.78036, -7.85802, 3.6012, 14.092)
 current = true
+fov = 55.0
 script = ExtResource("5_kxfoc")
 transitionConfig = SubResource("Resource_xf4k8")
 
@@ -116,7 +117,7 @@ virtualCamera = NodePath("VirtualCamera_1")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera_1" type="Node3D" parent="LookAtRotationCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.919118, 0, 0, 0, 4.05486, 3.01093, 0, -0.596164, 0.802863, 5.371, 88.8724, 6.80682)
+transform = Transform3D(0.919118, 0, 0, 0, 4.05486, 3.01093, 0, -0.596164, 0.802863, 5.371, 88.8724, 13.5852)
 script = ExtResource("2_uvf4i")
 enabled = false
 tag = ExtResource("5_en660")
@@ -145,13 +146,14 @@ virtualCamera = NodePath("VirtualCamera_4")
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_4" type="Node3D" parent="FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.621971, 0, -0.676705, 0, 5.0505, 0, 0.736255, 0, 0.676704, -5.43204, 18.0212, 15.511)
+transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00974, 0.640361, 0.617323, -0.0997481, 0.78036, -5.43204, 18.0212, 15.511)
 script = ExtResource("2_uvf4i")
 group = ExtResource("6_kyka7")
 lens = NodePath("LensComponent")
 tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="FixedCameraTrigger/VirtualCamera_4" instance=ExtResource("6_im0bh")]
+fov = 55.0
 
 [node name="TrackingComponent" parent="FixedCameraTrigger/VirtualCamera_4" instance=ExtResource("7_v50ik")]
 
@@ -170,7 +172,7 @@ virtualCamera = NodePath("VirtualCamera_5")
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_5" type="Node3D" parent="FixedCameraTrigger2" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.78794, 0, 0.473209, 0, 5.0505, 0, -0.514852, 0, 0.857279, 5.67012, 17.477, 13.6291)
+transform = Transform3D(0.798092, -0.0696505, 0.450528, 0, 4.99121, 0.771629, -0.495998, -0.132665, 0.85813, 5.67012, 17.477, 13.6291)
 script = ExtResource("2_uvf4i")
 enabled = false
 group = ExtResource("6_kyka7")
