@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcb36mswjmwa0"]
+[gd_scene load_steps=8 format=3 uid="uid://dcb36mswjmwa0"]
 
 [ext_resource type="Script" path="res://_Project/Scripts/Player/Player.gd" id="1_nrr5b"]
 [ext_resource type="PackedScene" uid="uid://bm01em6jyu2gq" path="res://_Project/Models/character.glb" id="1_wfgyp"]
+[ext_resource type="Script" path="res://_Project/Scripts/Player/PlayerInputComponent.gd" id="2_27nox"]
 [ext_resource type="Script" path="res://_Project/Scripts/Player/PlayerMovementComponent.gd" id="2_rer0t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nd5uj"]
@@ -15,10 +16,14 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_6aw7l")
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="PlayerAnimated" type="CharacterBody3D" node_paths=PackedStringArray("movementComponent", "visionArea") groups=["Player"]]
+[node name="PlayerAnimated" type="CharacterBody3D" node_paths=PackedStringArray("inputComponent", "movementComponent", "visionArea") groups=["Player"]]
 script = ExtResource("1_nrr5b")
+inputComponent = NodePath("PlayerInputComponent")
 movementComponent = NodePath("PlayerMovementComponent")
 visionArea = NodePath("Vision")
+
+[node name="PlayerInputComponent" type="Node" parent="."]
+script = ExtResource("2_27nox")
 
 [node name="PlayerMovementComponent" type="Node" parent="." node_paths=PackedStringArray("model", "animation")]
 script = ExtResource("2_rer0t")

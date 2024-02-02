@@ -1,7 +1,9 @@
 class_name Player extends CharacterBody3D
 
+@export var inputComponent : PlayerInputComponent
 @export var movementComponent : PlayerMovementComponent
 @export var visionArea : MeshInstance3D
 
 func _physics_process(delta):
-	movementComponent.move(self, delta)
+	inputComponent.process_input(self, delta)
+	movementComponent.process_move(self, delta)
