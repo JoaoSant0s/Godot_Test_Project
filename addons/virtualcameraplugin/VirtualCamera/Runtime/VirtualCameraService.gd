@@ -10,11 +10,11 @@ var _simulationFactory : Dictionary = {}
 
 func _init():
 	#TODO: We need to refresh the project to apply new changes on this part of the code
-	_simulationFactory[TypeCameras.TransitionMethods.CUT] = func(pCamera: VirtualCamera, nCamera : VirtualCamera, config : TransitionConfig) -> CameraTransitionSimulator:
-		return CutTransitionSimulator.new(pCamera, nCamera, config)
+	_simulationFactory[TypeCameras.TransitionMethods.CUT] = func(pCamera: VirtualCamera, nCamera : VirtualCamera, methodConfig : TransitionMethodConfig) -> CameraTransitionSimulator:
+		return CutTransitionSimulator.new(pCamera, nCamera, methodConfig)
 		
-	_simulationFactory[TypeCameras.TransitionMethods.LINEAR] = func(pCamera: VirtualCamera, nCamera : VirtualCamera, config : TransitionConfig) -> CameraTransitionSimulator:
-		return LinearTransitionSimulator.new(pCamera, nCamera, config)
+	_simulationFactory[TypeCameras.TransitionMethods.LINEAR] = func(pCamera: VirtualCamera, nCamera : VirtualCamera, methodConfig : TransitionMethodConfig) -> CameraTransitionSimulator:
+		return LinearTransitionSimulator.new(pCamera, nCamera, methodConfig)
 
 func _ready():
 	onEnabledModified.connect(_virtualCameraEnabledModified)
@@ -111,12 +111,7 @@ func isTagUnique(camera : VirtualCamera):
 	return isUnique
 
 func buildCameraSimulation(pCamera: VirtualCamera, nCamera : VirtualCamera, config : TransitionConfig) -> CameraTransitionSimulator:
-	var type = config.defaultTransitionMethod.type
+	var transitionMethod = config.getMatchedTransitionMethod(pCamera, nCamera)
 	
-	# TODO
-	## Check the Tag and Group of the Previous and Next Virtual Camera
-	## If not match, use de default transition	
-	## Passing the TransitionMethodConfig and not the TransitionConfig as the selected parameter
-	
-	assert(_simulationFactory.has(type), "Must create a trasition class of the type %s" % type)
-	return _simulationFactory[type].call(pCamera, nCamera, config)
+	assert(_simulationFactory.has(transitionMethod.type), "Must create a trasition class of the type %s" % transitionMethod.type)
+	return _simulationFactory[transitionMethod.type].call(pCamera, nCamera, transitionMethod)

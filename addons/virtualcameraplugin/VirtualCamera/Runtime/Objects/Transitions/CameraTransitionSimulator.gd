@@ -2,10 +2,10 @@ class_name  CameraTransitionSimulator
 
 var _previousCamera : VirtualCamera
 var _nextCamera : VirtualCamera
-var _transitionConfig : TransitionConfig
+var _transitionConfig : TransitionMethodConfig
 var timedElapsed : float
 
-func _init(previousCamera: VirtualCamera, nextCamera : VirtualCamera, transitionConfig : TransitionConfig):
+func _init(previousCamera: VirtualCamera, nextCamera : VirtualCamera, transitionConfig : TransitionMethodConfig):
 	_previousCamera = previousCamera
 	_nextCamera = nextCamera
 	_transitionConfig = transitionConfig
@@ -27,7 +27,7 @@ func getRotation(delta : float) -> Vector3:
 # End Override Region
 
 func _getDefaultDuration() -> float:
-	return _transitionConfig.defaultTransitionMethod.duration
+	return _transitionConfig.duration
 
 func buildPosition():
 	if _nextCamera.tracking.target:
