@@ -1,8 +1,8 @@
+@tool
 class_name TransitionConfig extends Resource
 
 @export var defaultTransitionMethod : TransitionMethodConfig
 @export var transitionBlendConfig : Array[TransitionBlendConfig]
-
 
 func getMatchedTransitionMethod(pCamera: VirtualCamera, nCamera : VirtualCamera) -> TransitionMethodConfig:
 	var result : TransitionMethodConfig = null
