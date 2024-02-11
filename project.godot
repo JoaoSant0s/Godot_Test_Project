@@ -23,7 +23,7 @@ VirtualCameraService="*res://addons/virtualcameraplugin/VirtualCamera/Runtime/Vi
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/virtualcameraplugin/plugin.cfg")
+enabled=PackedStringArray("res://addons/virtualcameraplugin/plugin.cfg")
 
 [file_customization]
 
@@ -85,4 +85,5 @@ run={
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
