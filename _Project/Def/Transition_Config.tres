@@ -16,6 +16,7 @@ duration = 0.0
 
 [sub_resource type="Resource" id="Resource_kfjhc"]
 script = ExtResource("3_kb1ry")
+from = ExtResource("3_q3v14")
 to = ExtResource("4_vyekx")
 transitionMethod = ExtResource("5_ldlyh")
 
