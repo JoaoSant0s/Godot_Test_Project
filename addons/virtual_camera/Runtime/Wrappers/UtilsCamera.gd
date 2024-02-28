@@ -6,15 +6,19 @@ const playModeTag = "[Play_Mode] "
 
 static func createLensComponent(camera : VirtualCamera):
 	var hasComponent = camera.get_children().any(func (node): return node is LensComponent);
-	if hasComponent: return
-			
+	if hasComponent:
+		camera.lens = camera.get_node("LensComponent") as LensComponent
+		return
+
 	var instance = _createComponent("LensComponent", "res://addons/virtual_camera/LensComponent.tscn", camera) as LensComponent
 	camera.lens = instance;
 	instance.set_owner(camera.get_tree().edited_scene_root)
 
 static func createTrackingComponent(camera : VirtualCamera):
 	var hasComponent = camera.get_children().any(func (node): return node is TrackingComponent);
-	if hasComponent: return
+	if hasComponent: 
+		camera.tracking = camera.get_node("TrackingComponent") as TrackingComponent
+		return
 
 	var instance = _createComponent("TrackingComponent", "res://addons/virtual_camera/TrackingComponent.tscn", camera) as TrackingComponent
 	camera.tracking = instance;
