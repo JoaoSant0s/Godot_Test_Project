@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="BootConfig" load_steps=2 format=3 uid="uid://v5mift4jcfiq"]
-
-[ext_resource type="Script" path="res://_Project/Scripts/Boot/BootConfig.gd" id="2_tmr5l"]
-
-[resource]
-script = ExtResource("2_tmr5l")
-usingMainScene = false
-scene2DPath = "res://_Project/Scenes/scene_2d.tscn"
-scene3DPath = "res://_Project/Scenes/scene_3d.tscn"
