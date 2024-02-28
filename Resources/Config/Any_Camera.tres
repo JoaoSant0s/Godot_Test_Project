@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="CameraIdAsset" load_steps=2 format=3 uid="uid://bp7sbjeepnepo"]
 
-[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/CameraIdAsset.gd" id="1_2fm7l"]
+[ext_resource type="Script" path="res://addons/virtual_camera/Runtime/Configs/CameraIdAsset.gd" id="1_2fm7l"]
+
 
 [resource]
 script = ExtResource("1_2fm7l")

@@ -11,11 +11,11 @@ static var Instance;
 
 func _enter_tree():
 	Instance = self
-	add_autoload_singleton(AUTOLOAD_CAMERA_SERVICE, "res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCameraService.gd")
-	add_custom_type(MAIN_CAMERA_NAME, "Camera3D", preload("res://addons/virtualcameraplugin/VirtualCamera/Runtime/MainCamera.gd"), preload("res://addons/virtualcameraplugin/VirtualCamera/Icons/camera-main.svg"))
-	add_custom_type(VIRTUAL_CAMERA_NAME, "Node3D", preload("res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCamera.gd"), preload("res://addons/virtualcameraplugin/VirtualCamera/Icons/camera-virtual.svg"))
+	add_autoload_singleton(AUTOLOAD_CAMERA_SERVICE, "res://addons/virtual_camera/Runtime/VirtualCameraService.gd")
+	add_custom_type(MAIN_CAMERA_NAME, "Camera3D", preload("res://addons/virtual_camera/Runtime/MainCamera.gd"), preload("res://addons/virtual_camera/Icons/camera-main.svg"))
+	add_custom_type(VIRTUAL_CAMERA_NAME, "Node3D", preload("res://addons/virtual_camera/Runtime/VirtualCamera.gd"), preload("res://addons/virtual_camera/Icons/camera-virtual.svg"))
 	
-	dock = preload("res://addons/virtualcameraplugin/VirtualCamera/Prefabs/VirtualCameraDock.tscn").instantiate()
+	dock = preload("res://addons/virtual_camera/Prefabs/VirtualCameraDock.tscn").instantiate()
 	add_control_to_dock(DOCK_SLOT_RIGHT_BR, dock)
 	
 func _exit_tree():

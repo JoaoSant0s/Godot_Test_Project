@@ -8,7 +8,7 @@ static func createLensComponent(camera : VirtualCamera):
 	var hasComponent = camera.get_children().any(func (node): return node is LensComponent);
 	if hasComponent: return
 			
-	var instance = _createComponent("LensComponent", "res://addons/virtualcameraplugin/VirtualCamera/Prefabs/LensComponent.tscn", camera) as LensComponent
+	var instance = _createComponent("LensComponent", "res://addons/virtual_camera/LensComponent.tscn", camera) as LensComponent
 	camera.lens = instance;
 	instance.set_owner(camera.get_tree().edited_scene_root)
 
@@ -16,7 +16,7 @@ static func createTrackingComponent(camera : VirtualCamera):
 	var hasComponent = camera.get_children().any(func (node): return node is TrackingComponent);
 	if hasComponent: return
 
-	var instance = _createComponent("TrackingComponent", "res://addons/virtualcameraplugin/VirtualCamera/Prefabs/TrackingComponent.tscn", camera) as TrackingComponent
+	var instance = _createComponent("TrackingComponent", "res://addons/virtual_camera/TrackingComponent.tscn", camera) as TrackingComponent
 	camera.tracking = instance;
 	instance.set_owner(camera.get_tree().edited_scene_root)
 

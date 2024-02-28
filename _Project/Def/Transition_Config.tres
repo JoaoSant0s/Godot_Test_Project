@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="TransitionConfig" load_steps=13 format=3 uid="uid://fswp2a3e8v2p"]
 
-[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionMethodConfig.gd" id="1_qqfv4"]
-[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionConfig.gd" id="2_v04md"]
-[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/Transition/TransitionBlendConfig.gd" id="3_kb1ry"]
+[ext_resource type="Script" path="res://addons/virtual_camera/Runtime/Configs/Transition/TransitionMethodConfig.gd" id="1_qqfv4"]
+[ext_resource type="Script" path="res://addons/virtual_camera/Runtime/Configs/Transition/TransitionConfig.gd" id="2_v04md"]
+[ext_resource type="Script" path="res://addons/virtual_camera/Runtime/Configs/Transition/TransitionBlendConfig.gd" id="3_kb1ry"]
 [ext_resource type="Resource" uid="uid://bp7sbjeepnepo" path="res://Resources/Config/Any_Camera.tres" id="3_q3v14"]
 [ext_resource type="Resource" uid="uid://cfdjavj7h5fwq" path="res://_Project/Def/CameraIds/Tags/Tag_1.tres" id="4_vyekx"]
 [ext_resource type="Resource" uid="uid://pqoapjhaehwq" path="res://_Project/Def/TransitionMethods/Transition_Cut.tres" id="5_ldlyh"]

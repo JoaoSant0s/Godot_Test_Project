@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c80p5p4vscyy3"
-path="res://.godot/imported/camera-main.svg-ed19faca3093b4bb9df2fcb62983a907.ctex"
+path="res://.godot/imported/camera-main.svg-64ad09dcc70676c4cf8699c4e3dd75a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/virtualcameraplugin/VirtualCamera/Icons/camera-main.svg"
-dest_files=["res://.godot/imported/camera-main.svg-ed19faca3093b4bb9df2fcb62983a907.ctex"]
+source_file="res://addons/virtual_camera/Icons/camera-main.svg"
+dest_files=["res://.godot/imported/camera-main.svg-64ad09dcc70676c4cf8699c4e3dd75a9.ctex"]
 
 [params]
 
