@@ -31,7 +31,7 @@ func _getDefaultDuration() -> float:
 
 func buildPosition():
 	if _nextCamera.tracking.target:
-		_nextCamera.global_position = _nextCamera.tracking.target.global_position
+		_nextCamera.global_position = _nextCamera.tracking.GetPosition()
 
 func buildRotation():
 	if _nextCamera.tracking.target and _nextCamera.tracking.IsRotationControlSameAsFollowTarget():

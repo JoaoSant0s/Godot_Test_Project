@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://8jteo7my42mn"]
+[gd_scene load_steps=34 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://addons/virtual_camera/Runtime/MainCamera.gd" id="1_iwil1"]
 [ext_resource type="Resource" uid="uid://fswp2a3e8v2p" path="res://_Project/Def/Transition_Config.tres" id="2_ujwvp"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerFirstPersonFixedRotation.gd" id="12_t8xsy"]
 [ext_resource type="Resource" uid="uid://cfdjavj7h5fwq" path="res://_Project/Def/CameraIds/Tags/Tag_1.tres" id="13_lw0ap"]
 [ext_resource type="Texture2D" uid="uid://d3bvf2fbi0mco" path="res://_Project/Images/fixed_follow.png" id="13_ptxqf"]
+[ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerFixedFollow.gd" id="14_hx7bl"]
 [ext_resource type="PackedScene" uid="uid://dcb36mswjmwa0" path="res://_Project/Prefabs/PlayerAnimated.tscn" id="14_whbbk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ltd4g"]
@@ -169,8 +170,8 @@ transform = Transform3D(0.798092, -0.0696505, 0.450528, 0, 4.99121, 0.771629, -0
 script = ExtResource("5_sr7hp")
 enabled = false
 group = ExtResource("10_nrr7s")
-lens = NodePath("../../FixedCameraTrigger/VirtualCamera_2/LensComponent")
-tracking = NodePath("../../FixedCameraTrigger/VirtualCamera_2/TrackingComponent")
+lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
 
 [node name="LensComponent" parent="FixedCameraTrigger2/VirtualCamera_3" instance=ExtResource("6_eemh7")]
 
@@ -206,7 +207,7 @@ rotationControl = 2
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 10.1997, 0.033, -1.419)
 material_override = SubResource("StandardMaterial3D_4tj37")
 mesh = SubResource("PlaneMesh_igw6b")
-script = ExtResource("9_i2fph")
+script = ExtResource("14_hx7bl")
 collisionArea = NodePath("Area3D")
 virtualCamera = NodePath("VirtualCamera_5")
 
@@ -216,7 +217,7 @@ virtualCamera = NodePath("VirtualCamera_5")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera_5" type="Node3D" parent="FollowFixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.722511, 0, 0.568116, 0, 5.0505, 0, -0.61811, 0, 0.786091, 5.47902, 8.71768, 11.0016)
+transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00974, 0.640361, 0.617324, -0.099748, 0.78036, 5.47902, 8.71768, 11.0016)
 script = ExtResource("5_sr7hp")
 enabled = false
 lens = NodePath("LensComponent")
@@ -226,6 +227,8 @@ tracking = NodePath("TrackingComponent")
 fov = 60.0
 
 [node name="TrackingComponent" parent="FollowFixedCameraTrigger/VirtualCamera_5" instance=ExtResource("7_ihbdn")]
+positionControl = 2
+followOffset = Vector3(0, 2, 7)
 
 [node name="Block" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.01851, 0, 5.04211)
