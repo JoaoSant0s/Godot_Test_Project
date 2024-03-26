@@ -1,0 +1,91 @@
+[gd_scene load_steps=3 format=3 uid="uid://be4mmvala77e7"]
+
+[ext_resource type="Script" path="res://addons/virtual_camera/Editor/VirtualCameraDock.gd" id="1_qrwc5"]
+
+
+[sub_resource type="LabelSettings" id="LabelSettings_v523n"]
+font_color = Color(1, 0.25098, 1, 1)
+
+[node name="VirtualCameraDock" type="Panel" node_paths=PackedStringArray("selectEnabledVirtualCameras", "selectAllVirtualCameras", "selectMainCamera", "forceActiveSelectedCamera", "selectVirtualCameraWithTag", "virtualCameraTagInput", "selectVirtualCamerasWithGroup", "virtualCameraGroupInput")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -864.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_qrwc5")
+selectEnabledVirtualCameras = NodePath("VBoxContainer/SelectActiveVirtualCamera")
+selectAllVirtualCameras = NodePath("VBoxContainer/SelectAllVirtualCameras")
+selectMainCamera = NodePath("VBoxContainer/SelectMainCamera")
+forceActiveSelectedCamera = NodePath("VBoxContainer/ForceActiveSelectedCamera")
+selectVirtualCameraWithTag = NodePath("VBoxContainer/HBoxContainer/SelectVirtualCameraByTag")
+virtualCameraTagInput = NodePath("VBoxContainer/HBoxContainer/TagInput")
+selectVirtualCamerasWithGroup = NodePath("VBoxContainer/HBoxContainer2/SelectVirtualCamerasByGroup")
+virtualCameraGroupInput = NodePath("VBoxContainer/HBoxContainer2/GroupInput2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 270.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Core VC Selection"
+label_settings = SubResource("LabelSettings_v523n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SelectActiveVirtualCamera" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select Active VC"
+
+[node name="SelectAllVirtualCameras" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select All VCs"
+
+[node name="SelectMainCamera" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select Main Camera"
+
+[node name="ForceActiveSelectedCamera" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Force Active Selected VC"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select VCs by Camera Ids"
+label_settings = SubResource("LabelSettings_v523n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectVirtualCameraByTag" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VCs By Tag Name"
+
+[node name="TagInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Tag Here"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectVirtualCamerasByGroup" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VCs By Group Name"
+
+[node name="GroupInput2" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Group Here"

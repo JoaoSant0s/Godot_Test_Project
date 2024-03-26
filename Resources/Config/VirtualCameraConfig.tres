@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="VirtualCameraConfig" load_steps=3 format=3 uid="uid://d3afn0oge3r0v"]
 
-[ext_resource type="Script" path="res://addons/virtualcameraplugin/VirtualCamera/Runtime/Configs/VirtualCameraConfig.gd" id="1_f3l50"]
+[ext_resource type="Script" path="res://addons/virtual_camera/Runtime/Configs/VirtualCameraConfig.gd" id="1_f3l50"]
 [ext_resource type="Resource" uid="uid://bp7sbjeepnepo" path="res://Resources/Config/Any_Camera.tres" id="1_x0hy2"]
+
 
 [resource]
 script = ExtResource("1_f3l50")

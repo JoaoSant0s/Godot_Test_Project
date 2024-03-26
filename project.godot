@@ -10,25 +10,24 @@ config_version=5
 
 [application]
 
-config/name="Test_Project"
+config/name="virtual_camera"
 config/tags=PackedStringArray("personal")
-run/main_scene="res://_Project/Scenes/boot.tscn"
+run/main_scene="res://_Project/Scenes/main.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://_Project/Images/icon.svg"
 
 [autoload]
 
 UiSignals="*res://_Project/Scripts/UiSignals.gd"
-VirtualCameraService="*res://addons/virtualcameraplugin/VirtualCamera/Runtime/VirtualCameraService.gd"
+VirtualCameraService="*res://addons/virtual_camera/Runtime/VirtualCameraService.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/script-tabs/plugin.cfg", "res://addons/virtualcameraplugin/plugin.cfg")
+enabled=PackedStringArray("res://addons/script-tabs/plugin.cfg", "res://addons/script_search/plugin.cfg", "res://addons/virtual_camera/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
-"res://_Project/Config/": "blue",
 "res://_Project/Def/": "blue",
 "res://_Project/Images/": "orange",
 "res://_Project/Models/": "red",

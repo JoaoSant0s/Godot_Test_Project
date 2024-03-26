@@ -6,16 +6,16 @@ class_name PlatformTrigger extends Node
 func _ready():
 	collisionArea.body_entered.connect(_trigger_platform)
 
-func _playerTriggered(_player : Player):
+func _player_triggered(_player : Player):
 	pass
 
 func _trigger_platform(body : Node3D):
 	if not body.is_in_group("Player"): return
-	if virtualCamera.isActiveCamera():
+	if virtualCamera.is_active_camera():
 		return
 
-	_playerTriggered(body as Player)
-	virtualCamera.forceActiveCamera()
+	_player_triggered(body as Player)
+	virtualCamera.force_active_camera()
 
 func _exit_tree():
 	collisionArea.body_entered.disconnect(_trigger_platform)
