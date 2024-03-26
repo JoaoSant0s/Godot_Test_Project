@@ -2,15 +2,15 @@ class_name LinearTransitionSimulator extends CameraTransitionSimulator
 
 var timePercentage : float
 
-func buildTimePercentage():
-	var duration = _getDefaultDuration()
+func build_time_percentage():
+	var duration = _get_default_duration()
 	timePercentage = timedElapsed / duration
 	timePercentage = min(1, timePercentage)
 	
-func preUpdate(delta : float):
-	buildTimePercentage()
+func pre_update(delta : float):
+	build_time_percentage()
 
-func getPosition(delta : float) -> Vector3:
+func get_position(delta : float) -> Vector3:
 	var nextPosition = _nextCamera.global_position
 	
 	if _previousCamera == null: return nextPosition
@@ -20,7 +20,7 @@ func getPosition(delta : float) -> Vector3:
 	
 	return _previousCamera.global_position.lerp(nextPosition, timePercentage)
 
-func getRotation(delta : float) -> Vector3:
+func get_rotation(delta : float) -> Vector3:
 	var nextRotation = _nextCamera.global_rotation
 
 	if _previousCamera == null: return nextRotation

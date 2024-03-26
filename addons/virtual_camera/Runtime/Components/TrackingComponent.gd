@@ -18,16 +18,16 @@ var trackingSubProperties : TrackingSubProperties
 func _init():
 	trackingSubProperties = TrackingSubProperties.new()
 
-func IsPositionControlNone() -> bool:
+func is_position_control_none() -> bool:
 	return positionControl == TypeCameras.PositionControl.NONE
 	
-func IsRotationControlNone() -> bool:
+func is_rotation_control_none() -> bool:
 	return rotationControl == TypeCameras.RotationControl.NONE
 
-func IsRotationControlSameAsFollowTarget() -> bool:
+func is_rotation_control_same_as_follow_target() -> bool:
 	return rotationControl == TypeCameras.RotationControl.SAME_AS_FOLLOW_TARGET
 
-func GetPosition() -> Vector3:
+func get_position() -> Vector3:
 	var position = target.global_position
 
 	if positionControl == TypeCameras.PositionControl.FOLLOW:

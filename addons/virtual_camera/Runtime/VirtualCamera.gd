@@ -33,7 +33,7 @@ var _isEditorMode = Engine.is_editor_hint()
 		return tag
 	set(value):
 		tag = value
-		_tagValidator(value)
+		_tag_validator(value)
 
 @export var group : CameraGroupAsset
 
@@ -42,30 +42,30 @@ var _isEditorMode = Engine.is_editor_hint()
 @export var lens : LensComponent
 @export var tracking : TrackingComponent
 
-func _tagValidator(value : CameraTagAsset):
+func _tag_validator(value : CameraTagAsset):
 	if null == value: return
-	if not VirtualCameraService.isTagUnique(self):
+	if not VirtualCameraService.is_tag_unique(self):
 		tag = null;
 
-func isActiveCamera() -> bool:
-	return VirtualCameraService.isCurrentCamera(self)
+func is_active_camera() -> bool:
+	return VirtualCameraService.is_current_camera(self)
 
-func forceActiveCamera() -> bool:
-	if isActiveCamera(): return false;
+func force_active_camera() -> bool:
+	if is_active_camera(): return false;
 
-	VirtualCameraService.forceActive(self)
+	VirtualCameraService.force_active(self)
 	return true
 	
 func _enter_tree():
-	VirtualCameraService.addVirtualCamera(self)
+	VirtualCameraService.add_virtual_camera(self)
 
 func _ready():
 	if not _isEditorMode: return
-	UtilsCamera.createLensComponent(self)
-	UtilsCamera.createTrackingComponent(self)
+	UtilsCamera.create_lens_component(self)
+	UtilsCamera.create_tracking_component(self)
 	
 func _exit_tree():
-	VirtualCameraService.removeVirtualCamera(self)
+	VirtualCameraService.remove_virtual_camera(self)
 
 func _to_string():
 	return "%s" % name

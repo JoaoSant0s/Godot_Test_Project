@@ -13,33 +13,33 @@ func _init(previousCamera: VirtualCamera, nextCamera : VirtualCamera, transition
 
 # Start Override Region
 
-func preUpdate(delta : float):
+func pre_update(delta : float):
 	pass
 
-func getPosition(delta : float) -> Vector3:
+func get_position(delta : float) -> Vector3:
 	UtilsCamera.log("Must override this method")
 	return Vector3.ZERO
 	
-func getRotation(delta : float) -> Vector3:
+func get_rotation(delta : float) -> Vector3:
 	UtilsCamera.log("Must override this method")
 	return Vector3.ZERO
 
 # End Override Region
 
-func _getDefaultDuration() -> float:
+func _get_default_duration() -> float:
 	return _transitionConfig.duration
 
-func buildPosition():
+func build_position():
 	if _nextCamera.tracking.target:
-		_nextCamera.global_position = _nextCamera.tracking.GetPosition()
+		_nextCamera.global_position = _nextCamera.tracking.get_position()
 
-func buildRotation():
-	if _nextCamera.tracking.target and _nextCamera.tracking.IsRotationControlSameAsFollowTarget():
+func build_rotation():
+	if _nextCamera.tracking.target and _nextCamera.tracking.is_rotation_control_same_as_follow_target():
 		_nextCamera.global_rotation = _nextCamera.tracking.target.global_rotation
 
-func hasNextCamera() -> bool:
+func has_next_camera() -> bool:
 	return _nextCamera != null
 
-func calculateTimeElapsed(delta : float):
+func calculate_time_elapsed(delta : float):
 	if delta < 0: return
 	timedElapsed += delta

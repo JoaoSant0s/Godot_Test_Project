@@ -1,4 +1,4 @@
 class_name PlatformTriggerFirstPersonFixedRotation extends PlatformTrigger
 
-func _playerTriggered(player : Player):
+func _player_triggered(player : Player):
 	virtualCamera.tracking.target = player.visionArea

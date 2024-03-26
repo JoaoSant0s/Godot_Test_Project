@@ -25,13 +25,13 @@ func _exit_tree():
 	remove_control_from_docks(dock)
 	dock.free()
 
-func clearSelection():
+func clear_selection():
 	get_editor_interface().get_selection().clear()
 
-func addNode(node):
+func add_node(node):
 	get_editor_interface().get_selection().add_node(node)
 
-func getSelectedVirtualCamera() -> VirtualCamera:
+func get_selected_virtual_camera() -> VirtualCamera:
 	var selectedNodes = get_editor_interface().get_selection().get_selected_nodes()
 	
 	if selectedNodes.size() == 0: return null
