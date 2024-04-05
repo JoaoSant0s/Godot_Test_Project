@@ -2,6 +2,5 @@
 
 [ext_resource type="Script" path="res://addons/virtual_camera/Runtime/Configs/CameraIdAsset.gd" id="1_2fm7l"]
 
-
 [resource]
 script = ExtResource("1_2fm7l")

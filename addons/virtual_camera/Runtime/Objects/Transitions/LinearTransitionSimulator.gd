@@ -17,6 +17,7 @@ func get_position(delta : float) -> Vector3:
 	if delta < 0: return _previousCamera.global_position
 
 	if timePercentage >= 1: return nextPosition
+	# TODO maybe the dapping effect must be applied here
 	
 	return _previousCamera.global_position.lerp(nextPosition, timePercentage)
 

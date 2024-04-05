@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://8jteo7my42mn"]
+[gd_scene load_steps=37 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://addons/virtual_camera/Runtime/MainCamera.gd" id="1_iwil1"]
 [ext_resource type="Resource" uid="uid://fswp2a3e8v2p" path="res://_Project/Def/Transition_Config.tres" id="2_ujwvp"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://d3bvf2fbi0mco" path="res://_Project/Images/fixed_follow.png" id="13_ptxqf"]
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerFixedFollow.gd" id="14_hx7bl"]
 [ext_resource type="PackedScene" uid="uid://dcb36mswjmwa0" path="res://_Project/Prefabs/PlayerAnimated.tscn" id="14_whbbk"]
+[ext_resource type="Texture2D" uid="uid://dsrumc2cwnbx8" path="res://_Project/Images/orbital_drone_camera.png" id="16_t7ly4"]
+[ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerOrbital.gd" id="17_wciio"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ltd4g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -35,6 +37,16 @@ size = Vector2(50, 50)
 [sub_resource type="BoxShape3D" id="BoxShape3D_yu2g2"]
 custom_solver_bias = 1.0
 size = Vector3(50, 0.1, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wpuei"]
+albedo_color = Color(0.733333, 0.611765, 0.188235, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bskhn"]
+material = SubResource("StandardMaterial3D_wpuei")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nu2ts"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wtq34"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n3ybm"]
 albedo_texture = ExtResource("3_rm46m")
@@ -64,15 +76,8 @@ albedo_texture = SubResource("CompressedTexture2D_pnm0s")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4tj37"]
 albedo_texture = ExtResource("13_ptxqf")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wpuei"]
-albedo_color = Color(0.733333, 0.611765, 0.188235, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_bskhn"]
-material = SubResource("StandardMaterial3D_wpuei")
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nu2ts"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wtq34"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wmgw"]
+albedo_texture = ExtResource("16_t7ly4")
 
 [node name="Scene3d" type="Node3D"]
 
@@ -99,137 +104,6 @@ mesh = SubResource("PlaneMesh_4phwd")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
 shape = SubResource("BoxShape3D_yu2g2")
 
-[node name="LookAtRotationCameraTrigger" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -6, 0.033, -1.419)
-material_override = SubResource("StandardMaterial3D_n3ybm")
-mesh = SubResource("PlaneMesh_igw6b")
-script = ExtResource("4_ql871")
-collisionArea = NodePath("Area3D")
-virtualCamera = NodePath("VirtualCamera_1")
-
-[node name="Area3D" type="Area3D" parent="LookAtRotationCameraTrigger"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LookAtRotationCameraTrigger/Area3D"]
-shape = SubResource("BoxShape3D_wq0mj")
-
-[node name="VirtualCamera_1" type="Node3D" parent="LookAtRotationCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.919118, 0, 0, 0, 4.05486, 3.01093, 0, -0.596164, 0.802863, 5.371, 88.8724, 13.5852)
-script = ExtResource("5_sr7hp")
-enabled = false
-lens = NodePath("LensComponent")
-tracking = NodePath("TrackingComponent")
-
-[node name="LensComponent" parent="LookAtRotationCameraTrigger/VirtualCamera_1" instance=ExtResource("6_eemh7")]
-
-[node name="TrackingComponent" parent="LookAtRotationCameraTrigger/VirtualCamera_1" instance=ExtResource("7_ihbdn")]
-
-[node name="SubViewport" type="SubViewport" parent="LookAtRotationCameraTrigger"]
-
-[node name="FixedCameraTrigger" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -1.94796, 0.033, -1.419)
-material_override = SubResource("StandardMaterial3D_pka7c")
-cast_shadow = 0
-mesh = SubResource("PlaneMesh_igw6b")
-script = ExtResource("9_i2fph")
-collisionArea = NodePath("Area3D_1")
-virtualCamera = NodePath("VirtualCamera_2")
-
-[node name="Area3D_1" type="Area3D" parent="FixedCameraTrigger"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FixedCameraTrigger/Area3D_1"]
-shape = SubResource("BoxShape3D_au2w7")
-
-[node name="VirtualCamera_2" type="Node3D" parent="FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00974, 0.640361, 0.617324, -0.099748, 0.78036, -5.43204, 18.0212, 15.511)
-script = ExtResource("5_sr7hp")
-group = ExtResource("10_nrr7s")
-lens = NodePath("LensComponent")
-tracking = NodePath("TrackingComponent")
-
-[node name="LensComponent" parent="FixedCameraTrigger/VirtualCamera_2" instance=ExtResource("6_eemh7")]
-fov = 55.0
-
-[node name="TrackingComponent" parent="FixedCameraTrigger/VirtualCamera_2" instance=ExtResource("7_ihbdn")]
-
-[node name="FixedCameraTrigger2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 1.98938, 0.033, -1.419)
-material_override = SubResource("StandardMaterial3D_pka7c")
-cast_shadow = 0
-mesh = SubResource("PlaneMesh_igw6b")
-script = ExtResource("9_i2fph")
-collisionArea = NodePath("Area3D_2")
-virtualCamera = NodePath("VirtualCamera_3")
-
-[node name="Area3D_2" type="Area3D" parent="FixedCameraTrigger2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FixedCameraTrigger2/Area3D_2"]
-shape = SubResource("BoxShape3D_au2w7")
-
-[node name="VirtualCamera_3" type="Node3D" parent="FixedCameraTrigger2" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.798092, -0.0696505, 0.450528, 0, 4.99121, 0.771629, -0.495998, -0.132665, 0.85813, 5.67012, 17.477, 13.6291)
-script = ExtResource("5_sr7hp")
-enabled = false
-group = ExtResource("10_nrr7s")
-lens = NodePath("LensComponent")
-tracking = NodePath("TrackingComponent")
-
-[node name="LensComponent" parent="FixedCameraTrigger2/VirtualCamera_3" instance=ExtResource("6_eemh7")]
-
-[node name="TrackingComponent" parent="FixedCameraTrigger2/VirtualCamera_3" instance=ExtResource("7_ihbdn")]
-
-[node name="FirstPersonFixedRotationCameraTrigger" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 6.1461, 0.033, -1.419)
-material_override = SubResource("StandardMaterial3D_55sjg")
-mesh = SubResource("PlaneMesh_igw6b")
-script = ExtResource("12_t8xsy")
-collisionArea = NodePath("Area3D")
-virtualCamera = NodePath("VirtualCamera_4")
-
-[node name="Area3D" type="Area3D" parent="FirstPersonFixedRotationCameraTrigger"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FirstPersonFixedRotationCameraTrigger/Area3D"]
-shape = SubResource("BoxShape3D_wq0mj")
-
-[node name="VirtualCamera_4" type="Node3D" parent="FirstPersonFixedRotationCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.999999, 0, 0, 0, 5.04409, 0, 0, 0, 0.918317, -5.88692, 8.71769, 11.0016)
-script = ExtResource("5_sr7hp")
-enabled = false
-tag = ExtResource("13_lw0ap")
-lens = NodePath("LensComponent")
-tracking = NodePath("TrackingComponent")
-
-[node name="LensComponent" parent="FirstPersonFixedRotationCameraTrigger/VirtualCamera_4" instance=ExtResource("6_eemh7")]
-
-[node name="TrackingComponent" parent="FirstPersonFixedRotationCameraTrigger/VirtualCamera_4" instance=ExtResource("7_ihbdn")]
-rotationControl = 2
-
-[node name="FollowFixedCameraTrigger" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 10.1997, 0.033, -1.419)
-material_override = SubResource("StandardMaterial3D_4tj37")
-mesh = SubResource("PlaneMesh_igw6b")
-script = ExtResource("14_hx7bl")
-collisionArea = NodePath("Area3D")
-virtualCamera = NodePath("VirtualCamera_5")
-
-[node name="Area3D" type="Area3D" parent="FollowFixedCameraTrigger"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FollowFixedCameraTrigger/Area3D"]
-shape = SubResource("BoxShape3D_wq0mj")
-
-[node name="VirtualCamera_5" type="Node3D" parent="FollowFixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00974, 0.640361, 0.617324, -0.099748, 0.78036, 5.47902, 8.71768, 11.0016)
-script = ExtResource("5_sr7hp")
-enabled = false
-lens = NodePath("LensComponent")
-tracking = NodePath("TrackingComponent")
-
-[node name="LensComponent" parent="FollowFixedCameraTrigger/VirtualCamera_5" instance=ExtResource("6_eemh7")]
-fov = 60.0
-
-[node name="TrackingComponent" parent="FollowFixedCameraTrigger/VirtualCamera_5" instance=ExtResource("7_ihbdn")]
-positionControl = 2
-followOffset = Vector3(0, 2, 7)
-
 [node name="Block" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.01851, 0, 5.04211)
 mesh = SubResource("BoxMesh_bskhn")
@@ -240,11 +114,187 @@ physics_material_override = SubResource("PhysicsMaterial_nu2ts")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Block/StaticBody3D"]
 shape = SubResource("BoxShape3D_wtq34")
 
+[node name="Block2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.67625, 0, -6.6008)
+mesh = SubResource("BoxMesh_bskhn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Block2"]
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Block2/StaticBody3D"]
+shape = SubResource("BoxShape3D_wtq34")
+
 [node name="PlayerAnimated" parent="." instance=ExtResource("14_whbbk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.71387)
 
 [node name="torso" parent="PlayerAnimated/Character/character2/root" index="2"]
 transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871558, 0, -0.0871558, 0.996195, -1.80478e-15, 0.17625, -0.02375)
+
+[node name="PlatformCameras" type="Node" parent="."]
+
+[node name="LookAtRotationCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -6, 0.033, -1.419)
+material_override = SubResource("StandardMaterial3D_n3ybm")
+mesh = SubResource("PlaneMesh_igw6b")
+skeleton = NodePath("../..")
+script = ExtResource("4_ql871")
+collisionArea = NodePath("Area3D")
+virtualCamera = NodePath("VirtualCamera_1")
+
+[node name="Area3D" type="Area3D" parent="PlatformCameras/LookAtRotationCameraTrigger"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformCameras/LookAtRotationCameraTrigger/Area3D"]
+shape = SubResource("BoxShape3D_wq0mj")
+
+[node name="VirtualCamera_1" type="Node3D" parent="PlatformCameras/LookAtRotationCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
+transform = Transform3D(0.919118, 0, 0, 0, 4.05486, 3.01093, 0, -0.596164, 0.802863, 5.371, 88.8724, 13.5852)
+script = ExtResource("5_sr7hp")
+enabled = false
+lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
+
+[node name="LensComponent" parent="PlatformCameras/LookAtRotationCameraTrigger/VirtualCamera_1" instance=ExtResource("6_eemh7")]
+
+[node name="TrackingComponent" parent="PlatformCameras/LookAtRotationCameraTrigger/VirtualCamera_1" instance=ExtResource("7_ihbdn")]
+
+[node name="SubViewport" type="SubViewport" parent="PlatformCameras/LookAtRotationCameraTrigger"]
+
+[node name="FixedCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -1.94796, 0.033, -1.419)
+material_override = SubResource("StandardMaterial3D_pka7c")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_igw6b")
+skeleton = NodePath("../..")
+script = ExtResource("9_i2fph")
+collisionArea = NodePath("Area3D_1")
+virtualCamera = NodePath("VirtualCamera_2")
+
+[node name="Area3D_1" type="Area3D" parent="PlatformCameras/FixedCameraTrigger"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformCameras/FixedCameraTrigger/Area3D_1"]
+shape = SubResource("BoxShape3D_au2w7")
+
+[node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
+transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00974, 0.640361, 0.617324, -0.099748, 0.78036, -5.43204, 18.0212, 15.511)
+script = ExtResource("5_sr7hp")
+group = ExtResource("10_nrr7s")
+lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
+
+[node name="LensComponent" parent="PlatformCameras/FixedCameraTrigger/VirtualCamera_2" instance=ExtResource("6_eemh7")]
+fov = 55.0
+
+[node name="TrackingComponent" parent="PlatformCameras/FixedCameraTrigger/VirtualCamera_2" instance=ExtResource("7_ihbdn")]
+
+[node name="FixedCameraTrigger2" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 1.98938, 0.033, -1.419)
+material_override = SubResource("StandardMaterial3D_pka7c")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_igw6b")
+skeleton = NodePath("../..")
+script = ExtResource("9_i2fph")
+collisionArea = NodePath("Area3D_2")
+virtualCamera = NodePath("VirtualCamera_3")
+
+[node name="Area3D_2" type="Area3D" parent="PlatformCameras/FixedCameraTrigger2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformCameras/FixedCameraTrigger2/Area3D_2"]
+shape = SubResource("BoxShape3D_au2w7")
+
+[node name="VirtualCamera_3" type="Node3D" parent="PlatformCameras/FixedCameraTrigger2" node_paths=PackedStringArray("lens", "tracking")]
+transform = Transform3D(0.798092, -0.0696505, 0.450528, 0, 4.99121, 0.771629, -0.495998, -0.132665, 0.85813, 5.67012, 17.477, 13.6291)
+script = ExtResource("5_sr7hp")
+enabled = false
+group = ExtResource("10_nrr7s")
+lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
+
+[node name="LensComponent" parent="PlatformCameras/FixedCameraTrigger2/VirtualCamera_3" instance=ExtResource("6_eemh7")]
+
+[node name="TrackingComponent" parent="PlatformCameras/FixedCameraTrigger2/VirtualCamera_3" instance=ExtResource("7_ihbdn")]
+
+[node name="FirstPersonFixedRotationCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 6.1461, 0.033, -1.419)
+material_override = SubResource("StandardMaterial3D_55sjg")
+mesh = SubResource("PlaneMesh_igw6b")
+skeleton = NodePath("../..")
+script = ExtResource("12_t8xsy")
+collisionArea = NodePath("Area3D")
+virtualCamera = NodePath("VirtualCamera_4")
+
+[node name="Area3D" type="Area3D" parent="PlatformCameras/FirstPersonFixedRotationCameraTrigger"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformCameras/FirstPersonFixedRotationCameraTrigger/Area3D"]
+shape = SubResource("BoxShape3D_wq0mj")
+
+[node name="VirtualCamera_4" type="Node3D" parent="PlatformCameras/FirstPersonFixedRotationCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
+transform = Transform3D(0.999999, 0, 0, 0, 5.04409, 0, 0, 0, 0.918317, -5.88692, 8.71769, 11.0016)
+script = ExtResource("5_sr7hp")
+enabled = false
+tag = ExtResource("13_lw0ap")
+lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
+
+[node name="LensComponent" parent="PlatformCameras/FirstPersonFixedRotationCameraTrigger/VirtualCamera_4" instance=ExtResource("6_eemh7")]
+
+[node name="TrackingComponent" parent="PlatformCameras/FirstPersonFixedRotationCameraTrigger/VirtualCamera_4" instance=ExtResource("7_ihbdn")]
+rotationControl = 2
+
+[node name="FollowFixedCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 10.1997, 0.033, -1.419)
+material_override = SubResource("StandardMaterial3D_4tj37")
+mesh = SubResource("PlaneMesh_igw6b")
+skeleton = NodePath("../..")
+script = ExtResource("14_hx7bl")
+collisionArea = NodePath("Area3D")
+virtualCamera = NodePath("VirtualCamera_5")
+
+[node name="Area3D" type="Area3D" parent="PlatformCameras/FollowFixedCameraTrigger"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformCameras/FollowFixedCameraTrigger/Area3D"]
+shape = SubResource("BoxShape3D_wq0mj")
+
+[node name="VirtualCamera_5" type="Node3D" parent="PlatformCameras/FollowFixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
+transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00974, 0.640361, 0.617324, -0.099748, 0.78036, 5.47902, 8.71768, 11.0016)
+script = ExtResource("5_sr7hp")
+enabled = false
+lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
+
+[node name="LensComponent" parent="PlatformCameras/FollowFixedCameraTrigger/VirtualCamera_5" instance=ExtResource("6_eemh7")]
+fov = 60.0
+
+[node name="TrackingComponent" parent="PlatformCameras/FollowFixedCameraTrigger/VirtualCamera_5" instance=ExtResource("7_ihbdn")]
+positionControl = 2
+followOffset = Vector3(0, 2, 7)
+
+[node name="OrbitalCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 14.3321, 0.033, -1.419)
+material_override = SubResource("StandardMaterial3D_2wmgw")
+mesh = SubResource("PlaneMesh_igw6b")
+skeleton = NodePath("../..")
+script = ExtResource("17_wciio")
+collisionArea = NodePath("Area3D")
+virtualCamera = NodePath("VirtualCamera_6")
+
+[node name="Area3D" type="Area3D" parent="PlatformCameras/OrbitalCameraTrigger"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformCameras/OrbitalCameraTrigger/Area3D"]
+shape = SubResource("BoxShape3D_wq0mj")
+
+[node name="VirtualCamera_6" type="Node3D" parent="PlatformCameras/OrbitalCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
+transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00974, 0.640361, 0.617324, -0.099748, 0.78036, 5.47902, 8.71768, 11.0016)
+script = ExtResource("5_sr7hp")
+enabled = false
+lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
+
+[node name="LensComponent" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6" instance=ExtResource("6_eemh7")]
+fov = 100.0
+
+[node name="TrackingComponent" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6" instance=ExtResource("7_ihbdn")]
+positionControl = 2
+followOffset = Vector3(0, 2, 7)
 
 [editable path="PlayerAnimated"]
 [editable path="PlayerAnimated/Character"]
