@@ -82,7 +82,7 @@ albedo_texture = ExtResource("16_t7ly4")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.786709, 0.0782714, -0.612342, 0, 0.991929, 0.126791, 0.617324, -0.099748, 0.78036, -7.85802, 3.6012, 14.092)
+transform = Transform3D(0.786574, 0.0782933, -0.612513, 0, 0.991929, 0.126791, 0.617496, -0.0997308, 0.780226, -7.85802, 3.6012, 14.0864)
 current = true
 fov = 55.0
 script = ExtResource("1_iwil1")
@@ -175,7 +175,7 @@ virtualCamera = NodePath("VirtualCamera_2")
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00974, 0.640361, 0.617324, -0.099748, 0.78036, -5.43204, 18.0212, 15.511)
+transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00692, 0.640361, 0.616972, -0.099704, 0.780008, -5.43204, 18.0212, 15.5054)
 script = ExtResource("5_sr7hp")
 group = ExtResource("10_nrr7s")
 lens = NodePath("LensComponent")
@@ -293,8 +293,11 @@ tracking = NodePath("TrackingComponent")
 fov = 100.0
 
 [node name="TrackingComponent" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6" instance=ExtResource("7_ihbdn")]
-positionControl = 2
-followOffset = Vector3(0, 2, 7)
+positionControl = 3
+followOffset = Vector3(0, 3, 7)
+radius = 2.0
+horizontalAxis = null
+verticalAxis = 0.0
 
 [editable path="PlayerAnimated"]
 [editable path="PlayerAnimated/Character"]

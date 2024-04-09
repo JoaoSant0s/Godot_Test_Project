@@ -28,12 +28,13 @@ func is_rotation_control_same_as_follow_target() -> bool:
 	return rotationControl == TypeCameras.RotationControl.SAME_AS_FOLLOW_TARGET
 
 func get_position() -> Vector3:
-	var position = target.global_position
+	return target.global_position
+	
+func get_position_offset() -> Vector3:
+	if positionControl == TypeCameras.PositionControl.FOLLOW or positionControl == TypeCameras.PositionControl.ORBITAL_FOLLOW:
+		return trackingSubProperties.get_property_value(TrackingSubProperties.FOLLOW_OFFSET)
 
-	if positionControl == TypeCameras.PositionControl.FOLLOW:
-		position += trackingSubProperties.get_property_value(TrackingSubProperties.FOLLOWOFFSET)
-
-	return position
+	return Vector3.ZERO
 	
 func _get_property_list() -> Array:
 	var property_list: Array[Dictionary]
