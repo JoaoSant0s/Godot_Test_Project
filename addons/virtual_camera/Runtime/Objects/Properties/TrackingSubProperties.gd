@@ -3,15 +3,25 @@ class_name TrackingSubProperties extends SubProperties
 const FOLLOW_OFFSET : StringName  = "followOffset"
 const RADIUS : StringName = "radius"
 
-const HORIZONTAL_AXIS : StringName = "horizontalAxis"
-const VERTICAL_AXIS : StringName = "verticalAxis"
+const HORIZONTAL_AXIS_VALUE : StringName = "horizontalAxisValue"
+const HORIZONTAL_AXIS_USING_RANGE : StringName = "horizontalAxisUsingRange"
+const HORIZONTAL_AXIS_RANGE : StringName = "horizontalAxisRange"
+
+const VERTICAL_AXIS_VALUE : StringName = "verticalAxisValue"
+const VERTICAL_AXIS_USING_RANGE : StringName = "verticalAxisUsingRange"
+const VERTICAL_AXIS_RANGE : StringName = "verticalAxisRange"
 
 func _init():
 	properties[FOLLOW_OFFSET] = Vector3.ZERO
 	properties[RADIUS] = 0.0
 
-	properties[HORIZONTAL_AXIS] = 0.0
-	properties[VERTICAL_AXIS] = 0.0
+	properties[HORIZONTAL_AXIS_VALUE] = 0.0
+	properties[HORIZONTAL_AXIS_USING_RANGE] = false
+	properties[HORIZONTAL_AXIS_RANGE] = Vector2.ZERO
+		
+	properties[VERTICAL_AXIS_VALUE] = 0.0
+	properties[VERTICAL_AXIS_USING_RANGE] = false
+	properties[VERTICAL_AXIS_RANGE] = Vector2.ZERO
 
 func build_properties(component : TrackingComponent) -> Array:
 	var property_list: Array[Dictionary]
@@ -47,12 +57,50 @@ func build_properties(component : TrackingComponent) -> Array:
 			"name": RADIUS,
 			"type": TYPE_FLOAT,
 		})
+		
 		property_list.append({
-			"name": HORIZONTAL_AXIS,
+			"name": "Horizontal Axis",
+			"type": TYPE_STRING_NAME,
+			"usage": PROPERTY_USAGE_SUBGROUP
+		})
+		
+		property_list.append({
+			"name": HORIZONTAL_AXIS_VALUE,
 			"type": TYPE_FLOAT
 		})
+		
 		property_list.append({
-			"name": VERTICAL_AXIS,
+			"name": HORIZONTAL_AXIS_USING_RANGE,
+			"type": TYPE_BOOL
+		})
+		
+		if properties.has(HORIZONTAL_AXIS_USING_RANGE) and properties[HORIZONTAL_AXIS_USING_RANGE]:
+			property_list.append({
+				"name": HORIZONTAL_AXIS_RANGE,
+				"type": TYPE_VECTOR2,
+				"description": "Test"
+			})
+		
+		property_list.append({
+			"name": "Vertical Axis",
+			"type": TYPE_STRING_NAME,
+			"usage": PROPERTY_USAGE_SUBGROUP
+		})
+		
+		property_list.append({
+			"name": VERTICAL_AXIS_VALUE,
 			"type": TYPE_FLOAT
 		})
+		
+		property_list.append({
+			"name": VERTICAL_AXIS_USING_RANGE,
+			"type": TYPE_BOOL
+		})
+		
+		if properties.has(VERTICAL_AXIS_USING_RANGE) and properties[VERTICAL_AXIS_USING_RANGE]:
+			property_list.append({
+				"name": VERTICAL_AXIS_RANGE,
+				"type": TYPE_VECTOR2
+			})
+		
 	return property_list
