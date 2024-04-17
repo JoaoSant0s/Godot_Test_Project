@@ -26,81 +26,84 @@ func _init():
 func build_properties(component : TrackingComponent) -> Array:
 	var property_list: Array[Dictionary]
 	
-	var isFollow = component.positionControl == TypeCameras.PositionControl.FOLLOW
-	var isOrbital = component.positionControl == TypeCameras.PositionControl.ORBITAL_FOLLOW
-	
-	if  isFollow:
-		property_list.append({
-			"name": "Follow",
-			"type": TYPE_STRING_NAME,
-			"usage": PROPERTY_USAGE_GROUP
-		})
-		
-		property_list.append({
-			"name": FOLLOW_OFFSET,
-			"type": TYPE_VECTOR3,
-		})
-	
-	if isOrbital:
-		property_list.append({
-			"name": "Orbital Follow",
-			"type": TYPE_STRING_NAME,
-			"usage": PROPERTY_USAGE_GROUP
-		})
-		
-		property_list.append({
-			"name": FOLLOW_OFFSET,
-			"type": TYPE_VECTOR3,
-		})
-		
-		property_list.append({
-			"name": RADIUS,
-			"type": TYPE_FLOAT,
-		})
-		
-		property_list.append({
-			"name": "Horizontal Axis",
-			"type": TYPE_STRING_NAME,
-			"usage": PROPERTY_USAGE_SUBGROUP
-		})
-		
-		property_list.append({
-			"name": HORIZONTAL_AXIS_VALUE,
-			"type": TYPE_FLOAT
-		})
-		
-		property_list.append({
-			"name": HORIZONTAL_AXIS_USING_RANGE,
-			"type": TYPE_BOOL
-		})
-		
-		if properties.has(HORIZONTAL_AXIS_USING_RANGE) and properties[HORIZONTAL_AXIS_USING_RANGE]:
-			property_list.append({
-				"name": HORIZONTAL_AXIS_RANGE,
-				"type": TYPE_VECTOR2,
-				"description": "Test"
-			})
-		
-		property_list.append({
-			"name": "Vertical Axis",
-			"type": TYPE_STRING_NAME,
-			"usage": PROPERTY_USAGE_SUBGROUP
-		})
-		
-		property_list.append({
-			"name": VERTICAL_AXIS_VALUE,
-			"type": TYPE_FLOAT
-		})
-		
-		property_list.append({
-			"name": VERTICAL_AXIS_USING_RANGE,
-			"type": TYPE_BOOL
-		})
-		
-		if properties.has(VERTICAL_AXIS_USING_RANGE) and properties[VERTICAL_AXIS_USING_RANGE]:
-			property_list.append({
-				"name": VERTICAL_AXIS_RANGE,
-				"type": TYPE_VECTOR2
-			})
+	match component.positionControl:
+		TypeCameras.PositionControl.FOLLOW:
+			build_follow_properties(property_list)
+		TypeCameras.PositionControl.ORBITAL_FOLLOW:
+			build_orbital_properties(property_list)
 		
 	return property_list
+	
+func build_follow_properties(property_list: Array[Dictionary]):
+	property_list.append({
+		"name": "Follow",
+		"type": TYPE_STRING_NAME,
+		"usage": PROPERTY_USAGE_GROUP
+	})
+	
+	property_list.append({
+		"name": FOLLOW_OFFSET,
+		"type": TYPE_VECTOR3,
+	})
+
+func build_orbital_properties(property_list: Array[Dictionary]):
+	property_list.append({
+		"name": "Orbital Follow",
+		"type": TYPE_STRING_NAME,
+		"usage": PROPERTY_USAGE_GROUP
+	})
+	
+	property_list.append({
+		"name": FOLLOW_OFFSET,
+		"type": TYPE_VECTOR3,
+	})
+	
+	property_list.append({
+		"name": RADIUS,
+		"type": TYPE_FLOAT,
+	})
+	
+	property_list.append({
+		"name": "Horizontal Axis",
+		"type": TYPE_STRING_NAME,
+		"usage": PROPERTY_USAGE_SUBGROUP
+	})
+	
+	property_list.append({
+		"name": HORIZONTAL_AXIS_VALUE,
+		"type": TYPE_FLOAT
+	})
+	
+	property_list.append({
+		"name": HORIZONTAL_AXIS_USING_RANGE,
+		"type": TYPE_BOOL
+	})
+	
+	if properties.has(HORIZONTAL_AXIS_USING_RANGE) and properties[HORIZONTAL_AXIS_USING_RANGE]:
+		property_list.append({
+			"name": HORIZONTAL_AXIS_RANGE,
+			"type": TYPE_VECTOR2,
+			"description": "Test"
+		})
+	
+	property_list.append({
+		"name": "Vertical Axis",
+		"type": TYPE_STRING_NAME,
+		"usage": PROPERTY_USAGE_SUBGROUP
+	})
+	
+	property_list.append({
+		"name": VERTICAL_AXIS_VALUE,
+		"type": TYPE_FLOAT
+	})
+	
+	property_list.append({
+		"name": VERTICAL_AXIS_USING_RANGE,
+		"type": TYPE_BOOL
+	})
+	
+	if properties.has(VERTICAL_AXIS_USING_RANGE) and properties[VERTICAL_AXIS_USING_RANGE]:
+		property_list.append({
+			"name": VERTICAL_AXIS_RANGE,
+			"type": TYPE_VECTOR2
+		})

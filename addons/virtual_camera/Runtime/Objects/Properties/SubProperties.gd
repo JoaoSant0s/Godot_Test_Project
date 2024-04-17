@@ -17,3 +17,7 @@ func set_property_value(property: StringName, value) -> bool:
 func get_property_value(property: StringName):
 	if properties.has(property):
 		return properties[property]
+
+func increment_property_value(property: StringName, incrementValue) -> bool:
+	var oldValue = get_property_value(property)
+	return set_property_value(property, oldValue + incrementValue)

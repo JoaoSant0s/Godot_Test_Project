@@ -29,12 +29,36 @@ func is_rotation_control_same_as_follow_target() -> bool:
 
 func get_position() -> Vector3:
 	return target.global_position
-	
-func get_position_offset() -> Vector3:
-	if positionControl == TypeCameras.PositionControl.FOLLOW or positionControl == TypeCameras.PositionControl.ORBITAL_FOLLOW:
-		return trackingSubProperties.get_property_value(TrackingSubProperties.FOLLOW_OFFSET)
 
-	return Vector3.ZERO
+func get_local_position_control() -> Vector3:
+	var localPosition = Vector3.ZERO
+	
+	match positionControl:
+		TypeCameras.PositionControl.FOLLOW:
+			localPosition += trackingSubProperties.get_property_value(TrackingSubProperties.FOLLOW_OFFSET)
+		TypeCameras.PositionControl.ORBITAL_FOLLOW:
+			localPosition += trackingSubProperties.get_property_value(TrackingSubProperties.FOLLOW_OFFSET)
+			localPosition += _build_radius_position()
+	
+	return localPosition
+
+func increment_horizontal_axis_value(value : float):	
+	increment(TrackingSubProperties.HORIZONTAL_AXIS_VALUE, value)
+
+func increment_vertical_axis_value(value : float):
+	increment(TrackingSubProperties.VERTICAL_AXIS_VALUE, value)
+	
+func _build_radius_position() -> Vector3:
+	var radius = trackingSubProperties.get_property_value(TrackingSubProperties.RADIUS)
+	var tetaAngle = trackingSubProperties.get_property_value(TrackingSubProperties.HORIZONTAL_AXIS_VALUE)
+	var phiAngle = trackingSubProperties.get_property_value(TrackingSubProperties.VERTICAL_AXIS_VALUE)
+	
+	var radiusPosition = Vector3(1, 0, 1)
+	radiusPosition = radiusPosition.rotated(Vector3.UP, deg_to_rad(tetaAngle))
+	radiusPosition = radiusPosition.rotated(Vector3.RIGHT, deg_to_rad(phiAngle))
+	radiusPosition *= radius
+
+	return radiusPosition
 	
 func _get_property_list() -> Array:
 	var property_list: Array[Dictionary]
@@ -48,7 +72,15 @@ func _set(property: StringName, value) -> bool:
 	if result:
 		notify_property_list_changed()
 	
-	return result	
+	return result
 	
 func _get(property):
 	return trackingSubProperties.get_property_value(property)
+
+func increment(property: StringName, value) -> bool:
+	var result = trackingSubProperties.increment_property_value(property, value)
+	
+	if result:
+		notify_property_list_changed()
+
+	return result
