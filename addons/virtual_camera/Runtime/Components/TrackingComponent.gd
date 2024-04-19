@@ -64,7 +64,7 @@ func increment_vertical_axis_value(value : float):
 	_set(TrackingSubProperties.VERTICAL_AXIS_VALUE, angle)
 	
 func _build_radius_position() -> Vector3:
-	var radius = trackingSubProperties.get_property_value(TrackingSubProperties.RADIUS)
+	var radius = trackingSubProperties.radius
 	var tetaAngle = trackingSubProperties.horizontal_axis_value
 	var phiAngle = trackingSubProperties.vertical_axis_value
 	

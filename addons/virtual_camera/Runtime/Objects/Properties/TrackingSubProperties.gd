@@ -11,6 +11,10 @@ const VERTICAL_AXIS_VALUE : StringName = "verticalAxisValue"
 const VERTICAL_AXIS_USING_RANGE : StringName = "verticalAxisUsingRange"
 const VERTICAL_AXIS_RANGE : StringName = "verticalAxisRange"
 
+var radius : float:
+	get:
+		return get_property_value(RADIUS)
+
 var horizontal_axis_value : float:
 	get:
 		return get_property_value(HORIZONTAL_AXIS_VALUE)
