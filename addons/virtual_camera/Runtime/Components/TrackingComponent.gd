@@ -47,22 +47,29 @@ func get_local_position_control() -> Vector3:
 
 func increment_horizontal_axis_value(value : float):
 	var angle = trackingSubProperties.horizontal_axis_value + value
-	
+	set_horizontal_axis_value(angle)
+
+func increment_vertical_axis_value(value : float):
+	var angle = trackingSubProperties.vertical_axis_value + value
+	set_vertical_axis_value(angle)
+
+func increment_radius(value : float):
+	increment(TrackingSubProperties.RADIUS, value)
+
+func set_horizontal_axis_value(angle : float):
 	if trackingSubProperties.is_using_horizontal_range:
 		var range = trackingSubProperties.horizontal_range
 		angle = clamp(angle, range.x, range.y)
 		
 	_set(TrackingSubProperties.HORIZONTAL_AXIS_VALUE, angle)
 
-func increment_vertical_axis_value(value : float):
-	var angle = trackingSubProperties.vertical_axis_value + value
-	
+func set_vertical_axis_value(angle : float):
 	if trackingSubProperties.is_using_vertical_range:
 		var range = trackingSubProperties.vertical_range
 		angle = clamp(angle, range.x, range.y)
 	
 	_set(TrackingSubProperties.VERTICAL_AXIS_VALUE, angle)
-	
+
 func _build_radius_position() -> Vector3:
 	var radius = trackingSubProperties.radius
 	var tetaAngle = trackingSubProperties.horizontal_axis_value
