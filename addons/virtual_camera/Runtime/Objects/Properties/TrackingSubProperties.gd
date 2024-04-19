@@ -11,6 +11,34 @@ const VERTICAL_AXIS_VALUE : StringName = "verticalAxisValue"
 const VERTICAL_AXIS_USING_RANGE : StringName = "verticalAxisUsingRange"
 const VERTICAL_AXIS_RANGE : StringName = "verticalAxisRange"
 
+var horizontal_axis_value : float:
+	get:
+		return get_property_value(HORIZONTAL_AXIS_VALUE)
+
+var vertical_axis_value : float:
+	get:
+		return get_property_value(VERTICAL_AXIS_VALUE)
+
+var follow_offset : Vector3:
+	get:
+		return get_property_value(FOLLOW_OFFSET)
+
+var is_using_horizontal_range : bool:
+	get:
+		return get_property_value(HORIZONTAL_AXIS_USING_RANGE)
+
+var is_using_vertical_range : bool:
+	get:
+		return get_property_value(VERTICAL_AXIS_USING_RANGE)
+		
+var horizontal_range: Vector2:
+	get:
+		return get_property_value(HORIZONTAL_AXIS_RANGE)
+
+var vertical_range: Vector2:
+	get:
+		return get_property_value(VERTICAL_AXIS_RANGE)
+
 func _init():
 	properties[FOLLOW_OFFSET] = Vector3.ZERO
 	properties[RADIUS] = 0.0

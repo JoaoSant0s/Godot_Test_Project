@@ -34,7 +34,10 @@ animation = NodePath("../Character/AnimationPlayer")
 
 [node name="PlayerCameraComponent" type="Node" parent="."]
 script = ExtResource("4_634c7")
-angular_spedd = 50.0
+angular_vertical_speed = 100.0
+angular_horizontal_speed = 100.0
+flipHorizontalSign = true
+flipVerticalSign = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
