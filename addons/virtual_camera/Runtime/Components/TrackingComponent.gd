@@ -21,6 +21,9 @@ var trackingSubProperties : TrackingSubProperties
 func _init():
 	trackingSubProperties = TrackingSubProperties.new()
 
+func after_ready():
+	pass
+	
 func is_position_control_none() -> bool:
 	return positionControl == TypeCameras.PositionControl.NONE
 	

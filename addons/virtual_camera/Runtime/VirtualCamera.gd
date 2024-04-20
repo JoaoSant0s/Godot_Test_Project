@@ -41,6 +41,7 @@ var _isEditorMode = Engine.is_editor_hint()
 
 @export var lens : LensComponent
 @export var tracking : TrackingComponent
+var collider : ColliderComponent
 
 func _tag_validator(value : CameraTagAsset):
 	if null == value: return
