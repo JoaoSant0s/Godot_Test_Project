@@ -23,7 +23,10 @@ func _init():
 
 func after_ready():
 	pass
-	
+
+func get_radius():
+	return trackingSubProperties.radius
+
 func is_position_control_none() -> bool:
 	return positionControl == TypeCameras.PositionControl.NONE
 	
@@ -75,6 +78,10 @@ func set_vertical_axis_value(angle : float):
 
 func _build_radius_position() -> Vector3:
 	var radius = trackingSubProperties.radius
+	
+	if _parent.collider != null and _parent.collider.triggered:
+		radius = _parent.collider.radius_collider
+	#print(radius)
 	var tetaAngle = trackingSubProperties.horizontal_axis_value
 	var phiAngle = trackingSubProperties.vertical_axis_value
 	

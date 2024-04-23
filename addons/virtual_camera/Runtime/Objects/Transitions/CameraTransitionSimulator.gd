@@ -25,7 +25,6 @@ func get_rotation(delta : float) -> Vector3:
 	return Vector3.ZERO
 
 # End Override Region
-
 func _get_default_duration() -> float:
 	return _transitionConfig.duration
 
