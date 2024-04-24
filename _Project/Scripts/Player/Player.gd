@@ -5,6 +5,7 @@ class_name Player extends CharacterBody3D
 @export var cameraComponent : PlayerCameraComponent
 
 @export var visionArea : MeshInstance3D
+@export var center : Node3D
 
 func _physics_process(delta):
 	inputComponent.process_input()

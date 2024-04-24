@@ -11,6 +11,8 @@ class_name ColliderComponent extends VirtualCameraBaseComponent
 
 @export_flags_3d_physics var collision_flags 
 
+@export var raycast : RayCast3D
+
 @export var margin : float
 
 var radius_collider : float = 0
@@ -19,21 +21,15 @@ var triggered : bool = false
 func after_ready():
 	_parent.collider = self
 
-func _physics_process(delta):
+func _process(delta):	
 	if not _parent.is_active_camera():
 		return
 
-	var space_state = _parent.get_world_3d().direct_space_state	
-	var target = _parent.basis.y * _parent.tracking.get_radius()
-	var position = _parent.global_position
+	raycast.global_position = _parent.tracking.lookAt.global_position
+	raycast.target_position = _parent.global_position - raycast.global_position	
 	
-	var query = PhysicsRayQueryParameters3D.create(position, position + target, collision_flags)
-	var result = space_state.intersect_ray(query)	
-	if result:		
-		var collider_position = result.position + (result.normal * margin)		
-		radius_collider = collider_position.distance_to(position)
-		triggered = true
-	else:
-		triggered = false
-	
-	print(triggered, " ", radius_collider)
+	if raycast.is_colliding():
+		var collider_position = raycast.get_collision_point() + (raycast.get_collision_normal() * margin)
+		radius_collider = collider_position.distance_to(raycast.global_position)
+		
+	triggered = raycast.is_colliding()
