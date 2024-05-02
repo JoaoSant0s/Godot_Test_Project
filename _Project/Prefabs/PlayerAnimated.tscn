@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dcb36mswjmwa0"]
+[gd_scene load_steps=9 format=3 uid="uid://dcb36mswjmwa0"]
 
 [ext_resource type="Script" path="res://_Project/Scripts/Player/Player.gd" id="1_nrr5b"]
 [ext_resource type="PackedScene" uid="uid://bm01em6jyu2gq" path="res://_Project/Models/character.glb" id="1_wfgyp"]
 [ext_resource type="Script" path="res://_Project/Scripts/Player/PlayerInputComponent.gd" id="2_27nox"]
 [ext_resource type="Script" path="res://_Project/Scripts/Player/PlayerMovementComponent.gd" id="2_rer0t"]
+[ext_resource type="Script" path="res://_Project/Scripts/Player/PlayerCameraComponent.gd" id="4_634c7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nd5uj"]
 radius = 0.3
@@ -16,11 +17,13 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_6aw7l")
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="PlayerAnimated" type="CharacterBody3D" node_paths=PackedStringArray("inputComponent", "movementComponent", "visionArea") groups=["Player"]]
+[node name="PlayerAnimated" type="CharacterBody3D" node_paths=PackedStringArray("inputComponent", "movementComponent", "cameraComponent", "visionArea", "center") groups=["Player"]]
 script = ExtResource("1_nrr5b")
 inputComponent = NodePath("PlayerInputComponent")
 movementComponent = NodePath("PlayerMovementComponent")
+cameraComponent = NodePath("PlayerCameraComponent")
 visionArea = NodePath("Vision")
+center = NodePath("Center")
 
 [node name="PlayerInputComponent" type="Node" parent="."]
 script = ExtResource("2_27nox")
@@ -29,6 +32,13 @@ script = ExtResource("2_27nox")
 script = ExtResource("2_rer0t")
 model = NodePath("../Character")
 animation = NodePath("../Character/AnimationPlayer")
+
+[node name="PlayerCameraComponent" type="Node" parent="."]
+script = ExtResource("4_634c7")
+angular_vertical_speed = 100.0
+angular_horizontal_speed = 100.0
+flipHorizontalSign = true
+flipVerticalSign = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
@@ -55,5 +65,8 @@ transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.49614e-08, 0.578345, 0.427257)
 visible = false
 mesh = SubResource("BoxMesh_i7w1j")
+
+[node name="Center" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [editable path="Character"]

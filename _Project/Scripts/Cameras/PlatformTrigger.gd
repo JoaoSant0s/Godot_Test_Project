@@ -10,11 +10,17 @@ func _player_triggered(_player : Player):
 	pass
 
 func _trigger_platform(body : Node3D):
-	if not body.is_in_group("Player"): return
+	if not body.is_in_group("Player"): 
+		return
+
 	if virtualCamera.is_active_camera():
 		return
 
-	_player_triggered(body as Player)
+	var player = body as Player
+	
+	player.clean_camera()
+	_player_triggered(player)
+
 	virtualCamera.force_active_camera()
 
 func _exit_tree():

@@ -4,24 +4,43 @@ const virtualCameraTag = "[Virtual_Camera] "
 const editorTag = "[Editor] "
 const playModeTag = "[Play_Mode] "
 
-static func create_lens_component(camera : VirtualCamera):
-	var hasComponent = camera.get_children().any(func (node): return node is LensComponent);
-	if hasComponent:
-		camera.lens = camera.get_node("LensComponent") as LensComponent
-		return
+static func prepare_collider_component(colliderComponent : ColliderComponent):
+	var components = colliderComponent.get_children().filter(func (node): return node is RayCast3D)
 
-	var instance = _create_component("LensComponent", "res://addons/virtual_camera/LensComponent.tscn", camera) as LensComponent
-	camera.lens = instance;
+	if components.size() > 0:
+		colliderComponent.raycast = components[0] as RayCast3D
+		return
+	
+	var instance = RayCast3D.new()
+	instance.name = "RayCast3D"
+	colliderComponent.raycast = instance;
+	colliderComponent.add_child(instance);
+	instance.set_owner(colliderComponent.get_tree().edited_scene_root)
+
+static func create_lens_component(camera : VirtualCamera):	
+	var components = camera.get_children().filter(func (node): return node is LensComponent)
+
+	if components.size() > 0:
+		camera.lens = components[0] as LensComponent
+		return
+	
+	var instance = LensComponent.new()
+	instance.name = "LensComponent"
+	camera.lens = instance;	
+	camera.add_child(instance);
 	instance.set_owner(camera.get_tree().edited_scene_root)
 
 static func create_tracking_component(camera : VirtualCamera):
-	var hasComponent = camera.get_children().any(func (node): return node is TrackingComponent);
-	if hasComponent: 
-		camera.tracking = camera.get_node("TrackingComponent") as TrackingComponent
+	var components = camera.get_children().filter(func (node): return node is TrackingComponent)	
+	
+	if components.size() > 0:
+		camera.tracking = components[0] as TrackingComponent
 		return
 
-	var instance = _create_component("TrackingComponent", "res://addons/virtual_camera/TrackingComponent.tscn", camera) as TrackingComponent
+	var instance = TrackingComponent.new()
+	instance.name = "TrackingComponent"
 	camera.tracking = instance;
+	camera.add_child(instance);
 	instance.set_owner(camera.get_tree().edited_scene_root)
 
 static func _create_component(name : String, path : String, parent):

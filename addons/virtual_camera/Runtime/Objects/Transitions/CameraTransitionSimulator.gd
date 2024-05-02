@@ -25,13 +25,14 @@ func get_rotation(delta : float) -> Vector3:
 	return Vector3.ZERO
 
 # End Override Region
-
 func _get_default_duration() -> float:
 	return _transitionConfig.duration
 
 func build_position():
 	if _nextCamera.tracking.target:
 		_nextCamera.global_position = _nextCamera.tracking.get_position()
+
+	_nextCamera.global_position += _nextCamera.tracking.get_local_position_control()
 
 func build_rotation():
 	if _nextCamera.tracking.target and _nextCamera.tracking.is_rotation_control_same_as_follow_target():

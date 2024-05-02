@@ -3,13 +3,17 @@ class_name MainCamera extends Camera3D
 
 @export var transitionConfig : TransitionConfig
 
-var _currentVirtualCamera : VirtualCamera
-var _cameraSimulator : CameraTransitionSimulator
+var currentVirtualCamera : VirtualCamera
+var cameraSimulator : CameraTransitionSimulator
+
+var positionState : CameraPositionState
+var rotationState : CameraRotationState
 
 func _ready():
 	assert(not VirtualCameraService.is_main_camera_available(), "Must exist a MainCamera in the scene")
 	_reset()
-	
+	positionState = CameraPositionState.new(self)
+	rotationState = CameraRotationState.new(self)
 	VirtualCameraService.main_camera_started(self)
 	
 func _process(delta : float):
@@ -21,42 +25,35 @@ func _physics_process(delta : float):
 func _try_update(delta : float = -1):
 	if not _has_current_camera(): return		
 	_refresh_lens()
-	if _cameraSimulator == null: return
+	if cameraSimulator == null: return
 	
-	_cameraSimulator.pre_update(delta)
+	cameraSimulator.pre_update(delta)
 	_try_tracking(delta)
 	_try_look_at(delta)
-	_cameraSimulator.calculate_time_elapsed(delta)
+	cameraSimulator.calculate_time_elapsed(delta)
 
 func _try_tracking(delta : float):
-	if _currentVirtualCamera.tracking == null: return;	
-	if _currentVirtualCamera.tracking.is_position_control_none(): return	
-	
-	if not _cameraSimulator.has_next_camera(): return
-	_cameraSimulator.build_position()
-	
-	global_position = _cameraSimulator.get_position(delta)
+	if currentVirtualCamera.tracking == null: return;	
+	if currentVirtualCamera.tracking.is_position_control_none(): return
+	if not cameraSimulator.has_next_camera(): return
+		
+	positionState.update(delta)
 
 func _try_look_at(delta : float):
-	if _currentVirtualCamera.tracking == null: return;
-	if _currentVirtualCamera.tracking.is_rotation_control_none(): return	
-	if not _cameraSimulator.has_next_camera(): return
+	if currentVirtualCamera.tracking == null: return;
+	if currentVirtualCamera.tracking.is_rotation_control_none(): return	
+	if not cameraSimulator.has_next_camera(): return
 	
-	if not _currentVirtualCamera.tracking.lookAt:
-		_cameraSimulator.build_rotation()
-		global_rotation = _cameraSimulator.get_rotation(delta)
-	else:
-		look_at(_currentVirtualCamera.tracking.lookAt.global_position)
-		_currentVirtualCamera.global_rotation = global_rotation
+	rotationState.update(delta)
 
 func is_current_camera(camera : VirtualCamera):
-	return _currentVirtualCamera == camera
+	return currentVirtualCamera == camera
 
 func _has_current_camera() -> bool:
-	return _currentVirtualCamera != null
+	return currentVirtualCamera != null
 
 func _reset():
-	_currentVirtualCamera = null;
+	currentVirtualCamera = null;
 	_refresh_process_method(TypeCameras.ProcessMethods.DISABLED);
 
 func try_set_virtual_camera(camera : VirtualCamera):
@@ -67,17 +64,17 @@ func try_set_virtual_camera(camera : VirtualCamera):
 		change_current_camera(camera)
 	
 func change_current_camera(camera : VirtualCamera):
-	var oldCamera : VirtualCamera = _currentVirtualCamera
+	var oldCamera : VirtualCamera = currentVirtualCamera
 	
 	_reset_previous_virtual_camera(oldCamera)
 
-	_currentVirtualCamera = camera;
+	currentVirtualCamera = camera;
 	current = true
 
-	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, _currentVirtualCamera])
+	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, currentVirtualCamera])
 	
-	_cameraSimulator = VirtualCameraService.build_camera_simulation(oldCamera, _currentVirtualCamera, transitionConfig)
-	_refresh_process_method(_currentVirtualCamera.processMethod)
+	cameraSimulator = VirtualCameraService.build_camera_simulation(oldCamera, currentVirtualCamera, transitionConfig)
+	_refresh_process_method(currentVirtualCamera.processMethod)
 
 func _reset_previous_virtual_camera(oldCamera : VirtualCamera):
 	if oldCamera == null: return
@@ -87,14 +84,14 @@ func _reset_previous_virtual_camera(oldCamera : VirtualCamera):
 func can_change_current_camera(camera : VirtualCamera) -> bool:
 	if not _has_current_camera(): return true
 	
-	if camera.priority < _currentVirtualCamera.priority: return false
-	if _currentVirtualCamera == camera: return false
+	if camera.priority < currentVirtualCamera.priority: return false
+	if currentVirtualCamera == camera: return false
 	
 	return true
 
 func _refresh_lens():
-	if _currentVirtualCamera.lens == null: return
-	fov = _currentVirtualCamera.lens.fov
+	if currentVirtualCamera.lens == null: return
+	fov = currentVirtualCamera.lens.fov
 	
 func _refresh_process_method(updateMethod : TypeCameras.ProcessMethods):
 	set_process(updateMethod == TypeCameras.ProcessMethods.DEFAULT_PROCESS)

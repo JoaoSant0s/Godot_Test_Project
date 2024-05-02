@@ -35,7 +35,7 @@ func _update_movement(player : Player, delta : float):
 	
 	player.velocity = applied_velocity
 	player.move_and_slide()
-
+	
 func _update_rotation(player : Player, delta : float):
 	if Vector2(player.velocity.z, player.velocity.x).length() > 0:
 		rotation_direction = Vector2(player.velocity.z, player.velocity.x).angle()
