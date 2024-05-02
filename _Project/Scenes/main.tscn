@@ -83,8 +83,7 @@ albedo_texture = ExtResource("16_t7ly4")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.735713, 0.0858748, -0.671827, 0, 0.991929, 0.126791, 0.677293, -0.093282, 0.729776, -7.85802, 3.6012, 12.2041)
-current = true
+transform = Transform3D(0.735713, 0.0858749, -0.671827, 0, 0.991929, 0.126791, 0.677293, -0.093282, 0.729775, -7.85802, 3.6012, 12.2041)
 fov = 55.0
 script = ExtResource("1_iwil1")
 transitionConfig = ExtResource("2_ujwvp")

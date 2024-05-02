@@ -32,6 +32,7 @@ script = ExtResource("2_27nox")
 script = ExtResource("2_rer0t")
 model = NodePath("../Character")
 animation = NodePath("../Character/AnimationPlayer")
+angular_speed = 8.0
 
 [node name="PlayerCameraComponent" type="Node" parent="."]
 script = ExtResource("4_634c7")

@@ -12,7 +12,7 @@ var currentCamera : VirtualCamera
 var input = Vector3.ZERO
 var zoom : float
 
-func process_camera(player : Player, delta : float):
+func process_camera(delta : float):
 	if not currentCamera:
 		return
 	
@@ -20,8 +20,6 @@ func process_camera(player : Player, delta : float):
 	
 	var horizontalSign = -1 if flipHorizontalSign else 1	
 	var verticalSign = -1 if flipVerticalSign else 1
-	
-	var zoo
 	
 	input.x = Input.get_axis("horizontal_left", "horizontal_right") * horizontalSign * angular_horizontal_speed
 	input.z = Input.get_axis("vertical_up", "vertical_down") * verticalSign * angular_vertical_speed
