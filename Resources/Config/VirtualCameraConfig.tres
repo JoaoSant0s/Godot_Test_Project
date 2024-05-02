@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("1_f3l50")
-showLogs = false
+showLogs = true
 anyCameraId = ExtResource("1_x0hy2")

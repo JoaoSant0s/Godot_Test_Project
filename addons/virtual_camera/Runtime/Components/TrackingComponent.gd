@@ -17,12 +17,15 @@ var previousVerticalZ
 @export var rotationControl : TypeCameras.RotationControl = TypeCameras.RotationControl.HARD_LOOK_AT
 
 var trackingSubProperties : TrackingSubProperties
+var frameCounter : int = 0
+var triggeredPreviously : bool = false
+var previousRadius : float
 
 func _init():
 	trackingSubProperties = TrackingSubProperties.new()
 
 func after_ready():
-	pass
+	previousRadius = get_radius()
 
 func get_radius():
 	return trackingSubProperties.radius
@@ -75,13 +78,13 @@ func set_vertical_axis_value(angle : float):
 		angle = clamp(angle, range.x, range.y)
 	
 	_set(TrackingSubProperties.VERTICAL_AXIS_VALUE, angle)
-
+	
 func _build_radius_position() -> Vector3:
 	var radius = trackingSubProperties.radius
-	
-	if _parent.collider != null and _parent.collider.triggered:
-		radius = _parent.collider.radius_collider
-	#print(radius)
+
+	if _parent != null and _parent.collider != null and _parent.collider.triggered:
+		radius = _parent.collider.radiusCollider
+
 	var tetaAngle = trackingSubProperties.horizontal_axis_value
 	var phiAngle = trackingSubProperties.vertical_axis_value
 	

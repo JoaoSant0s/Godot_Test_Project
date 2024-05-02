@@ -83,7 +83,7 @@ albedo_texture = ExtResource("16_t7ly4")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.749425, 0.0839472, -0.656746, 0, 0.991929, 0.126791, 0.662089, -0.0950206, 0.743377, -7.85802, 3.6012, 12.6871)
+transform = Transform3D(0.739627, 0.0853326, -0.667585, 0, 0.991929, 0.126791, 0.673016, -0.0937783, 0.733658, -7.85802, 3.6012, 12.3397)
 current = true
 fov = 55.0
 script = ExtResource("1_iwil1")
@@ -105,7 +105,6 @@ collision_layer = 2147483649
 collision_mask = 2147483649
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_yu2g2")
 
 [node name="Block" type="MeshInstance3D" parent="."]
@@ -143,7 +142,7 @@ physics_material_override = SubResource("PhysicsMaterial_nu2ts")
 shape = SubResource("BoxShape3D_wtq34")
 
 [node name="PlayerAnimated" parent="." instance=ExtResource("14_whbbk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.71387)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18699, 0, 3.66478)
 platform_floor_layers = 2147483647
 
 [node name="torso" parent="PlayerAnimated/Character/character2/root" index="2"]
@@ -194,7 +193,7 @@ virtualCamera = NodePath("VirtualCamera_2")
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.690327, 0.0769391, -0.601919, 0, 4.98403, 0.64036, 0.656476, -0.0947624, 0.741274, -5.43204, 18.0212, 14.1061)
+transform = Transform3D(0.681056, 0.0782559, -0.612221, 0, 4.98585, 0.64036, 0.66853, -0.0935777, 0.732023, -5.43204, 18.0212, 13.7587)
 script = ExtResource("5_sr7hp")
 group = ExtResource("10_nrr7s")
 lens = NodePath("LensComponent")
@@ -302,7 +301,7 @@ virtualCamera = NodePath("VirtualCamera_6")
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera_6" type="Node3D" parent="PlatformCameras/OrbitalCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.919118, 0, 0, 0, 4.74592, 1.72737, 0, -0.34202, 0.939692, -13.1729, 5.01546, 7.95195)
+transform = Transform3D(0.919118, 0, 0, 0, 4.74592, 1.72738, 0, -0.34202, 0.939692, -4.30372, 7.54071, 18.4068)
 script = ExtResource("5_sr7hp")
 enabled = false
 lens = NodePath("LensComponent")
@@ -312,8 +311,8 @@ tracking = NodePath("TrackingComponent")
 fov = 100.0
 
 [node name="TrackingComponent" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6" node_paths=PackedStringArray("target", "lookAt") instance=ExtResource("7_ihbdn")]
-target = NodePath("../../../../PlayerAnimated")
-lookAt = NodePath("../../../../PlayerAnimated")
+target = NodePath("../../../../PlayerAnimated/Center")
+lookAt = NodePath("../../../../PlayerAnimated/Center")
 positionControl = 3
 followOffset = Vector3(0, 0, 0)
 radius = 3.0
@@ -328,10 +327,10 @@ script = ExtResource("18_et8dh")
 strategy = 1
 collision_flags = 2147483649
 raycast = NodePath("RayCast3D")
-margin = 1.0
+normalMargin = 0.0
 
 [node name="RayCast3D" type="RayCast3D" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6/ColliderComponent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.71387)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.64965, 0.5, 14.1688)
 target_position = Vector3(0, 1.02606, 2.81908)
 collision_mask = 2147483648
 hit_from_inside = true

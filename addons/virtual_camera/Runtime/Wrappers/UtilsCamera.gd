@@ -4,6 +4,19 @@ const virtualCameraTag = "[Virtual_Camera] "
 const editorTag = "[Editor] "
 const playModeTag = "[Play_Mode] "
 
+static func prepare_collider_component(colliderComponent : ColliderComponent):
+	var components = colliderComponent.get_children().filter(func (node): return node is RayCast3D)
+
+	if components.size() > 0:
+		colliderComponent.raycast = components[0] as RayCast3D
+		return
+	
+	var instance = RayCast3D.new()
+	instance.name = "RayCast3D"
+	colliderComponent.raycast = instance;
+	colliderComponent.add_child(instance);
+	instance.set_owner(colliderComponent.get_tree().edited_scene_root)
+
 static func create_lens_component(camera : VirtualCamera):	
 	var components = camera.get_children().filter(func (node): return node is LensComponent)
 
