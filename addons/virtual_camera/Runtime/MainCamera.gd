@@ -8,12 +8,15 @@ var cameraSimulator : CameraTransitionSimulator
 
 var positionState : CameraPositionState
 var rotationState : CameraRotationState
+var lensState : CameraLensState
 
 func _ready():
 	assert(not VirtualCameraService.is_main_camera_available(), "Must exist a MainCamera in the scene")
 	_reset()
 	positionState = CameraPositionState.new(self)
 	rotationState = CameraRotationState.new(self)
+	lensState = CameraLensState.new(self)
+	
 	VirtualCameraService.main_camera_started(self)
 	
 func _process(delta : float):
@@ -24,13 +27,19 @@ func _physics_process(delta : float):
 	
 func _try_update(delta : float = -1):
 	if not _has_current_camera(): return		
-	_refresh_lens()
 	if cameraSimulator == null: return
 	
 	cameraSimulator.pre_update(delta)
+	_try_refresh_lens(delta)
 	_try_tracking(delta)
 	_try_look_at(delta)
 	cameraSimulator.calculate_time_elapsed(delta)
+
+func _try_refresh_lens(delta : float):
+	if currentVirtualCamera.lens == null: return
+	if not cameraSimulator.has_next_camera(): return
+	
+	lensState.update(delta)
 
 func _try_tracking(delta : float):
 	if currentVirtualCamera.tracking == null: return;	
@@ -89,9 +98,6 @@ func can_change_current_camera(camera : VirtualCamera) -> bool:
 	
 	return true
 
-func _refresh_lens():
-	if currentVirtualCamera.lens == null: return
-	fov = currentVirtualCamera.lens.fov
 	
 func _refresh_process_method(updateMethod : TypeCameras.ProcessMethods):
 	set_process(updateMethod == TypeCameras.ProcessMethods.DEFAULT_PROCESS)

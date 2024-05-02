@@ -16,6 +16,10 @@ func _init(previousCamera: VirtualCamera, nextCamera : VirtualCamera, transition
 func pre_update(delta : float):
 	pass
 
+func get_fov(delta : float) -> float:
+	UtilsCamera.log("Must override this method")
+	return 0
+
 func get_position(delta : float) -> Vector3:
 	UtilsCamera.log("Must override this method")
 	return Vector3.ZERO
