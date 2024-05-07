@@ -3,6 +3,7 @@ extends Node
 
 signal onEnabledModified(camera : VirtualCamera)
 signal onPriorityModified(camera : VirtualCamera)
+signal onVirtualCameraModified(camera : VirtualCamera)
 
 var _virtualCameras : Array[VirtualCamera]
 var _mainCamera : MainCamera = null
@@ -49,7 +50,7 @@ func main_camera_started(mainCamera : MainCamera):
 func is_main_camera_available():
 	return _mainCamera != null
 
-func get_main_camera():
+func get_main_camera() -> MainCamera:
 	return _mainCamera
 
 func find_enabled_virtual_cameras() -> Array[VirtualCamera]:

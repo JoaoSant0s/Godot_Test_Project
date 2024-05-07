@@ -63,6 +63,7 @@ func _has_current_camera() -> bool:
 
 func _reset():
 	currentVirtualCamera = null;
+	VirtualCameraService.onVirtualCameraModified.emit(currentVirtualCamera)
 	_refresh_process_method(TypeCameras.ProcessMethods.DISABLED);
 
 func try_set_virtual_camera(camera : VirtualCamera):
@@ -84,6 +85,7 @@ func change_current_camera(camera : VirtualCamera):
 	
 	cameraSimulator = VirtualCameraService.build_camera_simulation(oldCamera, currentVirtualCamera, transitionConfig)
 	_refresh_process_method(currentVirtualCamera.processMethod)
+	VirtualCameraService.onVirtualCameraModified.emit(currentVirtualCamera)
 
 func _reset_previous_virtual_camera(oldCamera : VirtualCamera):
 	if oldCamera == null: return
