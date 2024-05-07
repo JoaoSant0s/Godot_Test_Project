@@ -2,6 +2,8 @@ class_name PlatformTrigger extends Node
 
 @export var collisionArea : Area3D
 @export var virtualCamera : VirtualCamera
+@export var icon : Texture2D
+@export var cameraName : String
 
 func _ready():
 	collisionArea.body_entered.connect(_trigger_platform)
