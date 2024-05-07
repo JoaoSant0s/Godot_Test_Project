@@ -1,7 +1,7 @@
 class_name CameraVisual extends Control
 
 @onready var texture_rect = $TextureRect
-@onready var rich_text_label = $RichTextLabel
+@onready var label = $Label
 
 @export var platformTriggers : Array[PlatformTrigger]
 # Called when the node enters the scene tree for the first time.
@@ -37,4 +37,4 @@ func _set_camera_visual_by_platform(selectedPlatform : PlatformTrigger):
 
 func _set_camera_visual(icon : Texture2D, cameraName : String):
 	texture_rect.texture = icon
-	rich_text_label.text = cameraName
+	label.text = cameraName
