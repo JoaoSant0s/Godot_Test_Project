@@ -1,8 +1,10 @@
-[gd_scene load_steps=40 format=3 uid="uid://8jteo7my42mn"]
+[gd_scene load_steps=50 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://addons/virtual_camera/Runtime/MainCamera.gd" id="1_iwil1"]
 [ext_resource type="Resource" uid="uid://fswp2a3e8v2p" path="res://_Project/Def/Transition_Config.tres" id="2_ujwvp"]
+[ext_resource type="PackedScene" uid="uid://ursyi1mknivt" path="res://_Project/Models/barrel.glb" id="3_j0igr"]
 [ext_resource type="Texture2D" uid="uid://bmn1rlq55iq61" path="res://_Project/Images/rotational_camera.png" id="3_rm46m"]
+[ext_resource type="PackedScene" uid="uid://6yiuf3627eoh" path="res://_Project/Models/box.glb" id="4_o1jhy"]
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerLookAt.gd" id="4_ql871"]
 [ext_resource type="Script" path="res://addons/virtual_camera/Runtime/VirtualCamera.gd" id="5_sr7hp"]
 [ext_resource type="PackedScene" uid="uid://c4x0tnkh64x5x" path="res://addons/virtual_camera/Prefabs/LensComponent.tscn" id="6_eemh7"]
@@ -41,15 +43,37 @@ size = Vector2(50, 50)
 custom_solver_bias = 1.0
 size = Vector3(50, 0.1, 50)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wpuei"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5q2n"]
 albedo_color = Color(0.733333, 0.611765, 0.188235, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_bskhn"]
-material = SubResource("StandardMaterial3D_wpuei")
+material = SubResource("StandardMaterial3D_o5q2n")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nu2ts"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wtq34"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_faqhi"]
+albedo_color = Color(0.976471, 0.337255, 0.745098, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sqxg8"]
+material = SubResource("StandardMaterial3D_faqhi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_43akj"]
+albedo_color = Color(0.203922, 0.713726, 0.615686, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e45hj"]
+material = SubResource("StandardMaterial3D_43akj")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s6hsk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hpwrw"]
+size = Vector3(0.225, 0.35, 0.225)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m26c3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cesl1"]
+size = Vector3(0.25, 0.25, 0.25)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n3ybm"]
 albedo_texture = ExtResource("3_rm46m")
@@ -85,7 +109,7 @@ albedo_texture = ExtResource("16_t7ly4")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.727698, 0.0869658, -0.680362, 0, 0.991929, 0.126791, 0.685897, -0.0922658, 0.721825, -7.85802, 3.6012, 11.932)
+transform = Transform3D(0.722321, 0.0876835, -0.685977, 0, 0.991929, 0.126791, 0.691558, -0.091584, 0.716491, -7.79997, 3.6012, 11.7551)
 current = true
 fov = 55.0
 script = ExtResource("1_iwil1")
@@ -99,53 +123,154 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1.59202, 0, 0, 0, 0.198, 0, 0, 0, 2.03528, 0, 0, 0)
 mesh = SubResource("PlaneMesh_4phwd")
 
 [node name="StaticBody3D_1" type="StaticBody3D" parent="Ground"]
-collision_layer = 2147483649
+collision_layer = 8388609
 collision_mask = 2147483649
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D_1"]
 shape = SubResource("BoxShape3D_yu2g2")
-
-[node name="Block" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 3.0869, 0, 0, 0, 9.97183, 5.01851, 1.31297, 14.9492)
-mesh = SubResource("BoxMesh_bskhn")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Block"]
-collision_layer = 2147483649
-physics_material_override = SubResource("PhysicsMaterial_nu2ts")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Block/StaticBody3D"]
-shape = SubResource("BoxShape3D_wtq34")
-
-[node name="Block3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 9.97183, 0, 3.0869, 0, -1, 0, -4.35883e-07, 9.53868, 1.31297, 19.4008)
-mesh = SubResource("BoxMesh_bskhn")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Block3"]
-collision_layer = 2147483649
-collision_mask = 2147483649
-physics_material_override = SubResource("PhysicsMaterial_nu2ts")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Block3/StaticBody3D"]
-transform = Transform3D(1, 0, 5.96856e-13, 0, 1, 0, -4.44089e-16, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_wtq34")
 
 [node name="Block2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.67625, 0, -6.6008)
 mesh = SubResource("BoxMesh_bskhn")
 
 [node name="StaticBody3D_1" type="StaticBody3D" parent="Block2"]
+collision_layer = 8388609
 physics_material_override = SubResource("PhysicsMaterial_nu2ts")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Block2/StaticBody3D_1"]
 shape = SubResource("BoxShape3D_wtq34")
 
+[node name="Structure" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.43788, 1.25235, -21.1527)
+
+[node name="Wall" type="MeshInstance3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 5.35999, 0, 1.42109e-14, 0, 9.97183, -12.2343, 1.31297, 1.10891)
+mesh = SubResource("BoxMesh_bskhn")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/Wall"]
+collision_layer = 8388609
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/Wall/StaticBody3D"]
+shape = SubResource("BoxShape3D_wtq34")
+
+[node name="Wall2" type="MeshInstance3D" parent="Structure"]
+transform = Transform3D(2.16189, 0, 0, 0, 5.35999, 0, 0, 0, 9.97183, 17.3067, 1.31297, 1.10891)
+mesh = SubResource("BoxMesh_bskhn")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/Wall2"]
+collision_layer = 8388609
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/Wall2/StaticBody3D"]
+shape = SubResource("BoxShape3D_wtq34")
+
+[node name="Wall3" type="MeshInstance3D" parent="Structure"]
+transform = Transform3D(-1.24312e-07, 0, 31.1265, 0, 5.33396, 0, -2.84393, 0, -1.36058e-06, 2.88109, 1.31297, 7.49001)
+mesh = SubResource("BoxMesh_bskhn")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/Wall3"]
+collision_layer = 8388609
+collision_mask = 2147483649
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/Wall3/StaticBody3D"]
+transform = Transform3D(1, 0, 5.96856e-13, 0, 1, 0, -4.44089e-16, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_wtq34")
+
+[node name="Wall4" type="MeshInstance3D" parent="Structure"]
+transform = Transform3D(-1.24312e-07, 0, 25.2649, 0, 5.33396, 0, -2.84393, 0, -1.10437e-06, 5.78117, 1.31297, -5.21787)
+mesh = SubResource("BoxMesh_bskhn")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/Wall4"]
+collision_layer = 8388609
+collision_mask = 2147483649
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/Wall4/StaticBody3D"]
+transform = Transform3D(1, 0, 5.96856e-13, 0, 1, 0, -4.44089e-16, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_wtq34")
+
+[node name="Ceil" type="MeshInstance3D" parent="Structure"]
+transform = Transform3D(21.8236, 0, 0, 0, 1.42515, 0, 1.13687e-12, 0, 15.4227, -1.81826, 4.6836, 1.10891)
+mesh = SubResource("BoxMesh_bskhn")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/Ceil"]
+collision_layer = 8388609
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/Ceil/StaticBody3D"]
+shape = SubResource("BoxShape3D_wtq34")
+
+[node name="Ceil2" type="MeshInstance3D" parent="Structure"]
+transform = Transform3D(3.06129, 0, -11.1306, 0, 1.42515, 0, 3.19172, 0, 10.6757, 9.32992, 4.6836, -9.90484)
+mesh = SubResource("BoxMesh_bskhn")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/Ceil2"]
+collision_layer = 8388609
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/Ceil2/StaticBody3D"]
+shape = SubResource("BoxShape3D_wtq34")
+
+[node name="Block6" type="MeshInstance3D" parent="Structure"]
+transform = Transform3D(2.92808, 0, 0, 0, 2.08456, 0, 0, 0, 9.97183, 14.9623, -0.316221, 1.10891)
+mesh = SubResource("BoxMesh_sqxg8")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/Block6"]
+collision_layer = 8388609
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/Block6/StaticBody3D"]
+shape = SubResource("BoxShape3D_wtq34")
+
+[node name="Block7" type="MeshInstance3D" parent="Structure"]
+transform = Transform3D(1.38792, 0, 0, 0, 2.08456, 0, 0, 0, 9.97183, 15.6412, 1.61583, 1.10891)
+mesh = SubResource("BoxMesh_e45hj")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/Block7"]
+collision_layer = 8388609
+physics_material_override = SubResource("PhysicsMaterial_nu2ts")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/Block7/StaticBody3D"]
+shape = SubResource("BoxShape3D_wtq34")
+
+[node name="barrel2" parent="Structure" instance=ExtResource("3_j0igr")]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -1.18808, 5.38899, 2.05848)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/barrel2"]
+collision_layer = 8388609
+physics_material_override = SubResource("PhysicsMaterial_s6hsk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/barrel2/StaticBody3D"]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0, 0.175, 0)
+shape = SubResource("BoxShape3D_hpwrw")
+
+[node name="box2" parent="Structure" instance=ExtResource("4_o1jhy")]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -4.6007, 5.41679, -0.681015)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/box2"]
+collision_layer = 8388609
+physics_material_override = SubResource("PhysicsMaterial_m26c3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/box2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+shape = SubResource("BoxShape3D_cesl1")
+
 [node name="PlayerAnimated" parent="." instance=ExtResource("14_whbbk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.18699, 0, 3.66478)
-platform_floor_layers = 2147483647
+transform = Transform3D(-0.923116, 0, 0.384521, 0, 1, 0, -0.384521, 0, -0.923116, -3.84544, 0.880237, 4.7232)
 
 [node name="torso" parent="PlayerAnimated/Character/character2/root" index="2"]
 transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871558, 0, -0.0871558, 0.996195, -1.80478e-15, 0.17625, -0.02375)
@@ -153,7 +278,7 @@ transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871558, 0, -0.0871558, 0.996195
 [node name="PlatformCameras" type="Node" parent="."]
 
 [node name="LookAtRotationCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -6, 0.033, -1.419)
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -9.75865, 0.033, -1.419)
 material_override = SubResource("StandardMaterial3D_n3ybm")
 mesh = SubResource("PlaneMesh_igw6b")
 skeleton = NodePath("../..")
@@ -182,7 +307,7 @@ tracking = NodePath("TrackingComponent")
 [node name="SubViewport" type="SubViewport" parent="PlatformCameras/LookAtRotationCameraTrigger"]
 
 [node name="FixedCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -1.94796, 0.033, -1.419)
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -1.88992, 0.033, -1.419)
 material_override = SubResource("StandardMaterial3D_pka7c")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_igw6b")
@@ -199,7 +324,7 @@ cameraName = "Fixed Camera 1"
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.676234, 0.0789254, -0.617459, 0, 4.98403, 0.64036, 0.660194, -0.0911523, 0.712737, -5.43204, 18.0212, 13.351)
+transform = Transform3D(0.676234, 0.0789254, -0.617459, 0, 4.98403, 0.64036, 0.649136, -0.0897701, 0.701679, -5.43203, 18.0212, 13.1741)
 script = ExtResource("5_sr7hp")
 group = ExtResource("10_nrr7s")
 lens = NodePath("LensComponent")
@@ -211,7 +336,7 @@ fov = 55.0
 [node name="TrackingComponent" parent="PlatformCameras/FixedCameraTrigger/VirtualCamera_2" instance=ExtResource("7_ihbdn")]
 
 [node name="FixedCameraTrigger2" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 1.98938, 0.033, -1.419)
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 2.04742, 0.033, -1.419)
 material_override = SubResource("StandardMaterial3D_pka7c")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_igw6b")
@@ -241,7 +366,7 @@ fov = 100.0
 [node name="TrackingComponent" parent="PlatformCameras/FixedCameraTrigger2/VirtualCamera_3" instance=ExtResource("7_ihbdn")]
 
 [node name="FirstPersonFixedRotationCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 6.1461, 0.033, -1.419)
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 6.20414, 0.033, -1.419)
 material_override = SubResource("StandardMaterial3D_55sjg")
 mesh = SubResource("PlaneMesh_igw6b")
 skeleton = NodePath("../..")
@@ -270,7 +395,7 @@ tracking = NodePath("TrackingComponent")
 rotationControl = 2
 
 [node name="FollowFixedCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 10.1997, 0.033, -1.419)
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 10.2577, 0.033, -1.419)
 material_override = SubResource("StandardMaterial3D_4tj37")
 mesh = SubResource("PlaneMesh_igw6b")
 skeleton = NodePath("../..")
@@ -300,7 +425,7 @@ positionControl = 2
 followOffset = Vector3(0, 2, 7)
 
 [node name="OrbitalCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 14.3321, 0.033, -1.419)
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -5.86084, 0.033, -1.419)
 material_override = SubResource("StandardMaterial3D_2wmgw")
 mesh = SubResource("PlaneMesh_igw6b")
 skeleton = NodePath("../..")
@@ -316,7 +441,7 @@ cameraName = "Orbital"
 shape = SubResource("BoxShape3D_wq0mj")
 
 [node name="VirtualCamera_6" type="Node3D" parent="PlatformCameras/OrbitalCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.919118, 0, 0, 0, 4.74592, 1.72738, 0, -0.34202, 0.939692, -4.30372, 7.54071, 18.4068)
+transform = Transform3D(0.919118, 0, 0, 0, 4.74592, 1.72738, 0, -0.34202, 0.939692, -0.0983443, 7.54071, 9.29183)
 script = ExtResource("5_sr7hp")
 enabled = false
 lens = NodePath("LensComponent")
@@ -340,14 +465,14 @@ verticalAxisRange = Vector2(-30, 50)
 [node name="ColliderComponent" type="Node" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6" node_paths=PackedStringArray("raycast")]
 script = ExtResource("18_et8dh")
 strategy = 1
-collision_flags = 2147483649
+collision_flags = 8388608
 raycast = NodePath("RayCast3D")
-normalMargin = 0.1
+normalMargin = 0.15
 
 [node name="RayCast3D" type="RayCast3D" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6/ColliderComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.64965, 0.5, 14.1688)
 target_position = Vector3(0, 1.02606, 2.81908)
-collision_mask = 2147483648
+collision_mask = 8388608
 hit_from_inside = true
 collide_with_areas = true
 debug_shape_custom_color = Color(0.639216, 0, 0, 1)

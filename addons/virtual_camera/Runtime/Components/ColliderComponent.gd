@@ -11,7 +11,13 @@ var _isEditorMode = Engine.is_editor_hint()
 		strategy = value
 		set_physics_process(strategy == TypeCameras.ObstacleDetectionStrategy.PULL_CAMERA_FORWARD)
 
-@export_flags_3d_physics var collision_flags 
+@export_flags_3d_physics var collision_flags:
+	get:
+		return collision_flags
+	set(value):
+		collision_flags = value
+		if raycast:
+			raycast.collision_mask = collision_flags
 
 @export var raycast : RayCast3D
 
@@ -28,6 +34,7 @@ func after_ready():
 	_parent.collider = self
 	if not _isEditorMode: return
 	UtilsCamera.prepare_collider_component(self)
+	raycast.collision_mask = collision_flags
 
 func _physics_process(delta):
 	if not _parent.is_active_camera():
