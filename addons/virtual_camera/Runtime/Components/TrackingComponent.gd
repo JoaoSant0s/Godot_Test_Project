@@ -54,6 +54,9 @@ func get_local_position_control() -> Vector3:
 	
 	return localPosition
 
+func get_horizontal_axis_value() -> float:
+	return trackingSubProperties.horizontal_axis_value
+
 func increment_horizontal_axis_value(value : float):
 	var angle = trackingSubProperties.horizontal_axis_value + value
 	set_horizontal_axis_value(angle)

@@ -100,7 +100,6 @@ func can_change_current_camera(camera : VirtualCamera) -> bool:
 	
 	return true
 
-	
 func _refresh_process_method(updateMethod : TypeCameras.ProcessMethods):
 	set_process(updateMethod == TypeCameras.ProcessMethods.DEFAULT_PROCESS)
 	set_physics_process(updateMethod == TypeCameras.ProcessMethods.PHYSICS_PROCESS)

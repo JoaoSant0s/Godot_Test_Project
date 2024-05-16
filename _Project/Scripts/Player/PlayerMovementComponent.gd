@@ -26,14 +26,16 @@ func process_move(player : Player, delta : float):
 	_handle_animations(player, speed)
 
 	_update_rotation(player, delta)
-	_update_movement(player, delta)
+	_update_movement(player, delta, speed)
 	_update_animation(player, delta)
 
 func _handle_controls(player: Player, delta : float) -> int:
 	input = -player.inputComponent.input	
 	var speed = run_speed if player.inputComponent.isRunning else movement_speed
-	
-	movement_velocity = (player.basis * input).normalized() * speed * delta
+	if input == Vector3.ZERO:
+		speed = 0
+
+	movement_velocity = (player.basis * input * -1).normalized() * speed * delta
 	
 	if player.inputComponent.jumped:
 		if jump_double:
@@ -65,20 +67,35 @@ func _handle_animations(player : Player, speed : float):
 		animation.play("jump", 0.5)
 		pass
 
-func _update_movement(player : Player, delta : float):
+func _update_rotation(player : Player, delta : float):
+	if input == Vector3.ZERO:
+		return
+
+	var camera = _try_get_virtual_camera(player)
+	if camera:
+		rotation_direction = atan2(input.x, input.z) + deg_to_rad(camera.tracking.get_horizontal_axis_value())
+		player.rotation.y = lerp_angle(player.rotation.y, rotation_direction, delta * angular_speed)
+	else:
+		player.rotation.y += input.x * angular_speed * delta
+
+func _update_movement(player : Player, delta : float, speed : float):
+	var camera = _try_get_virtual_camera(player)
 	var applied_velocity: Vector3
 	
-	applied_velocity = player.velocity.lerp(movement_velocity, delta * 10)
+	if camera:
+		var targetDirection = Vector3.FORWARD.rotated(Vector3.UP, rotation_direction)
+		applied_velocity = targetDirection.normalized() * speed * delta
+	else:
+		applied_velocity = player.velocity.lerp(movement_velocity, delta * 10)
+		
 	applied_velocity.y = -gravity
-	
 	player.velocity = applied_velocity
+
 	player.move_and_slide()
 
-func _update_rotation(player : Player, delta : float):
-	if Vector2(player.velocity.z, player.velocity.x).length() > 0:
-		rotation_direction = Vector2(player.velocity.z, player.velocity.x).angle()
-	player.rotation.y += input.x * angular_speed * delta
-
+func _try_get_virtual_camera(player : Player) -> VirtualCamera:
+	return player.cameraComponent.currentCamera
+	
 func _update_animation(player : Player, delta : float):
 	model.scale = model.scale.lerp(Vector3(1, 1, 1), delta * 10)
 	
