@@ -30,6 +30,17 @@ func after_ready():
 func get_radius():
 	return trackingSubProperties.radius
 
+func get_follow_offset():
+	var localPosition = Vector3.ZERO
+	
+	match positionControl:
+		TypeCameras.PositionControl.FOLLOW:
+			localPosition += trackingSubProperties.follow_offset
+		TypeCameras.PositionControl.ORBITAL_FOLLOW:
+			localPosition += trackingSubProperties.follow_offset
+	
+	return localPosition
+
 func is_position_control_none() -> bool:
 	return positionControl == TypeCameras.PositionControl.NONE
 	

@@ -109,7 +109,7 @@ albedo_texture = ExtResource("16_t7ly4")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.713968, 0.0887765, -0.694527, 0, 0.991929, 0.126791, 0.700178, -0.0905249, 0.708206, -12.4131, 3.6012, 11.4887)
+transform = Transform3D(0.712169, 0.0890086, -0.696343, 0, 0.991929, 0.126791, 0.702008, -0.0902968, 0.706421, -12.4131, 3.6012, 11.4325)
 current = true
 fov = 55.0
 script = ExtResource("1_iwil1")
@@ -324,7 +324,7 @@ cameraName = "Fixed Camera 1"
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras2/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.676234, 0.0789254, -0.617459, 0, 4.98403, 0.64036, 0.632483, -0.0876885, 0.685026, -9.67204, 18.0212, 12.9077)
+transform = Transform3D(0.676234, 0.0789254, -0.617459, 0, 4.98403, 0.64036, 0.628975, -0.08725, 0.681518, -9.67204, 18.0212, 12.8515)
 script = ExtResource("5_sr7hp")
 group = ExtResource("10_nrr7s")
 lens = NodePath("LensComponent")
