@@ -4,12 +4,14 @@ class_name ColliderComponent extends VirtualCameraBaseComponent
 var _isEditorMode = Engine.is_editor_hint()
 
 @export_category("Obstacle Detection")
+@export_group("General Config")
 @export var strategy : TypeCameras.ObstacleDetectionStrategy = TypeCameras.ObstacleDetectionStrategy.NONE:
 	get:
 		return strategy
 	set(value):
 		strategy = value
 		set_physics_process(strategy == TypeCameras.ObstacleDetectionStrategy.PULL_CAMERA_FORWARD)
+		notify_property_list_changed()
 
 @export_flags_3d_physics var collision_flags:
 	get:
@@ -23,6 +25,7 @@ var _isEditorMode = Engine.is_editor_hint()
 
 @export var normalMargin : float = 1
 
+var colliderSubProperties : ColliderSubProperties
 var radiusCollider : float = 0
 var triggered : bool = false
 
@@ -30,6 +33,9 @@ var frameCollisionErrorMargin : int = 2
 var triggeredPreviously : bool = false
 var frameCounter : int = 0
 
+func _init():
+	colliderSubProperties = ColliderSubProperties.new()
+	
 func after_ready():
 	_parent.collider = self
 	if not _isEditorMode: return
@@ -47,7 +53,13 @@ func _physics_process(delta):
 
 	if triggeredNow:
 		var collider_position = raycast.get_collision_point() + (raycast.get_collision_normal() * normalMargin)
-		radiusCollider = collider_position.distance_to(raycast.global_position)
+		var nextRadiusCollider = collider_position.distance_to(raycast.global_position)
+		
+		if colliderSubProperties.transition_enabled:
+			radiusCollider = lerp(radiusCollider, nextRadiusCollider, delta * colliderSubProperties.transition_speed)
+		else:
+			radiusCollider = nextRadiusCollider
+		
 		triggeredPreviously = true
 		frameCounter = 0
 	else:
@@ -63,3 +75,20 @@ func check_collision_error_margin() -> bool:
 	triggeredPreviously = false
 	frameCounter = 0
 	return false
+
+func _get_property_list() -> Array:
+	var property_list: Array[Dictionary]
+	
+	property_list.append_array(colliderSubProperties.build_properties(self))
+	
+	return property_list
+
+func _set(property: StringName, value) -> bool:
+	var result = colliderSubProperties.set_property_value(property, value)
+	if result:
+		notify_property_list_changed()
+	
+	return result
+	
+func _get(property):
+	return colliderSubProperties.get_property_value(property)

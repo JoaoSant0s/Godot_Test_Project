@@ -55,10 +55,12 @@ func _init():
 	properties[VERTICAL_AXIS_USING_RANGE] = false
 	properties[VERTICAL_AXIS_RANGE] = Vector2.ZERO
 
-func build_properties(component : TrackingComponent) -> Array:
+func build_properties(component : VirtualCameraBaseComponent) -> Array:
+	var tracking = component as TrackingComponent
+	
 	var property_list: Array[Dictionary]
 	
-	match component.positionControl:
+	match tracking.positionControl:
 		TypeCameras.PositionControl.FOLLOW:
 			build_follow_properties(property_list)
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
@@ -114,8 +116,7 @@ func build_orbital_properties(property_list: Array[Dictionary]):
 	if properties.has(HORIZONTAL_AXIS_USING_RANGE) and properties[HORIZONTAL_AXIS_USING_RANGE]:
 		property_list.append({
 			"name": HORIZONTAL_AXIS_RANGE,
-			"type": TYPE_VECTOR2,
-			"description": "Test"
+			"type": TYPE_VECTOR2
 		})
 	
 	property_list.append({

@@ -2,7 +2,7 @@ class_name SubProperties
 
 var properties : Dictionary = {}
 
-func build_properties(component : TrackingComponent) -> Array:
+func build_properties(component : VirtualCameraBaseComponent) -> Array:
 	var property_list: Array[Dictionary]
 	
 	return property_list
