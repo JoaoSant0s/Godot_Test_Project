@@ -34,8 +34,6 @@ func get_follow_offset():
 	var localPosition = Vector3.ZERO
 	
 	match positionControl:
-		TypeCameras.PositionControl.FOLLOW:
-			localPosition += trackingSubProperties.follow_offset
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
 			localPosition += trackingSubProperties.follow_offset
 	
