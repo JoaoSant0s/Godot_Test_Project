@@ -1,6 +1,7 @@
 class_name TrackingSubProperties extends SubProperties
 
 const FOLLOW_OFFSET : StringName  = "followOffset"
+const LOCAL_DIRECTION_OFFSET : StringName = "localDirectionOffset"
 const RADIUS : StringName = "radius"
 
 const HORIZONTAL_AXIS_VALUE : StringName = "horizontalAxisValue"
@@ -27,6 +28,10 @@ var follow_offset : Vector3:
 	get:
 		return get_property_value(FOLLOW_OFFSET)
 
+var is_local_direction_offset : bool:
+	get:
+		return get_property_value(LOCAL_DIRECTION_OFFSET)
+
 var is_using_horizontal_range : bool:
 	get:
 		return get_property_value(HORIZONTAL_AXIS_USING_RANGE)
@@ -45,6 +50,7 @@ var vertical_range: Vector2:
 
 func _init():
 	properties[FOLLOW_OFFSET] = Vector3.ZERO
+	properties[LOCAL_DIRECTION_OFFSET] = false
 	properties[RADIUS] = 0.0
 
 	properties[HORIZONTAL_AXIS_VALUE] = 0.0
@@ -79,6 +85,11 @@ func build_follow_properties(property_list: Array[Dictionary]):
 		"name": FOLLOW_OFFSET,
 		"type": TYPE_VECTOR3,
 	})
+	
+	property_list.append({
+		"name": LOCAL_DIRECTION_OFFSET,
+		"type": TYPE_BOOL,
+	})
 
 func build_orbital_properties(property_list: Array[Dictionary]):
 	property_list.append({
@@ -90,6 +101,11 @@ func build_orbital_properties(property_list: Array[Dictionary]):
 	property_list.append({
 		"name": FOLLOW_OFFSET,
 		"type": TYPE_VECTOR3,
+	})
+	
+	property_list.append({
+		"name": LOCAL_DIRECTION_OFFSET,
+		"type": TYPE_BOOL,
 	})
 	
 	property_list.append({

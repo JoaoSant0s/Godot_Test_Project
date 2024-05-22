@@ -51,12 +51,27 @@ func is_rotation_control_same_as_follow_target() -> bool:
 func get_position() -> Vector3:
 	return target.global_position
 
+func build_local_target_direction_offset(offset : Vector3) -> Vector3:
+	var forward = target.basis.z
+	if forward.x < 0:
+		forward *= -1
+		offset *= Vector3(-1, 1, -1)
+
+	var angle = forward.angle_to(Vector3.BACK)
+	offset = offset.rotated(Vector3.UP, angle)
+	
+	return offset
+	
 func get_local_position_control() -> Vector3:
 	var localPosition = Vector3.ZERO
 	
 	match positionControl:
 		TypeCameras.PositionControl.FOLLOW:
-			localPosition += trackingSubProperties.follow_offset
+			var offset = trackingSubProperties.follow_offset
+			if target != null and trackingSubProperties.is_local_direction_offset:
+				offset = build_local_target_direction_offset(offset)
+			
+			localPosition += offset
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
 			localPosition += trackingSubProperties.follow_offset
 			localPosition += _build_radius_position()

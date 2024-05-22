@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://8jteo7my42mn"]
+[gd_scene load_steps=52 format=3 uid="uid://8jteo7my42mn"]
 
 [ext_resource type="Script" path="res://addons/virtual_camera/Runtime/MainCamera.gd" id="1_iwil1"]
 [ext_resource type="Resource" uid="uid://fswp2a3e8v2p" path="res://_Project/Def/Transition_Config.tres" id="2_ujwvp"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/PlatformTriggerOrbital.gd" id="17_wciio"]
 [ext_resource type="Script" path="res://addons/virtual_camera/Runtime/Components/ColliderComponent.gd" id="18_et8dh"]
 [ext_resource type="Script" path="res://_Project/Scripts/Cameras/UI/CameraVisual.gd" id="19_23j7p"]
+[ext_resource type="Texture2D" uid="uid://5ecbxnmfjp5e" path="res://_Project/Images/follow_local_fixed_direction.png" id="19_tkhws"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ltd4g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -103,13 +104,17 @@ albedo_texture = SubResource("CompressedTexture2D_pnm0s")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4tj37"]
 albedo_texture = ExtResource("13_ptxqf")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7mpi"]
+albedo_texture = ExtResource("19_tkhws")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wmgw"]
 albedo_texture = ExtResource("16_t7ly4")
 
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.706996, 0.089669, -0.70151, 0, 0.991929, 0.126791, 0.707218, -0.0896409, 0.70129, -12.4131, 3.6012, 11.2736)
+transform = Transform3D(0.700861, 0.09044, -0.707541, 0, 0.991929, 0.126791, 0.713298, -0.088863, 0.695204, -12.4131, 3.6012, 11.0895)
+current = true
 fov = 55.0
 script = ExtResource("1_iwil1")
 transitionConfig = ExtResource("2_ujwvp")
@@ -269,7 +274,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 shape = SubResource("BoxShape3D_cesl1")
 
 [node name="PlayerAnimated" parent="." instance=ExtResource("14_whbbk")]
-transform = Transform3D(0.99935, 0, -0.0360334, 0, 1, 0, 0.0360334, 0, 0.99935, -3.84544, 0.880237, 4.7232)
+transform = Transform3D(0.99935, 0, -0.0360334, 0, 1, 0, 0.0360334, 0, 0.99935, -6.12105, 0.880237, 2.20751)
 
 [node name="torso" parent="PlayerAnimated/Character/character2/root" index="2"]
 transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871558, 0, -0.0871558, 0.996195, -1.80478e-15, 0.17625, -0.02375)
@@ -323,7 +328,7 @@ cameraName = "Fixed Camera 1"
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.676234, 0.0789254, -0.617459, 0, 4.98403, 0.64036, 0.619042, -0.0860086, 0.671585, -9.67204, 18.0212, 12.6926)
+transform = Transform3D(0.676234, 0.0789254, -0.617459, 0, 4.98403, 0.64036, 0.607539, -0.0845706, 0.660082, -9.67204, 18.0212, 12.5085)
 script = ExtResource("5_sr7hp")
 group = ExtResource("10_nrr7s")
 lens = NodePath("LensComponent")
@@ -365,7 +370,7 @@ fov = 100.0
 [node name="TrackingComponent" parent="PlatformCameras/FixedCameraTrigger2/VirtualCamera_3" instance=ExtResource("7_ihbdn")]
 
 [node name="FirstPersonFixedRotationCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 6.20414, 0.033, -1.419)
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -9.82596, 0.033, 6.42271)
 material_override = SubResource("StandardMaterial3D_55sjg")
 mesh = SubResource("PlaneMesh_igw6b")
 skeleton = NodePath("../..")
@@ -394,7 +399,7 @@ tracking = NodePath("TrackingComponent")
 rotationControl = 2
 
 [node name="FollowFixedCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
-transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, 10.2577, 0.033, -1.419)
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -5.7724, 0.033, 6.42271)
 material_override = SubResource("StandardMaterial3D_4tj37")
 mesh = SubResource("PlaneMesh_igw6b")
 skeleton = NodePath("../..")
@@ -422,6 +427,38 @@ fov = 60.0
 [node name="TrackingComponent" parent="PlatformCameras/FollowFixedCameraTrigger/VirtualCamera_5" instance=ExtResource("7_ihbdn")]
 positionControl = 2
 followOffset = Vector3(0, 2, 7)
+localDirectionOffset = false
+
+[node name="FollowLocalFixedDirectionCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
+transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -1.62975, 0.033, 6.42271)
+material_override = SubResource("StandardMaterial3D_s7mpi")
+mesh = SubResource("PlaneMesh_igw6b")
+skeleton = NodePath("../..")
+script = ExtResource("14_hx7bl")
+collisionArea = NodePath("Area3D")
+virtualCamera = NodePath("VirtualCamera_6")
+icon = ExtResource("19_tkhws")
+cameraName = "Follow Local Fixed Direction"
+
+[node name="Area3D" type="Area3D" parent="PlatformCameras/FollowLocalFixedDirectionCameraTrigger"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlatformCameras/FollowLocalFixedDirectionCameraTrigger/Area3D"]
+shape = SubResource("BoxShape3D_wq0mj")
+
+[node name="VirtualCamera_6" type="Node3D" parent="PlatformCameras/FollowLocalFixedDirectionCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
+transform = Transform3D(0.723078, 0.0719406, -0.562814, 0, 5.00974, 0.640361, 0.617324, -0.099748, 0.78036, 5.47902, 8.71768, 11.0016)
+script = ExtResource("5_sr7hp")
+enabled = false
+lens = NodePath("LensComponent")
+tracking = NodePath("TrackingComponent")
+
+[node name="LensComponent" parent="PlatformCameras/FollowLocalFixedDirectionCameraTrigger/VirtualCamera_6" instance=ExtResource("6_eemh7")]
+fov = 60.0
+
+[node name="TrackingComponent" parent="PlatformCameras/FollowLocalFixedDirectionCameraTrigger/VirtualCamera_6" instance=ExtResource("7_ihbdn")]
+positionControl = 2
+followOffset = Vector3(0, 2, 7)
+localDirectionOffset = true
 
 [node name="OrbitalCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -5.86084, 0.033, -1.419)
@@ -454,6 +491,7 @@ target = NodePath("../../../../PlayerAnimated/Center")
 lookAt = NodePath("../../../../PlayerAnimated/Center")
 positionControl = 3
 followOffset = Vector3(0, 0, 0)
+localDirectionOffset = false
 radius = 3.0
 horizontalAxisValue = 360.0
 horizontalAxisUsingRange = false
@@ -487,7 +525,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("19_23j7p")
-platformTriggers = [NodePath("../PlatformCameras/LookAtRotationCameraTrigger"), NodePath("../PlatformCameras/FixedCameraTrigger"), NodePath("../PlatformCameras/FixedCameraTrigger2"), NodePath("../PlatformCameras/FirstPersonFixedRotationCameraTrigger"), NodePath("../PlatformCameras/FollowFixedCameraTrigger"), NodePath("../PlatformCameras/OrbitalCameraTrigger")]
+platformTriggers = [NodePath("../PlatformCameras/LookAtRotationCameraTrigger"), NodePath("../PlatformCameras/FixedCameraTrigger"), NodePath("../PlatformCameras/FixedCameraTrigger2"), NodePath("../PlatformCameras/FirstPersonFixedRotationCameraTrigger"), NodePath("../PlatformCameras/FollowFixedCameraTrigger"), NodePath("../PlatformCameras/OrbitalCameraTrigger"), NodePath("../PlatformCameras/FollowLocalFixedDirectionCameraTrigger")]
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
 layout_mode = 1
@@ -496,10 +534,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -172.0
-offset_top = -158.0
-offset_right = -22.0
-offset_bottom = -7.99988
+offset_left = -121.0
+offset_top = -117.0
+offset_right = -21.0
+offset_bottom = -17.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("13_ptxqf")
@@ -512,10 +550,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -170.0
-offset_top = -195.0
+offset_left = -119.0
+offset_top = -160.0
 offset_right = -31.0
-offset_bottom = -167.0
+offset_bottom = -132.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
