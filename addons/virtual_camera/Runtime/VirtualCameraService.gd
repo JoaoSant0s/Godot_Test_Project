@@ -58,7 +58,11 @@ func find_enabled_virtual_cameras() -> Array[VirtualCamera]:
 
 func find_virtual_cameras() -> Array[VirtualCamera]:
 	return _virtualCameras.duplicate()
-	
+
+func refresh_cull_mask():
+	if not is_main_camera_available(): return
+	_mainCamera.refresh_cull_mask()
+
 func is_current_camera(camera : VirtualCamera):
 	if not is_main_camera_available(): return false
 	return _mainCamera.is_current_camera(camera)

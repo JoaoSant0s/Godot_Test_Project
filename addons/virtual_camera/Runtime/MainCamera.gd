@@ -72,7 +72,14 @@ func try_set_virtual_camera(camera : VirtualCamera):
 		_reset()
 	elif can_change_current_camera(camera):
 		change_current_camera(camera)
+
+func refresh_cull_mask():
+	if currentVirtualCamera == null: return
+	if currentVirtualCamera.lens == null: return
 	
+	cull_mask = currentVirtualCamera.lens.cull_mask
+		
+	currentVirtualCamera.lens.cull_mask
 func change_current_camera(camera : VirtualCamera):
 	var oldCamera : VirtualCamera = currentVirtualCamera
 	
@@ -84,6 +91,7 @@ func change_current_camera(camera : VirtualCamera):
 	UtilsCamera.log("Changing: %s -> %s" % [oldCamera, currentVirtualCamera])
 	
 	cameraSimulator = VirtualCameraService.build_camera_simulation(oldCamera, currentVirtualCamera, transitionConfig)
+	refresh_cull_mask()
 	_refresh_process_method(currentVirtualCamera.processMethod)
 	VirtualCameraService.onVirtualCameraModified.emit(currentVirtualCamera)
 
