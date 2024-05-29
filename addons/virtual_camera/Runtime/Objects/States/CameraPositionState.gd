@@ -6,6 +6,6 @@ func _init(_mainCamera: MainCamera):
 	mainCamera = _mainCamera
 
 func update(delta : float):
-	mainCamera.cameraSimulator.build_position()
+	mainCamera.cameraSimulator.build_position(delta)
 	
 	mainCamera.global_position = mainCamera.cameraSimulator.get_position(delta)
