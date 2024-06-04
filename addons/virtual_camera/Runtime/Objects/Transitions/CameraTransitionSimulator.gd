@@ -3,14 +3,14 @@ class_name  CameraTransitionSimulator
 var _previousCamera : VirtualCamera
 var _nextCamera : VirtualCamera
 var _transitionConfig : TransitionMethodConfig
+
 var timedElapsed : float
 
 func _init(previousCamera: VirtualCamera, nextCamera : VirtualCamera, transitionConfig : TransitionMethodConfig):
 	_previousCamera = previousCamera
 	_nextCamera = nextCamera
 	_transitionConfig = transitionConfig
-	timedElapsed = 0
-
+	timedElapsed = 0	
 # Start Override Region
 
 func pre_update(delta : float):
@@ -32,11 +32,14 @@ func get_rotation(delta : float) -> Vector3:
 func _get_default_duration() -> float:
 	return _transitionConfig.duration
 
-func build_position():
+func build_position(delta : float):
+	var nextCameraPosition = _nextCamera.global_position
+	
 	if _nextCamera.tracking.target:
-		_nextCamera.global_position = _nextCamera.tracking.get_position()
+		nextCameraPosition = _nextCamera.tracking.get_position()
 
-	_nextCamera.global_position += _nextCamera.tracking.get_local_position_control()
+	nextCameraPosition += _nextCamera.tracking.get_local_position_control()
+	_nextCamera.global_position = nextCameraPosition
 
 func build_rotation():
 	if _nextCamera.tracking.target and _nextCamera.tracking.is_rotation_control_same_as_follow_target():
