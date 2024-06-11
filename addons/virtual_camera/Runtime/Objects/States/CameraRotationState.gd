@@ -17,7 +17,7 @@ func update(delta : float):
 
 		mainCamera.look_at(targetPosition)
 		mainCamera.currentVirtualCamera.global_rotation = mainCamera.global_rotation
-		print(lookDirection)
+		#print(lookDirection)
 		#var axis_angle = MathCameras.normilized_direction_to_decomposed_axis_angle(lookDirection)
 		#mainCamera.currentVirtualCamera.global_rotation = axis_angle
 		#mainCamera.global_rotation = mainCamera.currentVirtualCamera.global_rotation
