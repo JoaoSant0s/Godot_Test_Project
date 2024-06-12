@@ -30,7 +30,7 @@ func process_move(player : Player, delta : float):
 	_update_animation(player, delta)
 
 func _handle_controls(player: Player, delta : float) -> int:
-	input = -player.inputComponent.input	
+	input = -player.inputComponent.movement_input
 	var speed = run_speed if player.inputComponent.isRunning else movement_speed
 	if input == Vector3.ZERO:
 		speed = 0

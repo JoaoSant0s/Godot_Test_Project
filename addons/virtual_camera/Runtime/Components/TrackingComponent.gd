@@ -115,13 +115,9 @@ func _build_radius_position() -> Vector3:
 	var tetaAngle = trackingSubProperties.horizontal_axis_value
 	var phiAngle = trackingSubProperties.vertical_axis_value
 	
-	var cosPhi =  cos(deg_to_rad(phiAngle))
+	var directional_position = MathCameras.bi_angle_to_directional_position(tetaAngle, phiAngle)
 	
-	var x = cosPhi * sin(deg_to_rad(tetaAngle))
-	var y = sin(deg_to_rad(phiAngle))
-	var z = cosPhi * cos(deg_to_rad(tetaAngle))
-	
-	return Vector3(x, y, z) * radius
+	return directional_position * radius
 	
 func _get_property_list() -> Array:
 	var property_list: Array[Dictionary]
