@@ -1,5 +1,7 @@
 class_name MathCameras
 
+static var half_PI = PI/2
+
 static func bi_angle_to_directional_position(tetaAngle : float, phiAngle : float) -> Vector3:
 	var cosPhi =  cos(deg_to_rad(phiAngle))
 
@@ -9,20 +11,10 @@ static func bi_angle_to_directional_position(tetaAngle : float, phiAngle : float
 
 	return Vector3(x, y, z)
 
-
-static func normilized_direction_to_decomposed_axis_angle(directionalPosition : Vector3):
+static func normilized_direction_to_decomposed_axis_angle(directionalPosition : Vector3) -> Vector3:
 	var angle_axis : Vector3
-	
-	var x = directionalPosition.x
-	var y = directionalPosition.y
-	var z = directionalPosition.z
-	
-	var powX = x * x
-	var powY = y * y
-	var powZ = z * z
-	
-	angle_axis.x = atan2(sqrt(powY + powZ), x)
-	angle_axis.y = atan2(sqrt(powX + powZ), y)
-	angle_axis.z = atan2(sqrt(powX + powY), z)
-	
+
+	angle_axis.x = asin(directionalPosition.y)
+	angle_axis.y = atan2(directionalPosition.x, directionalPosition.z) + PI
+
 	return angle_axis
