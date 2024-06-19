@@ -33,7 +33,7 @@
 # multiple springs using the same time step, angular frequency and damping
 # ratio.
 #******************************************************************************
-class_name dampedSpringMotion
+class_name DampedSpringMotion
 
 const epsilon : float = 0.0001
 
@@ -48,7 +48,7 @@ const epsilon : float = 0.0001
 #******************************************************************************
 
 static func CalcDampedSpringMotionParams(
-	pOutParams : tDampedSpringMotionParams,       # motion parameters result
+	pOutParams : TDampedSpringMotionParams,       # motion parameters result
 	deltaTime : float,        # time step to advance
 	angularFrequency : float, # angular frequency of motion
 	dampingRatio : float):     # damping ratio of motion
@@ -130,7 +130,7 @@ static func UpdateDampedSpringMotion(
 	pVel : float                           ,        
 	pPos : float,           
 	equilibriumPos : float                      , # position to approach
-	params : tDampedSpringMotionParams):   # motion parameters to use
+	params : TDampedSpringMotionParams):   # motion parameters to use
 	
 	var oldPos : float = pPos - equilibriumPos; # update in equilibrium relative space
 	var oldVel : float = pVel;
@@ -144,7 +144,7 @@ static func UpdateDampedSpringMotionVector(
 	pVel : Vector3                           ,        
 	pPos : Vector3,           
 	equilibriumPos : Vector3                      , # position to approach
-	params : tDampedSpringMotionParams):   # motion parameters to use
+	params : TDampedSpringMotionParams):   # motion parameters to use
 	
 	var oldPos : Vector3 = pPos - equilibriumPos; # update in equilibrium relative space
 	var oldVel : Vector3 = pVel;

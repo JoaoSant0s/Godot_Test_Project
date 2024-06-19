@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://be4mmvala77e7"]
 
-[ext_resource type="Script" path="res://addons/virtual_camera/Editor/VirtualCameraDock.gd" id="1_qrwc5"]
+[ext_resource type="Script" path="res://addons/virtual_camera/editor/virtual_camera_dock.gd" id="1_qrwc5"]
+
 
 
 [sub_resource type="LabelSettings" id="LabelSettings_v523n"]

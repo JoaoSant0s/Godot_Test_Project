@@ -2,7 +2,6 @@
 class_name MainCamera extends Camera3D
 
 @export var transitionConfig : TransitionConfig
-@onready var debug_component = $DebugComponent
 
 var currentVirtualCamera : VirtualCamera
 var cameraSimulator : CameraTransitionSimulator
@@ -13,19 +12,13 @@ var lensState : CameraLensState
 
 func _ready():
 	assert(not VirtualCameraService.is_main_camera_available(), "Must exist a MainCamera in the scene")
-	_reset()
-	_clean_debub_visuals()
+	_reset()	
 	
 	positionState = CameraPositionState.new(self)
 	rotationState = CameraRotationState.new(self)
 	lensState = CameraLensState.new(self)
 	
 	VirtualCameraService.main_camera_started(self)
-
-func _clean_debub_visuals():
-	if debug_component and not VirtualCameraConfig.Instance.debugVisualization:
-		debug_component.queue_free()
-		debug_component = null
 
 func _process(delta : float):
 	_try_update(delta)

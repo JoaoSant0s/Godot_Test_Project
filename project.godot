@@ -19,7 +19,7 @@ config/icon="res://_Project/Images/icon.svg"
 [autoload]
 
 UiSignals="*res://_Project/Scripts/UiSignals.gd"
-VirtualCameraService="*res://addons/virtual_camera/Runtime/VirtualCameraService.gd"
+VirtualCameraService="*res://addons/virtual_camera/runtime/virtual_camera_service.gd"
 
 [editor_plugins]
 

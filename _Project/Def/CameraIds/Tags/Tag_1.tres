@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="CameraTagAsset" load_steps=2 format=3 uid="uid://cfdjavj7h5fwq"]
 
-[ext_resource type="Script" path="res://addons/virtual_camera/Runtime/Configs/CameraTagAsset.gd" id="1_mqmkq"]
+[ext_resource type="Script" path="res://addons/virtual_camera/runtime/configs/camera_tag_asset.gd" id="1_mqmkq"]
+
 
 [resource]
 script = ExtResource("1_mqmkq")
