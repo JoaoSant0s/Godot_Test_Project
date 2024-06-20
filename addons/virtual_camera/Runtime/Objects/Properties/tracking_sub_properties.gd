@@ -66,7 +66,7 @@ func build_properties(component : VirtualCameraBaseComponent) -> Array:
 	
 	var property_list: Array[Dictionary]
 	
-	match tracking.positionControl:
+	match tracking.position_control:
 		TypeCameras.PositionControl.FOLLOW:
 			build_follow_properties(property_list)
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:

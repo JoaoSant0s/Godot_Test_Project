@@ -1,7 +1,7 @@
 @tool
 class_name ColliderComponent extends VirtualCameraBaseComponent
 
-var _isEditorMode = Engine.is_editor_hint()
+var _is_editor_mode = Engine.is_editor_hint()
 
 @export_category("Obstacle Detection")
 @export_group("General Config")
@@ -23,22 +23,22 @@ var _isEditorMode = Engine.is_editor_hint()
 
 @export var raycast : RayCast3D
 
-@export var normalMargin : float = 1
+@export var normal_margin : float = 1
 
-var colliderSubProperties : ColliderSubProperties
-var radiusCollider : float = 0
+var collider_sub_properties : ColliderSubProperties
+var radius_collider : float = 0
 var triggered : bool = false
 
-var frameCollisionErrorMargin : int = 2
-var triggeredPreviously : bool = false
-var frameCounter : int = 0
+var frame_collision_error_margin : int = 2
+var triggered_previously : bool = false
+var frame_counter : int = 0
 
 func _init():
-	colliderSubProperties = ColliderSubProperties.new()
+	collider_sub_properties = ColliderSubProperties.new()
 	
 func after_ready():
 	_parent.collider = self
-	if not _isEditorMode: return
+	if not _is_editor_mode: return
 	UtilsCamera.prepare_collider_component(self)
 	raycast.collision_mask = collision_flags
 
@@ -46,49 +46,49 @@ func _physics_process(delta):
 	if not _parent.is_active_camera():
 		return
 
-	raycast.global_position = _parent.tracking.lookAt.global_position
+	raycast.global_position = _parent.tracking.look_at.global_position
 	raycast.target_position = (_parent.global_position - raycast.global_position).normalized() * _parent.tracking.get_radius()
 	
-	var triggeredNow = raycast.is_colliding()
+	var triggered_now = raycast.is_colliding()
 
-	if triggeredNow:
-		var collider_position = raycast.get_collision_point() + (raycast.get_collision_normal() * normalMargin)
+	if triggered_now:
+		var collider_position = raycast.get_collision_point() + (raycast.get_collision_normal() * normal_margin)
 		var nextRadiusCollider = collider_position.distance_to(raycast.global_position)
 		
-		if colliderSubProperties.transition_enabled:
-			radiusCollider = lerp(radiusCollider, nextRadiusCollider, delta * colliderSubProperties.transition_speed)
+		if collider_sub_properties.transition_enabled:
+			radius_collider = lerp(radius_collider, nextRadiusCollider, delta * collider_sub_properties.transition_speed)
 		else:
-			radiusCollider = nextRadiusCollider
+			radius_collider = nextRadiusCollider
 		
-		triggeredPreviously = true
-		frameCounter = 0
+		triggered_previously = true
+		frame_counter = 0
 	else:
-		triggeredNow = check_collision_error_margin()
+		triggered_now = check_collision_error_margin()
 	
-	triggered = triggeredNow
+	triggered = triggered_now
 
 func check_collision_error_margin() -> bool:
-	if triggeredPreviously and frameCounter < frameCollisionErrorMargin:
-		frameCounter += 1
+	if triggered_previously and frame_counter < frame_collision_error_margin:
+		frame_counter += 1
 		return true
 
-	triggeredPreviously = false
-	frameCounter = 0
+	triggered_previously = false
+	frame_counter = 0
 	return false
 
 func _get_property_list() -> Array:
 	var property_list: Array[Dictionary]
 	
-	property_list.append_array(colliderSubProperties.build_properties(self))
+	property_list.append_array(collider_sub_properties.build_properties(self))
 	
 	return property_list
 
 func _set(property: StringName, value) -> bool:
-	var result = colliderSubProperties.set_property_value(property, value)
+	var result = collider_sub_properties.set_property_value(property, value)
 	if result:
 		notify_property_list_changed()
 	
 	return result
 	
 func _get(property):
-	return colliderSubProperties.get_property_value(property)
+	return collider_sub_properties.get_property_value(property)

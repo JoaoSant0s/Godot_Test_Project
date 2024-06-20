@@ -47,7 +47,7 @@ const epsilon : float = 0.0001
 #     damping ratio < 1: under damped
 #******************************************************************************
 
-static func CalcDampedSpringMotionParams(
+static func calc_damped_spring_motion_params(
 	pOutParams : TDampedSpringMotionParams,       # motion parameters result
 	deltaTime : float,        # time step to advance
 	angularFrequency : float, # angular frequency of motion
@@ -126,7 +126,7 @@ static func CalcDampedSpringMotionParams(
 # according to the motion parameters.
 #******************************************************************************
 
-static func UpdateDampedSpringMotion(
+static func update_damped_spring_motion(
 	pVel : float                           ,        
 	pPos : float,           
 	equilibriumPos : float                      , # position to approach
@@ -140,7 +140,7 @@ static func UpdateDampedSpringMotion(
 		"pPos" : oldPos * params.posPosCoef + oldVel * params.posVelCoef + equilibriumPos # position value to update	
 	}
 	
-static func UpdateDampedSpringMotionVector(
+static func update_damped_spring_motion_vector(
 	pVel : Vector3                           ,        
 	pPos : Vector3,           
 	equilibriumPos : Vector3                      , # position to approach

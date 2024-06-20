@@ -8,11 +8,11 @@ func _init(_mainCamera: MainCamera):
 func update(delta : float):
 	var tracking = mainCamera.currentVirtualCamera.tracking
 	var global_rotation : Vector3
-	if not tracking.lookAt:
+	if not tracking.look_at:
 		mainCamera.cameraSimulator.build_rotation()
 		global_rotation = mainCamera.cameraSimulator.get_rotation(delta)
 	else:
-		var targetPosition : Vector3 = tracking.lookAt.global_position + tracking.get_follow_offset()
+		var targetPosition : Vector3 = tracking.look_at.global_position + tracking.get_follow_offset()
 		var cameraPosition : Vector3 = mainCamera.global_position
 		var lookDirection = (targetPosition - cameraPosition).normalized()
 		
