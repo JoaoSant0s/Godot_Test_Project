@@ -1,42 +1,43 @@
 class_name LinearTransitionSimulator extends CameraTransitionSimulator
 
-var timePercentage : float
+var time_percentage : float
 
 func build_time_percentage():
 	var duration = _get_default_duration()
-	timePercentage = timedElapsed / duration
-	timePercentage = min(1, timePercentage)
+	time_percentage = timed_elapsed / duration
+	time_percentage = min(1, time_percentage)
 	
 func pre_update(delta : float):
 	build_time_percentage()
 
 func get_fov(delta : float) -> float:
-	var nextFov = _nextCamera.lens.fov if _nextCamera.lens else 75
-	var previousFov = _previousCamera.lens.fov if _previousCamera.lens else 75
+	var nextFov = _next_camera.lens.fov if _next_camera.lens else 75
 	
-	if _previousCamera == null: return nextFov
-	if delta < 0: return previousFov
+	if _previous_camera == null: return nextFov	
+	var previous_fov = _previous_camera.lens.fov if _previous_camera.lens else 75
 	
-	if timePercentage >= 1: return nextFov
+	if delta < 0: return previous_fov
 	
-	return lerp(previousFov, nextFov, timePercentage)
+	if time_percentage >= 1: return nextFov
+	
+	return lerp(previous_fov, nextFov, time_percentage)
 	
 func get_position(delta : float) -> Vector3:
-	var nextPosition = _nextCamera.global_position
+	var next_position = _next_camera.global_position
 	
-	if _previousCamera == null: return nextPosition
-	if delta < 0: return _previousCamera.global_position
+	if _previous_camera == null: return next_position
+	if delta < 0: return _previous_camera.global_position
 
-	if timePercentage >= 1: return nextPosition
+	if time_percentage >= 1: return next_position
 	
-	return _previousCamera.global_position.lerp(nextPosition, timePercentage)
+	return _previous_camera.global_position.lerp(next_position, time_percentage)
 
 func get_rotation(delta : float) -> Vector3:
-	var nextRotation = _nextCamera.global_rotation
+	var next_rotation = _next_camera.global_rotation
 
-	if _previousCamera == null: return nextRotation
-	if delta < 0: return _previousCamera.global_rotation
+	if _previous_camera == null: return next_rotation
+	if delta < 0: return _previous_camera.global_rotation
 	
-	if timePercentage >= 1: return nextRotation
+	if time_percentage >= 1: return next_rotation
 
-	return _previousCamera.global_rotation.lerp(nextRotation, timePercentage)
+	return _previous_camera.global_rotation.lerp(next_rotation, time_percentage)

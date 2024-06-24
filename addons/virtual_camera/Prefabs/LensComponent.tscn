@@ -2,6 +2,5 @@
 
 [ext_resource type="Script" path="res://addons/virtual_camera/runtime/components/lens_component.gd" id="1_pnaw5"]
 
-
 [node name="LensComponent" type="Node"]
 script = ExtResource("1_pnaw5")

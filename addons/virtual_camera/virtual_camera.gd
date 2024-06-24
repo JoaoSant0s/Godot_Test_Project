@@ -32,11 +32,11 @@ func add_node(node):
 	get_editor_interface().get_selection().add_node(node)
 
 func get_selected_virtual_camera() -> VirtualCamera:
-	var selectedNodes = get_editor_interface().get_selection().get_selected_nodes()
+	var selected_nodes = get_editor_interface().get_selection().get_selected_nodes()
 	
-	if selectedNodes.size() == 0: return null
-	var firstNode = selectedNodes[0]
+	if selected_nodes.size() == 0: return null
+	var first_node = selected_nodes[0]
 	
-	if firstNode is VirtualCamera: return firstNode as VirtualCamera
+	if first_node is VirtualCamera: return first_node as VirtualCamera
 	
 	return null

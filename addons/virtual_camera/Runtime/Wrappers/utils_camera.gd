@@ -1,21 +1,21 @@
 class_name UtilsCamera
 
-const virtualCameraTag = "[Virtual_Camera] "
-const editorTag = "[Editor] "
-const playModeTag = "[Play_Mode] "
+const VIRTUAL_CAMERA_TAG = "[Virtual_Camera] "
+const EDITOR_TAG = "[Editor] "
+const PLAY_MODE_TAG = "[Play_Mode] "
 
-static func prepare_collider_component(colliderComponent : ColliderComponent):
-	var components = colliderComponent.get_children().filter(func (node): return node is RayCast3D)
+static func prepare_collider_component(collider_component : ColliderComponent):
+	var components = collider_component.get_children().filter(func (node): return node is RayCast3D)
 
 	if components.size() > 0:
-		colliderComponent.raycast = components[0] as RayCast3D
+		collider_component.raycast = components[0] as RayCast3D
 		return
 	
 	var instance = RayCast3D.new()
 	instance.name = "RayCast3D"
-	colliderComponent.raycast = instance;
-	colliderComponent.add_child(instance);
-	instance.set_owner(colliderComponent.get_tree().edited_scene_root)
+	collider_component.raycast = instance;
+	collider_component.add_child(instance);
+	instance.set_owner(collider_component.get_tree().edited_scene_root)
 
 static func create_lens_component(camera : VirtualCamera):	
 	var components = camera.get_children().filter(func (node): return node is LensComponent)
@@ -54,10 +54,10 @@ static func extract_resource_name(resource : Resource):
 	return resource.resource_path.get_file().trim_suffix(".tres")
 	
 static func log(message):
-	if(not VirtualCameraConfig.Instance.showLogs): return
-	var _isEditorMode = Engine.is_editor_hint()
+	if(not VirtualCameraConfig.Instance.show_logs): return
+	var _is_editor_mode = Engine.is_editor_hint()
 
-	if _isEditorMode:
-		print(virtualCameraTag, editorTag, message)
+	if _is_editor_mode:
+		print(VIRTUAL_CAMERA_TAG, EDITOR_TAG, message)
 	else:
-		print(virtualCameraTag, playModeTag, message)
+		print(VIRTUAL_CAMERA_TAG, PLAY_MODE_TAG, message)

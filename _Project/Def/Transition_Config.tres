@@ -9,30 +9,30 @@
 [ext_resource type="Resource" uid="uid://djiihqpjk61tv" path="res://_Project/Def/CameraIds/Groups/Group_1.tres" id="6_6mhfr"]
 [ext_resource type="Resource" uid="uid://c8vuu7p2xmqon" path="res://_Project/Def/TransitionMethods/Transition_Linear_1.tres" id="7_fpkuc"]
 
-[sub_resource type="Resource" id="Resource_1q8r8"]
+[sub_resource type="Resource" id="Resource_k4s1p"]
 script = ExtResource("1_xp1wi")
 type = 0
 duration = 0.0
 
-[sub_resource type="Resource" id="Resource_kfjhc"]
+[sub_resource type="Resource" id="Resource_vuyr5"]
 script = ExtResource("4_d7dpq")
 from = ExtResource("3_q3v14")
 to = ExtResource("4_vyekx")
-transitionMethod = ExtResource("5_ldlyh")
+transition_method = ExtResource("5_ldlyh")
 
-[sub_resource type="Resource" id="Resource_f778y"]
+[sub_resource type="Resource" id="Resource_nsm5g"]
 script = ExtResource("4_d7dpq")
 from = ExtResource("6_6mhfr")
 to = ExtResource("6_6mhfr")
-transitionMethod = ExtResource("7_fpkuc")
+transition_method = ExtResource("7_fpkuc")
 
-[sub_resource type="Resource" id="Resource_sk1pe"]
+[sub_resource type="Resource" id="Resource_8mxsv"]
 script = ExtResource("4_d7dpq")
 from = ExtResource("4_vyekx")
 to = ExtResource("3_q3v14")
-transitionMethod = ExtResource("7_fpkuc")
+transition_method = ExtResource("7_fpkuc")
 
 [resource]
 script = ExtResource("2_plilq")
-defaultTransitionMethod = SubResource("Resource_1q8r8")
-transitionBlendConfig = Array[ExtResource("4_d7dpq")]([SubResource("Resource_kfjhc"), SubResource("Resource_f778y"), SubResource("Resource_sk1pe")])
+default_transition_method = SubResource("Resource_k4s1p")
+transition_blend_config = Array[ExtResource("4_d7dpq")]([SubResource("Resource_vuyr5"), SubResource("Resource_nsm5g"), SubResource("Resource_8mxsv")])

@@ -17,7 +17,7 @@ func _ready():
 	
 	_set_camera_visual_by_platform(selectedPlatform)
 	
-	VirtualCameraService.onVirtualCameraModified.connect(_virtual_camera_modified)
+	VirtualCameraService.on_virtual_camera_modified.connect(_virtual_camera_modified)
 
 func _virtual_camera_modified(camera : VirtualCamera):
 	var selectedPlatform = null

@@ -1,11 +1,11 @@
 class_name CameraPositionState
 
-var mainCamera : MainCamera
+var main_camera : MainCamera
 
-func _init(_mainCamera: MainCamera):
-	mainCamera = _mainCamera
+func _init(_main_camera: MainCamera):
+	main_camera = _main_camera
 
 func update(delta : float):
-	mainCamera.cameraSimulator.build_position(delta)
+	main_camera.camera_simulator.build_position(delta)
 	
-	mainCamera.global_position = mainCamera.cameraSimulator.get_position(delta)
+	main_camera.global_position = main_camera.camera_simulator.get_position(delta)

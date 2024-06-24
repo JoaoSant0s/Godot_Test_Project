@@ -25,13 +25,13 @@ func get_radius():
 	return tracking_sub_properties.radius
 
 func get_follow_offset():
-	var localPosition = Vector3.ZERO
+	var local_position = Vector3.ZERO
 	
 	match position_control:
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
-			localPosition += tracking_sub_properties.follow_offset
+			local_position += tracking_sub_properties.follow_offset
 	
-	return localPosition
+	return local_position
 
 func is_position_control_none() -> bool:
 	return position_control == TypeCameras.PositionControl.NONE
@@ -57,7 +57,7 @@ func build_local_target_direction_offset(offset : Vector3) -> Vector3:
 	return offset
 	
 func get_local_position_control() -> Vector3:
-	var localPosition = Vector3.ZERO
+	var local_position = Vector3.ZERO
 	
 	match position_control:
 		TypeCameras.PositionControl.FOLLOW:
@@ -65,12 +65,12 @@ func get_local_position_control() -> Vector3:
 			if target != null and tracking_sub_properties.is_local_direction_offset:
 				offset = build_local_target_direction_offset(offset)
 			
-			localPosition += offset
+			local_position += offset
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
-			localPosition += tracking_sub_properties.follow_offset
-			localPosition += _build_radius_position()
+			local_position += tracking_sub_properties.follow_offset
+			local_position += _build_radius_position()
 	
-	return localPosition
+	return local_position
 
 func get_horizontal_axis_value() -> float:
 	return tracking_sub_properties.horizontal_axis_value
@@ -106,10 +106,10 @@ func _build_radius_position() -> Vector3:
 	if _parent != null and _parent.collider != null and _parent.collider.triggered:
 		radius = _parent.collider.radius_collider
 
-	var tetaAngle = tracking_sub_properties.horizontal_axis_value
-	var phiAngle = tracking_sub_properties.vertical_axis_value
+	var teta_angle = tracking_sub_properties.horizontal_axis_value
+	var phi_angle = tracking_sub_properties.vertical_axis_value
 	
-	var directional_position = MathCameras.bi_angle_to_directional_position(tetaAngle, phiAngle)
+	var directional_position = MathCameras.bi_angle_to_directional_position(teta_angle, phi_angle)
 	
 	return directional_position * radius
 	

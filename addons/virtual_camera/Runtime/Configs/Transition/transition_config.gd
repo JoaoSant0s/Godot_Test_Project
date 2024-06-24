@@ -1,22 +1,22 @@
 @tool
 class_name TransitionConfig extends Resource
 
-@export var defaultTransitionMethod : TransitionMethodConfig
-@export var transitionBlendConfig : Array[TransitionBlendConfig]
+@export var default_transition_method : TransitionMethodConfig
+@export var transition_blend_config : Array[TransitionBlendConfig]
 
 func get_matched_transition_method(pCamera: VirtualCamera, nCamera : VirtualCamera) -> TransitionMethodConfig:
 	var result : TransitionMethodConfig = null
-	var anyCameraId = VirtualCameraConfig.Instance.anyCameraId
+	var any_camera_id = VirtualCameraConfig.Instance.any_camera_id
 	
-	for blendConfig in transitionBlendConfig:			
-		var fromMatched = pCamera != null and (blendConfig.from == anyCameraId or blendConfig.from == pCamera.tag or blendConfig.from == pCamera.group)
-		var toMatched = nCamera != null and (blendConfig.to == anyCameraId or blendConfig.to == nCamera.tag or blendConfig.to == nCamera.group)
+	for blendConfig in transition_blend_config:
+		var from_matched = pCamera != null and (blendConfig.from == any_camera_id or blendConfig.from == pCamera.tag or blendConfig.from == pCamera.group)
+		var to_matched = nCamera != null and (blendConfig.to == any_camera_id or blendConfig.to == nCamera.tag or blendConfig.to == nCamera.group)
 
-		if fromMatched and toMatched:
-			result = blendConfig.transitionMethod
+		if from_matched and to_matched:
+			result = blendConfig.transition_method
 			break
 
 	if result == null:
-		result = defaultTransitionMethod
+		result = default_transition_method
 
 	return result

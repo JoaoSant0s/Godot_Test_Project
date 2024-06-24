@@ -1,25 +1,25 @@
 @tool
 class_name Name extends Node
 
-@export var selectEnabledVirtualCameras : Button
-@export var selectAllVirtualCameras : Button
-@export var selectMainCamera : Button
-@export var forceActiveSelectedCamera : Button
+@export var select_enabled_virtual_cameras : Button
+@export var select_all_virtual_cameras : Button
+@export var select_main_camera : Button
+@export var force_active_selected_camera : Button
 
-@export var selectVirtualCameraWithTag : Button
-@export var virtualCameraTagInput : LineEdit
+@export var select_virtual_camera_with_tag : Button
+@export var virtual_camera_tag_input : LineEdit
 
-@export var selectVirtualCamerasWithGroup : Button
-@export var virtualCameraGroupInput : LineEdit
+@export var select_virtual_cameras_with_group : Button
+@export var virtual_camera_group_input : LineEdit
 
 func _ready():
-	selectEnabledVirtualCameras.pressed.connect(_on_enabled_virtual_cameras)
-	selectAllVirtualCameras.pressed.connect(_on_select_all_virtual_cameras)
-	selectMainCamera.pressed.connect(_on_select_main_camera)
-	forceActiveSelectedCamera.pressed.connect(_on_force_active_camera)
+	select_enabled_virtual_cameras.pressed.connect(_on_enabled_virtual_cameras)
+	select_all_virtual_cameras.pressed.connect(_on_select_all_virtual_cameras)
+	select_main_camera.pressed.connect(_on_select_main_camera)
+	force_active_selected_camera.pressed.connect(_on_force_active_camera)
 	
-	selectVirtualCameraWithTag.pressed.connect(_on_select_virtual_camera_with_tag)
-	selectVirtualCamerasWithGroup.pressed.connect(_on_select_virtual_cameras_with_group)
+	select_virtual_camera_with_tag.pressed.connect(_on_select_virtual_camera_with_tag)
+	select_virtual_cameras_with_group.pressed.connect(_on_select_virtual_cameras_with_group)
 
 func _on_enabled_virtual_cameras():
 	VirtualCameraPlugin.Instance.clear_selection();
@@ -51,7 +51,7 @@ func _on_force_active_camera():
 	
 func _on_select_virtual_camera_with_tag():
 	VirtualCameraPlugin.Instance.clear_selection()
-	var tagInput = virtualCameraTagInput.text
+	var tagInput = virtual_camera_tag_input.text
 
 	var selectedCameras = _filter_cameras_by_tag(tagInput)
 	
@@ -65,7 +65,7 @@ func _on_select_virtual_camera_with_tag():
 
 func _on_select_virtual_cameras_with_group():
 	VirtualCameraPlugin.Instance.clear_selection()
-	var groupInput = virtualCameraGroupInput.text
+	var groupInput = virtual_camera_group_input.text
 
 	var selectedCameras = _filter_cameras_by_group(groupInput)
 	

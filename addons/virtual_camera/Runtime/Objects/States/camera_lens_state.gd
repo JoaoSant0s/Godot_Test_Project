@@ -1,9 +1,9 @@
 class_name CameraLensState
 
-var mainCamera : MainCamera
+var main_camera : MainCamera
 
-func _init(_mainCamera: MainCamera):
-	mainCamera = _mainCamera
+func _init(_main_camera: MainCamera):
+	main_camera = _main_camera
 
 func update(delta : float):
-	mainCamera.fov = mainCamera.cameraSimulator.get_fov(delta)
+	main_camera.fov = main_camera.camera_simulator.get_fov(delta)

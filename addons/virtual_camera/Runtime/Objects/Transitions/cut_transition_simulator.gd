@@ -1,12 +1,12 @@
 class_name CutTransitionSimulator extends CameraTransitionSimulator
 
 func get_position(delta : float) -> Vector3:
-	return _nextCamera.global_position
+	return _next_camera.global_position
 
 func get_rotation(delta : float) -> Vector3:
-	return _nextCamera.global_rotation
+	return _next_camera.global_rotation
 
 func get_fov(delta : float) -> float:
-	if not _nextCamera.lens:
+	if not _next_camera.lens:
 		return 75
-	return _nextCamera.lens.fov
+	return _next_camera.lens.fov

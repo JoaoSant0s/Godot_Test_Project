@@ -2,12 +2,10 @@
 
 [ext_resource type="Script" path="res://addons/virtual_camera/editor/virtual_camera_dock.gd" id="1_qrwc5"]
 
-
-
 [sub_resource type="LabelSettings" id="LabelSettings_v523n"]
 font_color = Color(1, 0.25098, 1, 1)
 
-[node name="VirtualCameraDock" type="Panel" node_paths=PackedStringArray("selectEnabledVirtualCameras", "selectAllVirtualCameras", "selectMainCamera", "forceActiveSelectedCamera", "selectVirtualCameraWithTag", "virtualCameraTagInput", "selectVirtualCamerasWithGroup", "virtualCameraGroupInput")]
+[node name="VirtualCameraDock" type="Panel" node_paths=PackedStringArray("select_enabled_virtual_cameras", "select_all_virtual_cameras", "select_main_camera", "force_active_selected_camera", "select_virtual_camera_with_tag", "virtual_camera_tag_input", "select_virtual_cameras_with_group", "virtual_camera_group_input")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,14 +15,14 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_qrwc5")
-selectEnabledVirtualCameras = NodePath("VBoxContainer/SelectActiveVirtualCamera")
-selectAllVirtualCameras = NodePath("VBoxContainer/SelectAllVirtualCameras")
-selectMainCamera = NodePath("VBoxContainer/SelectMainCamera")
-forceActiveSelectedCamera = NodePath("VBoxContainer/ForceActiveSelectedCamera")
-selectVirtualCameraWithTag = NodePath("VBoxContainer/HBoxContainer/SelectVirtualCameraByTag")
-virtualCameraTagInput = NodePath("VBoxContainer/HBoxContainer/TagInput")
-selectVirtualCamerasWithGroup = NodePath("VBoxContainer/HBoxContainer2/SelectVirtualCamerasByGroup")
-virtualCameraGroupInput = NodePath("VBoxContainer/HBoxContainer2/GroupInput2")
+select_enabled_virtual_cameras = NodePath("VBoxContainer/SelectActiveVirtualCamera")
+select_all_virtual_cameras = NodePath("VBoxContainer/SelectAllVirtualCameras")
+select_main_camera = NodePath("VBoxContainer/SelectMainCamera")
+force_active_selected_camera = NodePath("VBoxContainer/ForceActiveSelectedCamera")
+select_virtual_camera_with_tag = NodePath("VBoxContainer/HBoxContainer/SelectVirtualCameraByTag")
+virtual_camera_tag_input = NodePath("VBoxContainer/HBoxContainer/TagInput")
+select_virtual_cameras_with_group = NodePath("VBoxContainer/HBoxContainer2/SelectVirtualCamerasByGroup")
+virtual_camera_group_input = NodePath("VBoxContainer/HBoxContainer2/GroupInput2")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

@@ -1,18 +1,18 @@
 class_name  CameraTransitionSimulator
 
-var _previousCamera : VirtualCamera
-var _nextCamera : VirtualCamera
-var _transitionConfig : TransitionMethodConfig
+var _previous_camera : VirtualCamera
+var _next_camera : VirtualCamera
+var _transition_config : TransitionMethodConfig
 
-var timedElapsed : float
+var timed_elapsed : float
 
-func _init(previousCamera: VirtualCamera, nextCamera : VirtualCamera, transitionConfig : TransitionMethodConfig):
-	_previousCamera = previousCamera
-	_nextCamera = nextCamera
-	_transitionConfig = transitionConfig
-	timedElapsed = 0	
+func _init(previous_Camera: VirtualCamera, next_camera : VirtualCamera, transition_config : TransitionMethodConfig):
+	_previous_camera = previous_Camera
+	_next_camera = next_camera
+	_transition_config = transition_config
+	timed_elapsed = 0
+
 # Start Override Region
-
 func pre_update(delta : float):
 	pass
 
@@ -30,24 +30,24 @@ func get_rotation(delta : float) -> Vector3:
 
 # End Override Region
 func _get_default_duration() -> float:
-	return _transitionConfig.duration
+	return _transition_config.duration
 
 func build_position(delta : float):
-	var nextCameraPosition = _nextCamera.global_position
+	var next_camera_position = _next_camera.global_position
 	
-	if _nextCamera.tracking.target:
-		nextCameraPosition = _nextCamera.tracking.get_position()
+	if _next_camera.tracking.target:
+		next_camera_position = _next_camera.tracking.get_position()
 
-	nextCameraPosition += _nextCamera.tracking.get_local_position_control()
-	_nextCamera.global_position = nextCameraPosition
+	next_camera_position += _next_camera.tracking.get_local_position_control()
+	_next_camera.global_position = next_camera_position
 
 func build_rotation():
-	if _nextCamera.tracking.target and _nextCamera.tracking.is_rotation_control_same_as_follow_target():
-		_nextCamera.global_rotation = _nextCamera.tracking.target.global_rotation
+	if _next_camera.tracking.target and _next_camera.tracking.is_rotation_control_same_as_follow_target():
+		_next_camera.global_rotation = _next_camera.tracking.target.global_rotation
 
 func has_next_camera() -> bool:
-	return _nextCamera != null
+	return _next_camera != null
 
 func calculate_time_elapsed(delta : float):
 	if delta < 0: return
-	timedElapsed += delta
+	timed_elapsed += delta
