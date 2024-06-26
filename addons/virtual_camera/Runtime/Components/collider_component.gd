@@ -3,6 +3,8 @@ class_name ColliderComponent extends VirtualCameraBaseComponent
 
 var _is_editor_mode = Engine.is_editor_hint()
 
+const TRANSITION_SPEED : StringName  = "transition_speed"
+
 @export_category("Obstacle Detection")
 @export_group("General Config")
 @export var strategy : TypeCameras.ObstacleDetectionStrategy = TypeCameras.ObstacleDetectionStrategy.NONE:
@@ -25,7 +27,20 @@ var _is_editor_mode = Engine.is_editor_hint()
 
 @export var normal_margin : float = 1
 
-var collider_sub_properties : ColliderSubProperties
+@export_group("Pull Camera Forward")
+@export var transition_enabled : bool = true:
+	get:
+		return transition_enabled
+	set(value):
+		transition_enabled = value
+		notify_property_list_changed()
+		
+@export var transition_speed : float = 10:
+	get:
+		return transition_speed
+	set(value):
+		transition_speed = value
+
 var radius_collider : float = 0
 var triggered : bool = false
 
@@ -33,14 +48,15 @@ var frame_collision_error_margin : int = 2
 var triggered_previously : bool = false
 var frame_counter : int = 0
 
-func _init():
-	collider_sub_properties = ColliderSubProperties.new()
-	
 func after_ready():
 	_parent.collider = self
 	if not _is_editor_mode: return
 	UtilsCamera.prepare_collider_component(self)
 	raycast.collision_mask = collision_flags
+
+func _validate_property(property: Dictionary):
+	if property.name == TRANSITION_SPEED and not transition_enabled:
+		property.usage = PROPERTY_USAGE_NONE
 
 func _physics_process(delta):
 	if not _parent.is_active_camera():
@@ -55,8 +71,8 @@ func _physics_process(delta):
 		var collider_position = raycast.get_collision_point() + (raycast.get_collision_normal() * normal_margin)
 		var nextRadiusCollider = collider_position.distance_to(raycast.global_position)
 		
-		if collider_sub_properties.transition_enabled:
-			radius_collider = lerp(radius_collider, nextRadiusCollider, delta * collider_sub_properties.transition_speed)
+		if transition_enabled:
+			radius_collider = lerp(radius_collider, nextRadiusCollider, delta * transition_speed)
 		else:
 			radius_collider = nextRadiusCollider
 		
@@ -75,20 +91,3 @@ func check_collision_error_margin() -> bool:
 	triggered_previously = false
 	frame_counter = 0
 	return false
-
-func _get_property_list() -> Array:
-	var property_list: Array[Dictionary]
-	
-	property_list.append_array(collider_sub_properties.build_properties(self))
-	
-	return property_list
-
-func _set(property: StringName, value) -> bool:
-	var result = collider_sub_properties.set_property_value(property, value)
-	if result:
-		notify_property_list_changed()
-	
-	return result
-	
-func _get(property):
-	return collider_sub_properties.get_property_value(property)

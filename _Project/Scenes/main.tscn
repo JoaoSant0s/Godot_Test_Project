@@ -113,7 +113,7 @@ albedo_texture = ExtResource("16_t7ly4")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.640549, 0.0973652, -0.76172, 0, 0.991929, 0.126791, 0.767917, -0.081216, 0.635379, -10.6489, 2.033, 4.08672)
+transform = Transform3D(0.637523, 0.097684, -0.764213, 0, 0.991929, 0.126791, 0.770431, -0.0808324, 0.632378, -10.6489, 2.033, 4.00792)
 current = true
 fov = 55.0
 script = ExtResource("1_iwil1")
@@ -328,7 +328,7 @@ cameraName = "Fixed Camera 1"
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.611355, 0.0870182, -0.680772, 0, 4.98403, 0.64036, 0.704749, -0.0790908, 0.617829, -8.62279, 10.101, 5.50572)
+transform = Transform3D(0.611355, 0.0870182, -0.680772, 0, 4.98403, 0.64036, 0.699824, -0.0784752, 0.612904, -8.62279, 10.101, 5.42692)
 script = ExtResource("5_sr7hp")
 group = ExtResource("10_nrr7s")
 lens = NodePath("LensComponent")
@@ -504,7 +504,6 @@ strategy = 1
 collision_flags = 8388608
 raycast = NodePath("RayCast3D")
 normal_margin = 0.15
-transition_enabled = true
 transition_speed = 7.5
 
 [node name="RayCast3D" type="RayCast3D" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6/ColliderComponent"]
