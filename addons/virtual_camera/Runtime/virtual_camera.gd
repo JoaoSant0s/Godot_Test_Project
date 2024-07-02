@@ -1,7 +1,7 @@
 @tool
 class_name VirtualCamera extends Node3D
 
-var _isEditorMode = Engine.is_editor_hint()
+var _is_editor_mode = Engine.is_editor_hint()
 
 @export_group("Properties")
 @export var enabled: bool = true:
@@ -10,7 +10,7 @@ var _isEditorMode = Engine.is_editor_hint()
 	set(value):
 		if enabled == value: return
 		enabled = value
-		VirtualCameraService.onEnabledModified.emit(self)
+		VirtualCameraService.on_enabled_modified.emit(self)
 
 @export var priority: int = 0:
 	get:
@@ -18,7 +18,7 @@ var _isEditorMode = Engine.is_editor_hint()
 	set(value):
 		if priority == value: return
 		priority = value
-		VirtualCameraService.onPriorityModified.emit(self)
+		VirtualCameraService.on_priority_modified.emit(self)
 
 @export var processMethod: TypeCameras.ProcessMethods = TypeCameras.ProcessMethods.DEFAULT_PROCESS:
 	get:
@@ -61,7 +61,7 @@ func _enter_tree():
 	VirtualCameraService.add_virtual_camera(self)
 
 func _ready():
-	if not _isEditorMode: return
+	if not _is_editor_mode: return
 	UtilsCamera.create_lens_component(self)
 	UtilsCamera.create_tracking_component(self)
 	

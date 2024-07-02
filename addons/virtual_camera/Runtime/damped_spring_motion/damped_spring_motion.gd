@@ -33,7 +33,7 @@
 # multiple springs using the same time step, angular frequency and damping
 # ratio.
 #******************************************************************************
-class_name dampedSpringMotion
+class_name DampedSpringMotion
 
 const epsilon : float = 0.0001
 
@@ -47,8 +47,8 @@ const epsilon : float = 0.0001
 #     damping ratio < 1: under damped
 #******************************************************************************
 
-static func CalcDampedSpringMotionParams(
-	pOutParams : tDampedSpringMotionParams,       # motion parameters result
+static func calc_damped_spring_motion_params(
+	pOutParams : TDampedSpringMotionParams,       # motion parameters result
 	deltaTime : float,        # time step to advance
 	angularFrequency : float, # angular frequency of motion
 	dampingRatio : float):     # damping ratio of motion
@@ -126,11 +126,11 @@ static func CalcDampedSpringMotionParams(
 # according to the motion parameters.
 #******************************************************************************
 
-static func UpdateDampedSpringMotion(
+static func update_damped_spring_motion(
 	pVel : float                           ,        
 	pPos : float,           
 	equilibriumPos : float                      , # position to approach
-	params : tDampedSpringMotionParams):   # motion parameters to use
+	params : TDampedSpringMotionParams):   # motion parameters to use
 	
 	var oldPos : float = pPos - equilibriumPos; # update in equilibrium relative space
 	var oldVel : float = pVel;
@@ -140,11 +140,11 @@ static func UpdateDampedSpringMotion(
 		"pPos" : oldPos * params.posPosCoef + oldVel * params.posVelCoef + equilibriumPos # position value to update	
 	}
 	
-static func UpdateDampedSpringMotionVector(
+static func update_damped_spring_motion_vector(
 	pVel : Vector3                           ,        
 	pPos : Vector3,           
 	equilibriumPos : Vector3                      , # position to approach
-	params : tDampedSpringMotionParams):   # motion parameters to use
+	params : TDampedSpringMotionParams):   # motion parameters to use
 	
 	var oldPos : Vector3 = pPos - equilibriumPos; # update in equilibrium relative space
 	var oldVel : Vector3 = pVel;

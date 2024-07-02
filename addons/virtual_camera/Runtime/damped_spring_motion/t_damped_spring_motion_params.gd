@@ -28,7 +28,7 @@
 # Original Code: https://www.ryanjuckett.com/damped-springs/
 #******************************************************************************
 
-class_name tDampedSpringMotionParams
+class_name TDampedSpringMotionParams
 
 # newPos = posPosCoef*oldPos + posVelCoef*oldVel
 var posPosCoef : float;

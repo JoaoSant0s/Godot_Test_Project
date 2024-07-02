@@ -39,7 +39,6 @@ script = ExtResource("4_634c7")
 angular_vertical_speed = 150.0
 angular_horizontal_speed = 150.0
 flipHorizontalSign = true
-flipVerticalSign = true
 radiusModifier = 1.75
 maxZoom = 4
 

@@ -1,8 +1,8 @@
 class_name VirtualCameraConfig extends Resource
 
-@export var showLogs : bool = true
-@export var debugVisualization : bool = true
-@export var anyCameraId : CameraIdAsset
+@export var show_logs : bool = true
+@export var debug_visualization : bool
+@export var any_camera_id : CameraIdAsset
 
 static var _instance : VirtualCameraConfig
 
