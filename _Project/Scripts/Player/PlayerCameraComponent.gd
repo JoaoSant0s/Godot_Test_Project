@@ -34,7 +34,7 @@ func process_camera(player : Player, delta : float):
 		currentCamera.tracking.increment_vertical_axis_value(camera_input.z)
 
 	zoom = radiusModifier * player.inputComponent.zoom * delta	
-	var radius = currentCamera.tracking.get_radius()	
+	var radius = currentCamera.tracking.radius
 	if (zoom < 0 and radius > minZoom) or (zoom > 0 and radius < maxZoom):
 		currentCamera.tracking.increment_radius(zoom)
 		

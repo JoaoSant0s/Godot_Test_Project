@@ -73,7 +73,7 @@ func _update_rotation(player : Player, delta : float):
 
 	var camera = _try_get_virtual_camera(player)
 	if camera:
-		rotation_direction = atan2(input.x, input.z) + deg_to_rad(camera.tracking.get_horizontal_axis_value())
+		rotation_direction = atan2(input.x, input.z) + deg_to_rad(camera.tracking.horizontal_axis_value)
 		player.rotation.y = lerp_angle(player.rotation.y, rotation_direction, delta * angular_speed)
 	else:
 		player.rotation.y += input.x * angular_speed * delta

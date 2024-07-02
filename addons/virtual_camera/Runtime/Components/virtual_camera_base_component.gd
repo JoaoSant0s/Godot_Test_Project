@@ -1,6 +1,7 @@
 @tool
 class_name VirtualCameraBaseComponent extends Node
 
+const SUB_PROPERTY_USAGE_VALUE : int = PROPERTY_USAGE_STORAGE + PROPERTY_USAGE_EDITOR + PROPERTY_USAGE_SCRIPT_VARIABLE
 var _parent : VirtualCamera = null
 
 func _ready():

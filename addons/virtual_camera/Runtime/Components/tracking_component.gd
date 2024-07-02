@@ -1,6 +1,33 @@
 @tool
 class_name TrackingComponent extends VirtualCameraBaseComponent
 
+const GROUP_FOLLOW : StringName = "Follow"
+const GROUP_ORBITAL_FOLLOW : StringName = "Orbital Follow"
+
+const FOLLOW_OFFSET : StringName  = "follow_offset"
+const IS_LOCAL_DIRECTION_OFFSET : StringName = "is_local_diretion_offset"
+const RADIUS : StringName = "radius"
+
+const SUBGROUP_HORIZONTAL_AXIS : StringName = "Horizontal Axis"
+const SUBGROUP_VERTICAL_AXIS : StringName = "Vertical Axis"
+
+const HORIZONTAL_AXIS_VALUE : StringName = "horizontal_axis_value"
+const IS_USING_HORIZONTAL_AXIS_RANGE : StringName = "is_using_horizontal_axis_range"
+const HORIZONTAL_AXIS_RANGE : StringName = "horizontal_axis_range"
+
+const VERTICAL_AXIS_VALUE : StringName = "vertical_axis_value"
+const IS_USING_VERTICAL_AXIS_RANGE : StringName = "is_using_vertical_axis_range"
+const VERTICAL_AXIS_RANGE : StringName = "vertical_axis_range"
+
+const VALIDATE_PROPERTY_NAMES = [
+	GROUP_FOLLOW, GROUP_ORBITAL_FOLLOW,
+	SUBGROUP_HORIZONTAL_AXIS, SUBGROUP_VERTICAL_AXIS,
+	FOLLOW_OFFSET, IS_LOCAL_DIRECTION_OFFSET, RADIUS,
+	
+	HORIZONTAL_AXIS_VALUE, IS_USING_HORIZONTAL_AXIS_RANGE, HORIZONTAL_AXIS_RANGE,
+	VERTICAL_AXIS_VALUE, IS_USING_VERTICAL_AXIS_RANGE, VERTICAL_AXIS_RANGE
+]
+
 @export var target : Node3D
 @export var look_at : Node3D
 
@@ -13,23 +40,55 @@ class_name TrackingComponent extends VirtualCameraBaseComponent
 
 @export var rotation_control : TypeCameras.RotationControl = TypeCameras.RotationControl.HARD_LOOK_AT
 
-var tracking_sub_properties : TrackingSubProperties
+@export_group(GROUP_FOLLOW)
+@export_group(GROUP_ORBITAL_FOLLOW)
 
-func _init():
-	tracking_sub_properties = TrackingSubProperties.new()
+@export var follow_offset : Vector3 =  Vector3.ZERO
+@export var is_local_diretion_offset : bool = false
+@export var radius : float = 3.0
+
+@export_subgroup(SUBGROUP_HORIZONTAL_AXIS)
+
+@export var horizontal_axis_value = 0.0
+@export var is_using_horizontal_axis_range = false:
+	get:
+		return is_using_horizontal_axis_range
+	set(value):
+		is_using_horizontal_axis_range = value
+		notify_property_list_changed()
+
+@export var horizontal_axis_range = Vector2.ZERO
+
+@export_subgroup(SUBGROUP_VERTICAL_AXIS)
+
+@export var vertical_axis_value = 0.0
+@export var is_using_vertical_axis_range = false:
+	get:
+		return is_using_vertical_axis_range
+	set(value):
+		is_using_vertical_axis_range = value
+		notify_property_list_changed()
+
+@export var vertical_axis_range = Vector2.ZERO
 
 func after_ready():
 	pass
 
-func get_radius():
-	return tracking_sub_properties.radius
+func _validate_property(property: Dictionary):
+	_reset_follow_properties(property)
+	
+	match position_control:
+		TypeCameras.PositionControl.FOLLOW:
+			_validate_follow_properties(property)
+		TypeCameras.PositionControl.ORBITAL_FOLLOW:
+			_validate_orbital_properties(property)
 
 func get_follow_offset():
 	var local_position = Vector3.ZERO
 	
 	match position_control:
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
-			local_position += tracking_sub_properties.follow_offset
+			local_position += follow_offset
 	
 	return local_position
 
@@ -61,79 +120,74 @@ func get_local_position_control() -> Vector3:
 	
 	match position_control:
 		TypeCameras.PositionControl.FOLLOW:
-			var offset = tracking_sub_properties.follow_offset
-			if target != null and tracking_sub_properties.is_local_direction_offset:
+			var offset = follow_offset
+			if target != null and is_local_diretion_offset:
 				offset = build_local_target_direction_offset(offset)
 			
 			local_position += offset
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
-			local_position += tracking_sub_properties.follow_offset
+			local_position += follow_offset
 			local_position += _build_radius_position()
 	
 	return local_position
 
-func get_horizontal_axis_value() -> float:
-	return tracking_sub_properties.horizontal_axis_value
-
-func increment_horizontal_axis_value(value : float):
-	var angle = tracking_sub_properties.horizontal_axis_value + value
-	set_horizontal_axis_value(angle)
+func increment_horizontal_axis_value(value : float):	
+	set_horizontal_axis_value(horizontal_axis_value + value)
 
 func increment_vertical_axis_value(value : float):
-	var angle = tracking_sub_properties.vertical_axis_value + value
-	set_vertical_axis_value(angle)
+	set_vertical_axis_value(vertical_axis_value + value)
 
 func increment_radius(value : float):
-	increment(TrackingSubProperties.RADIUS, value)
+	radius += value
 
 func set_horizontal_axis_value(angle : float):
-	if tracking_sub_properties.is_using_horizontal_range:
-		var range = tracking_sub_properties.horizontal_range
+	if is_using_horizontal_axis_range:
+		var range = horizontal_axis_range
 		angle = clamp(angle, range.x, range.y)
-		
-	_set(TrackingSubProperties.HORIZONTAL_AXIS_VALUE, angle)
+	
+	horizontal_axis_value = angle
 
 func set_vertical_axis_value(angle : float):
-	if tracking_sub_properties.is_using_vertical_range:
-		var range = tracking_sub_properties.vertical_range
+	if is_using_vertical_axis_range:
+		var range = vertical_axis_range
 		angle = clamp(angle, range.x, range.y)
 	
-	_set(TrackingSubProperties.VERTICAL_AXIS_VALUE, angle)
+	vertical_axis_value = angle	
 	
 func _build_radius_position() -> Vector3:
-	var radius = tracking_sub_properties.radius
+	var local_radius = radius
 
 	if _parent != null and _parent.collider != null and _parent.collider.triggered:
-		radius = _parent.collider.radius_collider
+		local_radius = _parent.collider.radius_collider
+	
+	var directional_position = MathCameras.bi_angle_to_directional_position(horizontal_axis_value, vertical_axis_value)
+	
+	return directional_position * local_radius
 
-	var teta_angle = tracking_sub_properties.horizontal_axis_value
-	var phi_angle = tracking_sub_properties.vertical_axis_value
-	
-	var directional_position = MathCameras.bi_angle_to_directional_position(teta_angle, phi_angle)
-	
-	return directional_position * radius
-	
-func _get_property_list() -> Array:
-	var property_list: Array[Dictionary]
-	
-	property_list.append_array(tracking_sub_properties.build_properties(self))
-	
-	return property_list
+func _reset_follow_properties(property : Dictionary):	
+	if VALIDATE_PROPERTY_NAMES.has(property.name):
+		property.usage = PROPERTY_USAGE_NONE
 
-func _set(property: StringName, value) -> bool:
-	var result = tracking_sub_properties.set_property_value(property, value)
-	if result:
-		notify_property_list_changed()
+func _validate_follow_properties(property: Dictionary):
+	if property.name == GROUP_FOLLOW:
+		property.usage = PROPERTY_USAGE_GROUP
 	
-	return result
-	
-func _get(property):
-	return tracking_sub_properties.get_property_value(property)
+	if property.name == FOLLOW_OFFSET or property.name == IS_LOCAL_DIRECTION_OFFSET:
+		property.usage = SUB_PROPERTY_USAGE_VALUE
 
-func increment(property: StringName, value) -> bool:
-	var result = tracking_sub_properties.increment_property_value(property, value)
-	
-	if result:
-		notify_property_list_changed()
+func _validate_orbital_properties(property: Dictionary):
+	var name = property.name
+	if name == GROUP_ORBITAL_FOLLOW:
+		property.usage = PROPERTY_USAGE_GROUP
+		
+	if name == FOLLOW_OFFSET or name == IS_LOCAL_DIRECTION_OFFSET or name == RADIUS:
+		property.usage = SUB_PROPERTY_USAGE_VALUE
+		
+	if name == SUBGROUP_HORIZONTAL_AXIS or name == SUBGROUP_VERTICAL_AXIS:
+		property.usage = PROPERTY_USAGE_SUBGROUP 
 
-	return result
+	if name == HORIZONTAL_AXIS_VALUE or name == IS_USING_HORIZONTAL_AXIS_RANGE or (name == HORIZONTAL_AXIS_RANGE and is_using_horizontal_axis_range):
+		property.usage = SUB_PROPERTY_USAGE_VALUE
+		
+	if name == VERTICAL_AXIS_VALUE or name == IS_USING_VERTICAL_AXIS_RANGE or (name == VERTICAL_AXIS_RANGE and is_using_vertical_axis_range):
+		property.usage = SUB_PROPERTY_USAGE_VALUE

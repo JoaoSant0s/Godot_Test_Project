@@ -113,8 +113,7 @@ albedo_texture = ExtResource("16_t7ly4")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.637523, 0.097684, -0.764213, 0, 0.991929, 0.126791, 0.770431, -0.0808324, 0.632378, -10.6489, 2.033, 4.00792)
-current = true
+transform = Transform3D(0.622523, 0.099227, -0.776285, 0, 0.991929, 0.126791, 0.782601, -0.0789305, 0.617499, -10.6489, 2.033, 3.81413)
 fov = 55.0
 script = ExtResource("1_iwil1")
 transition_config = ExtResource("2_ujwvp")
@@ -328,7 +327,7 @@ cameraName = "Fixed Camera 1"
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.611355, 0.0870182, -0.680772, 0, 4.98403, 0.64036, 0.699824, -0.0784752, 0.612904, -8.62279, 10.101, 5.42692)
+transform = Transform3D(0.611355, 0.0870182, -0.680772, 0, 4.98403, 0.64036, 0.676097, -0.0755092, 0.589177, -8.62279, 10.101, 5.23313)
 script = ExtResource("5_sr7hp")
 group = ExtResource("10_nrr7s")
 lens = NodePath("LensComponent")
@@ -426,8 +425,7 @@ fov = 60.0
 
 [node name="TrackingComponent" parent="PlatformCameras/FollowFixedCameraTrigger/VirtualCamera_5" instance=ExtResource("7_ihbdn")]
 position_control = 2
-followOffset = Vector3(0, 2, 7)
-localDirectionOffset = false
+follow_offset = Vector3(0, 2, 7)
 
 [node name="FollowLocalFixedDirectionCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -1.10223, 0.033, 6.42271)
@@ -457,8 +455,8 @@ fov = 60.0
 
 [node name="TrackingComponent" parent="PlatformCameras/FollowLocalFixedDirectionCameraTrigger/VirtualCamera_6" instance=ExtResource("7_ihbdn")]
 position_control = 2
-followOffset = Vector3(0, 2, 7)
-localDirectionOffset = true
+follow_offset = Vector3(0, 2, 7)
+is_local_diretion_offset = true
 
 [node name="OrbitalCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -5.86084, 0.033, -1.419)
@@ -489,14 +487,11 @@ fov = 100.0
 [node name="TrackingComponent" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6" node_paths=PackedStringArray("target") instance=ExtResource("7_ihbdn")]
 target = NodePath("../../../../PlayerAnimated/Center")
 position_control = 3
-followOffset = Vector3(0, 0, 0)
-localDirectionOffset = false
-radius = 3.0
-horizontalAxisValue = 360.0
-horizontalAxisUsingRange = false
-verticalAxisValue = 20.0
-verticalAxisUsingRange = true
-verticalAxisRange = Vector2(-30, 50)
+horizontal_axis_value = 360.0
+is_using_horizontal_axis_range = null
+vertical_axis_value = 20.0
+is_using_vertical_axis_range = true
+vertical_axis_range = Vector2(-30, 50)
 
 [node name="ColliderComponent" type="Node" parent="PlatformCameras/OrbitalCameraTrigger/VirtualCamera_6" node_paths=PackedStringArray("raycast")]
 script = ExtResource("18_et8dh")

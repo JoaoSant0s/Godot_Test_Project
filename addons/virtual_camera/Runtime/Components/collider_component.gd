@@ -63,7 +63,7 @@ func _physics_process(delta):
 		return
 
 	raycast.global_position = _parent.tracking.look_at.global_position
-	raycast.target_position = (_parent.global_position - raycast.global_position).normalized() * _parent.tracking.get_radius()
+	raycast.target_position = (_parent.global_position - raycast.global_position).normalized() * _parent.tracking.radius
 	
 	var triggered_now = raycast.is_colliding()
 
