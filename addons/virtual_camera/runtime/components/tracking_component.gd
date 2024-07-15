@@ -19,13 +19,21 @@ const VERTICAL_AXIS_VALUE : StringName = "vertical_axis_value"
 const IS_USING_VERTICAL_AXIS_RANGE : StringName = "is_using_vertical_axis_range"
 const VERTICAL_AXIS_RANGE : StringName = "vertical_axis_range"
 
+const SUBGROUP_PATHS : StringName = "Paths"
+const PATH : StringName = "path"
+const PATH_FOLLOW : StringName = "path_follow"
+const FOLLOW_TARGET_ON_PATH : StringName = "follow_target_on_path"
+const LOOK_AT_ON_PATH : StringName = "look_at_on_path"
+
 const VALIDATE_PROPERTY_NAMES = [
 	GROUP_FOLLOW, GROUP_ORBITAL_FOLLOW,
 	SUBGROUP_HORIZONTAL_AXIS, SUBGROUP_VERTICAL_AXIS,
 	FOLLOW_OFFSET, IS_LOCAL_DIRECTION_OFFSET, RADIUS,
 	
 	HORIZONTAL_AXIS_VALUE, IS_USING_HORIZONTAL_AXIS_RANGE, HORIZONTAL_AXIS_RANGE,
-	VERTICAL_AXIS_VALUE, IS_USING_VERTICAL_AXIS_RANGE, VERTICAL_AXIS_RANGE
+	VERTICAL_AXIS_VALUE, IS_USING_VERTICAL_AXIS_RANGE, VERTICAL_AXIS_RANGE,
+	
+	SUBGROUP_PATHS, PATH, PATH_FOLLOW, FOLLOW_TARGET_ON_PATH, LOOK_AT_ON_PATH
 ]
 
 @export var target : Node3D
@@ -71,6 +79,14 @@ const VALIDATE_PROPERTY_NAMES = [
 
 @export var vertical_axis_range = Vector2.ZERO
 
+@export_subgroup(SUBGROUP_PATHS)
+
+@export var path : Path3D
+@export var path_follow : PathFollow3D
+
+@export var follow_target_on_path : bool = true
+@export var look_at_on_path : bool = true
+
 func after_ready():
 	pass
 
@@ -82,6 +98,8 @@ func _validate_property(property: Dictionary):
 			_validate_follow_properties(property)
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
 			_validate_orbital_properties(property)
+		TypeCameras.PositionControl.PATH_FOLLOW:
+			_validate_path_follow_properties(property)
 
 func get_follow_offset():
 	var local_position = Vector3.ZERO
@@ -191,3 +209,13 @@ func _validate_orbital_properties(property: Dictionary):
 		
 	if name == VERTICAL_AXIS_VALUE or name == IS_USING_VERTICAL_AXIS_RANGE or (name == VERTICAL_AXIS_RANGE and is_using_vertical_axis_range):
 		property.usage = SUB_PROPERTY_USAGE_VALUE
+
+func _validate_path_follow_properties(property: Dictionary):
+	var name = property.name
+	
+	if name == SUBGROUP_PATHS:
+		property.usage = PROPERTY_USAGE_GROUP
+		
+	if name == PATH or name == PATH_FOLLOW or name == FOLLOW_TARGET_ON_PATH or name == LOOK_AT_ON_PATH:
+		property.usage = SUB_PROPERTY_USAGE_VALUE
+		
