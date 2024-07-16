@@ -101,11 +101,12 @@ size = Vector3(3, 1, 3)
 albedo_texture = ExtResource("14_phhts")
 
 [sub_resource type="Curve3D" id="Curve3D_pxt8u"]
+bake_interval = 0.05
 _data = {
-"points": PackedVector3Array(-0.458349, 0.650391, -1.73427, 0.458349, -0.650391, 1.73427, 4.1335, 22.7832, -0.997187, 1.19615, -3.12786, -2.2258, -1.19615, 3.12786, 2.2258, 5.37895, 29.5185, 5.38433, 1.23816, -0.234541, -0.735052, -1.23816, 0.234541, 0.735052, 2.91169, 21.8326, 9.49232, 1.37019, 1.82903, -1.01871, -1.37019, -1.82903, 1.01871, -0.855964, 24.3148, 9.38632, 0.852992, -0.142067, -0.173182, -0.852992, 0.142067, 0.173182, -5.50817, 26.4727, 9.34267, 0.98982, -1.75789, -0.0962086, -0.98982, 1.75789, 0.0962086, -9.60176, 27.2327, 10.8739, 0, 0, 0, 0, 0, 0, -12.6996, 27.593, 10.212),
-"tilts": PackedFloat32Array(-2.39066, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(-0.458349, 0.650391, -1.73427, 0.458349, -0.650391, 1.73427, 22.4246, 26.0058, -32.5059, 9.2855, -0.458773, -4.06849, -9.2855, 0.458773, 4.06849, 15.7849, 25.0059, 19.2299),
+"tilts": PackedFloat32Array(0, 0)
 }
-point_count = 7
+point_count = 2
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pnm0s"]
 load_path = "res://.godot/imported/FPS_fixed.png-26e6528c935400c5e02ac6decc6249fd.s3tc.ctex"
@@ -125,7 +126,7 @@ albedo_texture = ExtResource("16_t7ly4")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.602924, 0.101154, -0.79136, 0, 0.991929, 0.126791, 0.797799, -0.0764455, 0.598058, -10.6489, 2.033, 3.57877)
+transform = Transform3D(0.591639, 0.102219, -0.799696, 0, 0.991929, 0.126791, 0.806203, -0.0750147, 0.586864, -15.0419, 2.033, 6.96546)
 current = true
 fov = 55.0
 script = ExtResource("1_iwil1")
@@ -340,7 +341,7 @@ cameraName = "Fixed Camera 1"
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.611355, 0.0870182, -0.680772, 0, 4.98403, 0.64036, 0.646677, -0.0718317, 0.559757, -8.62279, 10.101, 4.99777)
+transform = Transform3D(0.611355, 0.0870182, -0.680772, 0, 4.98403, 0.64036, 0.630475, -0.0698065, 0.543555, -12.6605, 10.101, 8.38446)
 script = ExtResource("5_sr7hp")
 group = ExtResource("10_nrr7s")
 lens = NodePath("LensComponent")
@@ -411,16 +412,19 @@ fov = 100.0
 
 [node name="TrackingComponent" parent="PlatformCameras/PathFollowCameraTrigger/VirtualCamera_4" node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("7_ihbdn")]
 position_control = 4
+is_local_diretion_offset = true
 path = NodePath("../../Path3D")
 path_follow = NodePath("../../Path3D/PathFollow3D")
-look_at_on_path = false
+tilt_rotate_angle_on_path = Vector3(0, 1, 0)
 
 [node name="Path3D" type="Path3D" parent="PlatformCameras/PathFollowCameraTrigger"]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 7.98435, 8.56605, -1.56409)
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, -8.37124, 2.1645, -2.4934)
 curve = SubResource("Curve3D_pxt8u")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="PlatformCameras/PathFollowCameraTrigger/Path3D"]
-transform = Transform3D(0.647357, -0.723341, -0.240214, -0.641458, -0.687271, 0.340859, -0.411651, -0.066571, -0.908904, 4.1335, 22.7832, -0.997187)
+transform = Transform3D(0.966803, 0.0870954, 0.240214, -1.11758e-08, 0.940112, -0.34086, -0.255516, 0.329545, 0.908904, 9.83124, 25.0993, -35.0982)
+use_model_front = true
+cubic_interp = false
 
 [node name="FirstPersonFixedRotationCameraTrigger" type="MeshInstance3D" parent="PlatformCameras" node_paths=PackedStringArray("collisionArea", "virtualCamera")]
 transform = Transform3D(1.088, 0, 0, 0, 0.198, 0, 0, 0, 1, -10.5584, 0.033, 6.42271)

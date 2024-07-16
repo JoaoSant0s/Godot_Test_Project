@@ -22,8 +22,8 @@ const VERTICAL_AXIS_RANGE : StringName = "vertical_axis_range"
 const SUBGROUP_PATHS : StringName = "Paths"
 const PATH : StringName = "path"
 const PATH_FOLLOW : StringName = "path_follow"
-const FOLLOW_TARGET_ON_PATH : StringName = "follow_target_on_path"
-const LOOK_AT_ON_PATH : StringName = "look_at_on_path"
+const IS_TILT_ROTATE_ON_PATH : StringName = "tilt_rotate_on_path"
+const TILT_ROTATE_ANGLE_ON_PATH : StringName = "tilt_rotate_angle_on_path"
 
 const VALIDATE_PROPERTY_NAMES = [
 	GROUP_FOLLOW, GROUP_ORBITAL_FOLLOW,
@@ -33,7 +33,7 @@ const VALIDATE_PROPERTY_NAMES = [
 	HORIZONTAL_AXIS_VALUE, IS_USING_HORIZONTAL_AXIS_RANGE, HORIZONTAL_AXIS_RANGE,
 	VERTICAL_AXIS_VALUE, IS_USING_VERTICAL_AXIS_RANGE, VERTICAL_AXIS_RANGE,
 	
-	SUBGROUP_PATHS, PATH, PATH_FOLLOW, FOLLOW_TARGET_ON_PATH, LOOK_AT_ON_PATH
+	SUBGROUP_PATHS, PATH, PATH_FOLLOW, IS_TILT_ROTATE_ON_PATH, TILT_ROTATE_ANGLE_ON_PATH
 ]
 
 @export var target : Node3D
@@ -83,9 +83,14 @@ const VALIDATE_PROPERTY_NAMES = [
 
 @export var path : Path3D
 @export var path_follow : PathFollow3D
+@export var tilt_rotate_on_path = true:
+	get:
+		return tilt_rotate_on_path
+	set(value):
+		tilt_rotate_on_path = value
+		notify_property_list_changed()
 
-@export var follow_target_on_path : bool = true
-@export var look_at_on_path : bool = true
+@export var tilt_rotate_angle_on_path : Vector3
 
 func after_ready():
 	pass
@@ -99,6 +104,7 @@ func _validate_property(property: Dictionary):
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
 			_validate_orbital_properties(property)
 		TypeCameras.PositionControl.PATH_FOLLOW:
+			_validate_follow_properties(property)
 			_validate_path_follow_properties(property)
 
 func get_follow_offset():
@@ -119,11 +125,27 @@ func is_rotation_control_none() -> bool:
 func is_rotation_control_same_as_follow_target() -> bool:
 	return rotation_control == TypeCameras.RotationControl.SAME_AS_FOLLOW_TARGET
 
-func get_position() -> Vector3:
-	return target.global_position
+func is_tilt_rotate_on_path() -> bool:
+	return position_control == TypeCameras.PositionControl.PATH_FOLLOW and tilt_rotate_on_path
 
-func build_local_target_direction_offset(offset : Vector3) -> Vector3:
-	var forward = target.basis.z
+func get_position() -> Vector3:
+	if target:
+		match position_control:
+			TypeCameras.PositionControl.PATH_FOLLOW:
+				var offset : float = path.curve.get_closest_offset(target.global_position * path.transform)
+				path_follow.progress = offset
+				return path_follow.global_position
+			_:
+				return target.global_position
+	else:
+		match position_control:
+			TypeCameras.PositionControl.PATH_FOLLOW:
+				return path_follow.global_position
+			_:
+				return _parent.global_position
+
+func build_local_target_direction_offset(reference : Node3D, offset : Vector3) -> Vector3:
+	var forward = reference.basis.z
 	if forward.x < 0:
 		forward *= -1
 		offset *= Vector3(-1, 1, -1)
@@ -140,12 +162,18 @@ func get_local_position_control() -> Vector3:
 		TypeCameras.PositionControl.FOLLOW:
 			var offset = follow_offset
 			if target != null and is_local_diretion_offset:
-				offset = build_local_target_direction_offset(offset)
+				offset = build_local_target_direction_offset(target, offset)
 			
 			local_position += offset
 		TypeCameras.PositionControl.ORBITAL_FOLLOW:
 			local_position += follow_offset
 			local_position += _build_radius_position()
+		TypeCameras.PositionControl.PATH_FOLLOW:
+			var offset = follow_offset
+			if is_local_diretion_offset:
+				offset = build_local_target_direction_offset(path_follow, offset)
+			
+			local_position += offset
 	
 	return local_position
 
@@ -216,6 +244,9 @@ func _validate_path_follow_properties(property: Dictionary):
 	if name == SUBGROUP_PATHS:
 		property.usage = PROPERTY_USAGE_GROUP
 		
-	if name == PATH or name == PATH_FOLLOW or name == FOLLOW_TARGET_ON_PATH or name == LOOK_AT_ON_PATH:
+	if name == PATH or name == PATH_FOLLOW or name == IS_TILT_ROTATE_ON_PATH:
+		property.usage = SUB_PROPERTY_USAGE_VALUE
+		
+	if name == TILT_ROTATE_ANGLE_ON_PATH and tilt_rotate_on_path:
 		property.usage = SUB_PROPERTY_USAGE_VALUE
 		
