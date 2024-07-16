@@ -126,8 +126,7 @@ albedo_texture = ExtResource("16_t7ly4")
 [node name="Scene3d" type="Node3D"]
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(0.591639, 0.102219, -0.799696, 0, 0.991929, 0.126791, 0.806203, -0.0750147, 0.586864, -15.0419, 2.033, 6.96546)
-current = true
+transform = Transform3D(0.591544, 0.102228, -0.799766, 0, 0.991929, 0.126791, 0.806273, -0.0750026, 0.58677, -15.0419, 2.033, 6.96329)
 fov = 55.0
 script = ExtResource("1_iwil1")
 transition_config = ExtResource("2_ujwvp")
@@ -341,7 +340,7 @@ cameraName = "Fixed Camera 1"
 shape = SubResource("BoxShape3D_au2w7")
 
 [node name="VirtualCamera_2" type="Node3D" parent="PlatformCameras/FixedCameraTrigger" node_paths=PackedStringArray("lens", "tracking")]
-transform = Transform3D(0.611355, 0.0870182, -0.680772, 0, 4.98403, 0.64036, 0.630475, -0.0698065, 0.543555, -12.6605, 10.101, 8.38446)
+transform = Transform3D(0.611355, 0.0870182, -0.680772, 0, 4.98403, 0.64036, 0.63034, -0.0697896, 0.54342, -12.6605, 10.101, 8.38229)
 script = ExtResource("5_sr7hp")
 group = ExtResource("10_nrr7s")
 lens = NodePath("LensComponent")
@@ -422,7 +421,7 @@ transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, -8.37124, 2.164
 curve = SubResource("Curve3D_pxt8u")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="PlatformCameras/PathFollowCameraTrigger/Path3D"]
-transform = Transform3D(0.966803, 0.0870954, 0.240214, -1.11758e-08, 0.940112, -0.34086, -0.255516, 0.329545, 0.908904, 9.83124, 25.0993, -35.0982)
+transform = Transform3D(0.966803, 0.0870953, 0.240214, 3.72528e-09, 0.940112, -0.34086, -0.255516, 0.329545, 0.908904, 22.4246, 26.0058, -32.5059)
 use_model_front = true
 cubic_interp = false
 

@@ -58,14 +58,11 @@ func _handle_gravity(player : Player, delta):
 func _handle_animations(player : Player, speed : float):
 	if player.is_on_floor():
 		if abs(player.velocity.x) > 1 or abs(player.velocity.z) > 1:
-			animation.play("walk", 0.5, speed / movement_speed)
-			pass
+			animation.play("walk", -1, speed / movement_speed)
 		else:
 			animation.play("idle", 0.5)
-			pass
 	else:
 		animation.play("jump", 0.5)
-		pass
 
 func _update_rotation(player : Player, delta : float):
 	if input == Vector3.ZERO:
