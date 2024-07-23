@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://iqyhwn2l7dt5"
 path.s3tc="res://.godot/imported/path_follow_camera.png-d78797725537f0e6f71ccd63ddca31d6.s3tc.ctex"
+path.etc2="res://.godot/imported/path_follow_camera.png-d78797725537f0e6f71ccd63ddca31d6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://_Project/Images/path_follow_camera.png"
-dest_files=["res://.godot/imported/path_follow_camera.png-d78797725537f0e6f71ccd63ddca31d6.s3tc.ctex"]
+dest_files=["res://.godot/imported/path_follow_camera.png-d78797725537f0e6f71ccd63ddca31d6.s3tc.ctex", "res://.godot/imported/path_follow_camera.png-d78797725537f0e6f71ccd63ddca31d6.etc2.ctex"]
 
 [params]
 

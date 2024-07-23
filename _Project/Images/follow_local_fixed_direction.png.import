@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://5ecbxnmfjp5e"
 path.s3tc="res://.godot/imported/follow_local_fixed_direction.png-d3dbee36caf994a0034470bfe5edb766.s3tc.ctex"
+path.etc2="res://.godot/imported/follow_local_fixed_direction.png-d3dbee36caf994a0034470bfe5edb766.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://_Project/Images/follow_local_fixed_direction.png"
-dest_files=["res://.godot/imported/follow_local_fixed_direction.png-d3dbee36caf994a0034470bfe5edb766.s3tc.ctex"]
+dest_files=["res://.godot/imported/follow_local_fixed_direction.png-d3dbee36caf994a0034470bfe5edb766.s3tc.ctex", "res://.godot/imported/follow_local_fixed_direction.png-d3dbee36caf994a0034470bfe5edb766.etc2.ctex"]
 
 [params]
 
